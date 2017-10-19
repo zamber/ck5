@@ -44,8 +44,9 @@
     "webpack": "^3.8.1"
   },
   "scripts": {
-    "build": "npm run build-entry && npm run build-editor",
-    "build-entry": "node bin/build-entry.js",
-    "build-editor": "webpack"
+    "build": "npm run classic && npm run inline && npm run balloon",
+    "classic": "editor=classic node bin/entry.js && editor=classic webpack",
+    "inline": "editor=inline node bin/entry.js && editor=inline webpack",
+    "balloon": "editor=balloon node bin/entry.js && editor=balloon webpack"
   }
 }

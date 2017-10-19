@@ -1,8 +1,21 @@
 'use strict';
 
+var ed, mod;
+
+if (process.env.editor === 'inline') {
+    ed = '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
+    mod = 'InlineEditor';
+} else if (process.env.editor === 'balloon') {
+    ed = '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor';
+    mod = 'BalloonEditor';
+} else {
+    ed = '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+    mod = 'ClassicEditor';
+}
+
 module.exports = {
-    editor: '@ckeditor/ckeditor5-editor-classic/src/classiceditor',
-    moduleName: 'ClassicEditor',
+    editor: ed,
+    moduleName: mod,
     plugins: [
         '@ckeditor/ckeditor5-essentials/src/essentials',
         '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter',
@@ -38,6 +51,14 @@ module.exports = {
         },
         image: {
             toolbar: ['imageStyleFull', 'imageStyleSide', '|', 'imageTextAlternative']
+        },
+        heading: {
+            options: [
+                {modelElement: 'paragraph', title: 'Paragraph'},
+                {modelElement: 'heading1', viewElement: 'h1', title: 'Heading 1'},
+                {modelElement: 'heading2', viewElement: 'h2', title: 'Heading 2'},
+                {modelElement: 'heading3', viewElement: 'h3', title: 'Heading 3'}
+            ]
         }
     }
 };

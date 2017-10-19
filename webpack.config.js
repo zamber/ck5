@@ -6,13 +6,15 @@ const {bundler} = require('@ckeditor/ckeditor5-dev-utils');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const BabiliPlugin = require('babel-minify-webpack-plugin');
 const buildConfig = require('./build-config');
+const ed = process.env.editor === 'inline' || process.env.editor === 'balloon' ? process.env.editor : 'classic';
+const file = ed + '.js';
 
 module.exports = {
     devtool: 'source-map',
-    entry: path.resolve(__dirname, 'src', 'ckeditor.js'),
+    entry: path.resolve(__dirname, 'src', file),
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: 'ckeditor.js',
+        filename: file,
         libraryTarget: 'umd',
         libraryExport: 'default',
         library: buildConfig.moduleName
