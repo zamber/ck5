@@ -28,6 +28,7 @@
     "@ckeditor/ckeditor5-widget": "^1.0.0-alpha.1"
   },
   "devDependencies": {
+    "@ckeditor/ckeditor5-dev-utils": "^4.0.2",
     "@ckeditor/ckeditor5-dev-webpack-plugin": "^2.0.19",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
