@@ -1,3 +1,8 @@
+/**
+ * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.md.
+ */
+
 import InlineEditorBase from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
 import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials';
 import UploadadapterPlugin from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
