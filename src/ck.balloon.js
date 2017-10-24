@@ -18,6 +18,7 @@ import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import ImageuploadPlugin from '@ckeditor/ckeditor5-upload/src/imageupload';
+import MediaPlugin from '../plugin/media/src/media';
 
 export default class BalloonEditor extends BalloonEditorBase {
 }
@@ -37,11 +38,14 @@ BalloonEditor.build = {
         LinkPlugin,
         ListPlugin,
         ParagraphPlugin,
-        ImageuploadPlugin
+        ImageuploadPlugin,
+        MediaPlugin
     ],
     config: {
         toolbar: {
             items: [
+                'undo',
+                'redo',
                 'headings',
                 'bold',
                 'italic',
@@ -49,8 +53,7 @@ BalloonEditor.build = {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
-                'undo',
-                'redo'
+                'media'
             ]
         },
         image: {

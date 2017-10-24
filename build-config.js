@@ -31,11 +31,14 @@ module.exports = {
         '@ckeditor/ckeditor5-list/src/list',
         '@ckeditor/ckeditor5-paragraph/src/paragraph',
         '@ckeditor/ckeditor5-upload/src/imageupload',
+        '../plugin/media/src/media',
     ],
     language: 'de',
     config: {
         toolbar: {
             items: [
+                'undo',
+                'redo',
                 'headings',
                 'bold',
                 'italic',
@@ -43,8 +46,7 @@ module.exports = {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
-                'undo',
-                'redo'
+                'media'
             ]
         },
         image: {
