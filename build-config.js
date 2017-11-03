@@ -31,7 +31,7 @@ module.exports = {
         '@ckeditor/ckeditor5-list/src/list',
         '@ckeditor/ckeditor5-paragraph/src/paragraph',
         '@ckeditor/ckeditor5-upload/src/imageupload',
-        '../plugin/media/src/media',
+        '../plugin/image/src/imagebutton',
     ],
     language: 'de',
     config: {
@@ -46,7 +46,7 @@ module.exports = {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
-                'media'
+                'image'
             ]
         },
         image: {
