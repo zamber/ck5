@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Language: de\n"
+"Language: \n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 msgctxt "Label for the image button."
 msgid "Insert image"
-msgstr "Bild einfügen"
+msgstr "Insert image"
 
 msgctxt "Label for the image URL input field."
 msgid "Image URL"
-msgstr "Bild-URL"
+msgstr "Image URL"

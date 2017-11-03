@@ -14,6 +14,7 @@
             .create(rte)
             .then(ed => {
                 editor = ed;
+                console.log(ed);
             });
         save.addEventListener('click', function () {
             console.log(editor.getData());

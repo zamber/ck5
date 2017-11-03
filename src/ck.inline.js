@@ -23,74 +23,74 @@ import ImagebuttonPlugin from '../plugin/image/src/imagebutton';
 export default class InlineEditor extends InlineEditorBase {}
 
 InlineEditor.build = {
-    plugins: [
-        EssentialsPlugin,
-        AutoformatPlugin,
-        BoldPlugin,
-        ItalicPlugin,
-        BlockquotePlugin,
-        HeadingPlugin,
-        ImagePlugin,
-        ImagecaptionPlugin,
-        ImagestylePlugin,
-        ImagetoolbarPlugin,
-        LinkPlugin,
-        ListPlugin,
-        ParagraphPlugin,
-        ImageuploadPlugin,
-        ImagebuttonPlugin
-    ],
-    config: {
-        toolbar: {
-            items: [
-                'undo',
-                'redo',
-                'headings',
-                'bold',
-                'italic',
-                'link',
-                'bulletedList',
-                'numberedList',
-                'blockQuote',
-                'image'
-            ]
-        },
-        image: {
-            toolbar: [
-                'imageTextAlternative',
-                '|',
-                'imageStyleAlignLeft',
-                'imageStyleFull',
-                'imageStyleAlignRight'
-            ],
-            styles: [
-                'imageStyleFull',
-                'imageStyleAlignLeft',
-                'imageStyleAlignRight'
-            ]
-        },
-        heading: {
-            options: [
-                {
-                    modelElement: 'paragraph',
-                    title: 'Paragraph'
-                },
-                {
-                    modelElement: 'heading1',
-                    viewElement: 'h1',
-                    title: 'Heading 1'
-                },
-                {
-                    modelElement: 'heading2',
-                    viewElement: 'h2',
-                    title: 'Heading 2'
-                },
-                {
-                    modelElement: 'heading3',
-                    viewElement: 'h3',
-                    title: 'Heading 3'
-                }
-            ]
-        }
-    }
+	plugins: [
+		EssentialsPlugin,
+		AutoformatPlugin,
+		BoldPlugin,
+		ItalicPlugin,
+		BlockquotePlugin,
+		HeadingPlugin,
+		ImagePlugin,
+		ImagecaptionPlugin,
+		ImagestylePlugin,
+		ImagetoolbarPlugin,
+		LinkPlugin,
+		ListPlugin,
+		ParagraphPlugin,
+		ImageuploadPlugin,
+		ImagebuttonPlugin
+	],
+	config: {
+		toolbar: {
+			items: [
+				'undo',
+				'redo',
+				'headings',
+				'bold',
+				'italic',
+				'link',
+				'bulletedList',
+				'numberedList',
+				'blockQuote',
+				'image'
+			]
+		},
+		image: {
+			toolbar: [
+				'imageTextAlternative',
+				'|',
+				'imageStyleAlignLeft',
+				'imageStyleFull',
+				'imageStyleAlignRight'
+			],
+			styles: [
+				'imageStyleFull',
+				'imageStyleAlignLeft',
+				'imageStyleAlignRight'
+			]
+		},
+		heading: {
+			options: [
+				{
+					modelElement: 'paragraph',
+					title: 'Paragraph'
+				},
+				{
+					modelElement: 'heading1',
+					viewElement: 'h1',
+					title: 'Heading 1'
+				},
+				{
+					modelElement: 'heading2',
+					viewElement: 'h2',
+					title: 'Heading 2'
+				},
+				{
+					modelElement: 'heading3',
+					viewElement: 'h3',
+					title: 'Heading 3'
+				}
+			]
+		}
+	}
 };
