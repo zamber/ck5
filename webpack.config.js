@@ -4,8 +4,7 @@ const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const {styles} = require('@ckeditor/ckeditor5-dev-utils');
 const buildConfig = require('./build-config');
 const path = require('path');
-const ed = process.env.editor === 'inline' || process.env.editor === 'balloon' ? process.env.editor : 'classic';
-const file = 'ck.' + ed + '.js';
+const file = 'ck.' + process.env.editor + '.js';
 
 module.exports = {
     devtool: 'source-map',

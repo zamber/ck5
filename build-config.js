@@ -2,15 +2,21 @@
 
 let ed, mod;
 
-if (process.env.editor === 'inline') {
-    ed = '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
-    mod = 'InlineEditor';
-} else if (process.env.editor === 'balloon') {
-    ed = '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor';
-    mod = 'BalloonEditor';
-} else {
-    ed = '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
-    mod = 'ClassicEditor';
+switch (process.env.editor) {
+    case 'balloon':
+        ed = '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor';
+        mod = 'BalloonEditor';
+        break;
+    case 'classic':
+        ed = '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+        mod = 'ClassicEditor';
+        break;
+    case 'inline':
+        ed = '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
+        mod = 'InlineEditor';
+        break;
+    default:
+        throw 'Invalid Editor';
 }
 
 module.exports = {

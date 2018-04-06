@@ -60,9 +60,9 @@
     "webpack-sources": "1.0.1"
   },
   "scripts": {
-    "build": "npm run classic && npm run inline && npm run balloon",
+    "build": "npm run balloon && npm run classic && npm run inline",
+    "balloon": "editor=balloon node bin/entry.js && editor=balloon webpack",
     "classic": "editor=classic node bin/entry.js && editor=classic webpack",
-    "inline": "editor=inline node bin/entry.js && editor=inline webpack",
-    "balloon": "editor=balloon node bin/entry.js && editor=balloon webpack"
+    "inline": "editor=inline node bin/entry.js && editor=inline webpack"
   }
 }
