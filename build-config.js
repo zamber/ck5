@@ -1,6 +1,6 @@
 'use strict';
 
-var ed, mod;
+let ed, mod;
 
 if (process.env.editor === 'inline') {
     ed = '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
@@ -18,20 +18,21 @@ module.exports = {
     moduleName: mod,
     plugins: [
         '@ckeditor/ckeditor5-essentials/src/essentials',
+        '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter',
         '@ckeditor/ckeditor5-autoformat/src/autoformat',
         '@ckeditor/ckeditor5-basic-styles/src/bold',
         '@ckeditor/ckeditor5-basic-styles/src/italic',
         '@ckeditor/ckeditor5-block-quote/src/blockquote',
+        '@ckeditor/ckeditor5-easy-image/src/easyimage',
         '@ckeditor/ckeditor5-heading/src/heading',
         '@ckeditor/ckeditor5-image/src/image',
         '@ckeditor/ckeditor5-image/src/imagecaption',
         '@ckeditor/ckeditor5-image/src/imagestyle',
         '@ckeditor/ckeditor5-image/src/imagetoolbar',
+        '@ckeditor/ckeditor5-image/src/imageupload',
         '@ckeditor/ckeditor5-link/src/link',
         '@ckeditor/ckeditor5-list/src/list',
-        '@ckeditor/ckeditor5-paragraph/src/paragraph',
-        '@ckeditor/ckeditor5-upload/src/imageupload',
-        '../plugin/image/src/imagebutton',
+        '@ckeditor/ckeditor5-paragraph/src/paragraph'
     ],
     language: 'de',
     config: {
@@ -39,27 +40,18 @@ module.exports = {
             items: [
                 'undo',
                 'redo',
-                'headings',
+                'heading',
                 'bold',
                 'italic',
                 'link',
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
-                'image'
+                'imageUpload',
             ]
         },
         image: {
-            toolbar: ['imageTextAlternative', '|', 'imageStyleAlignLeft', 'imageStyleFull', 'imageStyleAlignRight'],
-            styles: ['imageStyleFull', 'imageStyleAlignLeft', 'imageStyleAlignRight']
-        },
-        heading: {
-            options: [
-                {modelElement: 'paragraph', title: 'Paragraph'},
-                {modelElement: 'heading1', viewElement: 'h1', title: 'Heading 1'},
-                {modelElement: 'heading2', viewElement: 'h2', title: 'Heading 2'},
-                {modelElement: 'heading3', viewElement: 'h3', title: 'Heading 3'}
-            ]
+            toolbar: [ 'imageStyle:full', 'imageStyle:side', '|', 'imageTextAlternative' ]
         }
     }
 };

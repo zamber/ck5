@@ -1,11 +1,9 @@
 'use strict';
 
-const path = require('path');
-const webpack = require('webpack');
-const {bundler} = require('@ckeditor/ckeditor5-dev-utils');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
-const BabiliPlugin = require('babel-minify-webpack-plugin');
+const {styles} = require('@ckeditor/ckeditor5-dev-utils');
 const buildConfig = require('./build-config');
+const path = require('path');
 const ed = process.env.editor === 'inline' || process.env.editor === 'balloon' ? process.env.editor : 'classic';
 const file = 'ck.' + ed + '.js';
 
@@ -22,13 +20,6 @@ module.exports = {
     plugins: [
         new CKEditorWebpackPlugin({
             languages: [buildConfig.language]
-        }),
-        new BabiliPlugin(null, {
-            comments: false
-        }),
-        new webpack.BannerPlugin({
-            banner: bundler.getLicenseBanner(),
-            raw: true
         })
     ],
     module: {
@@ -38,16 +29,23 @@ module.exports = {
                 use: ['raw-loader']
             },
             {
-                test: /\.scss$/,
+                test: /\.css$/,
                 use: [
-                    'style-loader',
                     {
-                        loader: 'css-loader',
+                        loader: 'style-loader',
                         options: {
-                            minimize: true
+                            singleton: true
                         }
                     },
-                    'sass-loader'
+                    {
+                        loader: 'postcss-loader',
+                        options: styles.getPostCssConfig({
+                            themeImporter: {
+                                themePath: require.resolve('@ckeditor/ckeditor5-theme-lark')
+                            },
+                            minify: true
+                        })
+                    }
                 ]
             }
         ]
