@@ -22,6 +22,7 @@ import ImageuploadPlugin from '@ckeditor/ckeditor5-image/src/imageupload';
 import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
 import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
 
 export default class InlineEditor extends InlineEditorBase {}
 
@@ -44,7 +45,8 @@ InlineEditor.build = {
 		ImageuploadPlugin,
 		LinkPlugin,
 		ListPlugin,
-		ParagraphPlugin
+		ParagraphPlugin,
+		TablePlugin
 	],
 	config: {
 		toolbar: {
@@ -60,7 +62,10 @@ InlineEditor.build = {
 				'bulletedList',
 				'numberedList',
 				'blockQuote',
-				'imageUpload'
+				'imageUpload',
+				'insertTable',
+				'insertRowBelow',
+				'insertColumnAfter'
 			]
 		},
 		image: {

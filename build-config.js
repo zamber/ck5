@@ -40,7 +40,8 @@ module.exports = {
         '@ckeditor/ckeditor5-image/src/imageupload',
         '@ckeditor/ckeditor5-link/src/link',
         '@ckeditor/ckeditor5-list/src/list',
-        '@ckeditor/ckeditor5-paragraph/src/paragraph'
+        '@ckeditor/ckeditor5-paragraph/src/paragraph',
+        '@ckeditor/ckeditor5-table/src/table'
     ],
     language: 'de',
     config: {
@@ -58,6 +59,10 @@ module.exports = {
                 'numberedList',
                 'blockQuote',
                 'imageUpload',
+                'insertTable',
+                'insertRowBelow',
+                'insertColumnAfter',
+
             ]
         },
         image: {
