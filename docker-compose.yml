@@ -8,6 +8,7 @@ services:
     image: akilli/node
     container_name: ck
     restart: unless-stopped
+    stdin_open: true
     tty: true
     volumes:
       - source: .
