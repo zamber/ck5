@@ -9,6 +9,8 @@ import UploadadapterPlugin from '@ckeditor/ckeditor5-adapter-ckfinder/src/upload
 import AutoformatPlugin from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
 import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
+import StrikethroughPlugin from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
+import UnderlinePlugin from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import BlockquotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import EasyimagePlugin from '@ckeditor/ckeditor5-easy-image/src/easyimage';
 import HeadingPlugin from '@ckeditor/ckeditor5-heading/src/heading';
@@ -30,6 +32,8 @@ BalloonEditor.build = {
 		AutoformatPlugin,
 		BoldPlugin,
 		ItalicPlugin,
+		StrikethroughPlugin,
+		UnderlinePlugin,
 		BlockquotePlugin,
 		EasyimagePlugin,
 		HeadingPlugin,
@@ -51,6 +55,8 @@ BalloonEditor.build = {
 				'bold',
 				'italic',
 				'link',
+				'underline',
+				'strikethrough',
 				'bulletedList',
 				'numberedList',
 				'blockQuote',
