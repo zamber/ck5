@@ -1,0 +1,15 @@
+version: "3.5"
+networks:
+  default:
+    external:
+      name: proxy
+services:
+  ck:
+    image: akilli/node
+    container_name: ck
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - source: .
+        target: /app
+        type: bind
