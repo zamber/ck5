@@ -81330,7 +81330,7 @@ function getSectionName( row, tableAttributes ) {
 // @param {module:engine/view/element~Element} viewTable
 // @param {Object} conversionApi
 // @param {Object} cachedTableSection An object on which store cached elements.
-// @return {module:engine/view/containerelement~ContainerElement}
+// @returns {module:engine/view/containerelement~ContainerElement}
 function getOrCreateTableSection( sectionName, viewTable, conversionApi ) {
 	const viewTableSection = getExistingTableSectionElement( sectionName, viewTable );
 
@@ -81355,7 +81355,7 @@ function getExistingTableSectionElement( sectionName, tableElement ) {
 // @param {String} sectionName
 // @param {module:engine/view/element~Element} tableElement
 // @param {Object} conversionApi
-// @return {module:engine/view/containerelement~ContainerElement}
+// @returns {module:engine/view/containerelement~ContainerElement}
 function createTableSection( sectionName, tableElement, conversionApi ) {
 	const tableChildElement = conversionApi.writer.createContainerElement( sectionName );
 
