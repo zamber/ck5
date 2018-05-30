@@ -10134,8 +10134,8 @@ function isImage( modelElement ) {
 /**
  * Returns parent table.
  *
- * @param {module:engine/model/position} position
- * @returns {*}
+ * @param {module:engine/model/position~Position} position
+ * @returns {module:engine/model/element~Element|module:engine/model/documentfragment~DocumentFragment}
  */
 function getParentTable( position ) {
 	let parent = position.parent;
@@ -13685,7 +13685,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 	}
 
 	/**
-	 * Returns table cell location as in table row and column indexes.
+	 * Returns table cell location as an object with table row and table column indexes.
 	 *
 	 * For instance in a table below:
 	 *
@@ -13709,7 +13709,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 	 *		// will return { row: 1, column: 3 }
 	 *
 	 * @param {module:engine/model/element~Element} tableCell
-	 * @returns {{row, column}}
+	 * @returns {Object} Returns a `{row, column}` object.
 	 */
 	getCellLocation( tableCell ) {
 		const tableRow = tableCell.parent;
@@ -13750,20 +13750,20 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 	 *
 	 *		editor.plugins.get( 'TableUtils' ).insertRows( table, { at: 1, rows: 2 } );
 	 *
-	 * For the table below this code
+	 * Assuming the table on the left, the above code will transform it to the table on the right:
 	 *
 	 *		row index
-	 *		  0 +---+---+---+                            +---+---+---+ 0
-	 *		    | a | b | c |                            | a | b | c |
-	 *		  1 +   +---+---+   <-- insert here at=1     +   +---+---+ 1
-	 *		    |   | d | e |                            |   |   |   |
-	 *		  2 +   +---+---+            should give:    +   +---+---+ 2
-	 *		    |   | f | g |                            |   |   |   |
-	 *		  3 +---+---+---+                            +   +---+---+ 3
-	 *		                                             |   | d | e |
-	 *		                                             +---+---+---+ 4
-	 *		                                             +   + f | g |
-	 *		                                             +---+---+---+ 5
+	 *		  0 +---+---+---+       `at` = 1,      +---+---+---+ 0
+	 *		    | a | b | c |       `rows` = 2,    | a | b | c |
+	 *		  1 +   +---+---+   <-- insert here    +   +---+---+ 1
+	 *		    |   | d | e |                      |   |   |   |
+	 *		  2 +   +---+---+       will give:     +   +---+---+ 2
+	 *		    |   | f | g |                      |   |   |   |
+	 *		  3 +---+---+---+                      +   +---+---+ 3
+	 *		                                       |   | d | e |
+	 *		                                       +---+---+---+ 4
+	 *		                                       +   + f | g |
+	 *		                                       +---+---+---+ 5
 	 *
 	 * @param {module:engine/model/element~Element} table Table model element to which insert rows.
 	 * @param {Object} options
@@ -13779,7 +13779,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 		model.change( writer => {
 			const headingRows = table.getAttribute( 'headingRows' ) || 0;
 
-			// Inserting rows inside heading section requires to update table's headingRows attribute as the heading section will grow.
+			// Inserting rows inside heading section requires to update `headingRows` attribute as the heading section will grow.
 			if ( headingRows > insertAt ) {
 				writer.setAttribute( 'headingRows', headingRows + rowsToInsert, table );
 			}
@@ -13791,7 +13791,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 				return;
 			}
 
-			// Iterate over all rows below inserted rows in order to check for rowspanned cells.
+			// Iterate over all rows above inserted rows in order to check for rowspanned cells.
 			const tableIterator = new __WEBPACK_IMPORTED_MODULE_2__tablewalker__["a" /* default */]( table, { endRow: insertAt } );
 
 			// Will hold number of cells needed to insert in created rows.
@@ -13824,21 +13824,21 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 	 *
 	 *		editor.plugins.get( 'TableUtils' ).insertColumns( table, { at: 1, columns: 2 } );
 	 *
-	 * For the table below this code
+	 * Assuming the table on the left, the above code will transform it to the table on the right:
 	 *
-	 *		0   1   2   3                     0   1   2   3   4   5
-	 *		+---+---+---+                     +---+---+---+---+---+
-	 *		| a     | b |                     | a             | b |
-	 *		+       +---+                     +               +---+
-	 *		|       | c |                     |               | c |
-	 *		+---+---+---+      should give:   +---+---+---+---+---+
-	 *		| d | e | f |                     | d |   |   | e | f |
-	 *		+---+   +---+                     +---+---+---+  +---+
-	 *		| g |   | h |                     | g |   |   |   | h |
-	 *		+---+---+---+                     +---+---+---+---+---+
-	 *		| i         |                     | i                 |
-	 *		+---+---+---+                     +---+---+---+---+---+
-	 *		    ^________ insert here at=1
+	 *		0   1   2   3                   0   1   2   3   4   5
+	 *		+---+---+---+                   +---+---+---+---+---+
+	 *		| a     | b |                   | a             | b |
+	 *		+       +---+                   +               +---+
+	 *		|       | c |                   |               | c |
+	 *		+---+---+---+     will give:    +---+---+---+---+---+
+	 *		| d | e | f |                   | d |   |   | e | f |
+	 *		+---+   +---+                   +---+---+---+  +---+
+	 *		| g |   | h |                   | g |   |   |   | h |
+	 *		+---+---+---+                   +---+---+---+---+---+
+	 *		| i         |                   | i                 |
+	 *		+---+---+---+                   +---+---+---+---+---+
+	 *		    ^---- insert here, `at` = 1, `columns` = 2
 	 *
 	 * @param {module:engine/model/element~Element} table Table model element to which insert columns.
 	 * @param {Object} options
@@ -13854,7 +13854,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 		model.change( writer => {
 			const headingColumns = table.getAttribute( 'headingColumns' );
 
-			// Inserting rows inside heading section requires to update table's headingRows attribute as the heading section will grow.
+			// Inserting columns inside heading section requires to update `headingColumns` attribute as the heading section will grow.
 			if ( insertAt < headingColumns ) {
 				writer.setAttribute( 'headingColumns', headingColumns + columnsToInsert, table );
 			}
@@ -13875,18 +13875,18 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 			for ( const { row, column, cell, colspan, rowspan, cellIndex } of tableWalker ) {
 				// When iterating over column the table walker outputs either:
 				// - cells at given column index (cell "e" from method docs),
-				// - spanned columns (includeSpanned option) (spanned cell from row between cells "g" and "h" - spanned by "e"),
+				// - spanned columns (spanned cell from row between cells "g" and "h" - spanned by "e", only if `includeSpanned: true`),
 				// - or a cell from the same row which spans over this column (cell "a").
 
 				if ( column !== insertAt ) {
-					// If column is different then insertAt it is a cell that spans over an inserted column (cell "a" & "i").
-					// For such cells expand them of number of columns inserted.
+					// If column is different than `insertAt`, it is a cell that spans over an inserted column (cell "a" & "i").
+					// For such cells expand them by a number of columns inserted.
 					writer.setAttribute( 'colspan', colspan + columnsToInsert, cell );
 
-					// The includeSpanned option will output the "empty"/spanned column so skip this row already.
+					// The `includeSpanned` option will output the "empty"/spanned column so skip this row already.
 					tableWalker.skipRow( row );
 
-					// This cell will overlap cells in rows below so skip them also (because of includeSpanned option) - (cell "a")
+					// This cell will overlap cells in rows below so skip them also (because of `includeSpanned` option) - (cell "a")
 					if ( rowspan > 1 ) {
 						for ( let i = row + 1; i < row + rowspan; i++ ) {
 							tableWalker.skipRow( i );
@@ -13906,9 +13906,10 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 	/**
 	 * Divides table cell vertically into several ones.
 	 *
-	 * The cell will visually split to more cells by updating colspans of other cells in a row and inserting rows with single cell below.
+	 * The cell will visually split to more cells by updating colspans of other cells in a column
+	 * and inserting cells (columns) after that cell.
 	 *
-	 * If in a table below cell b will be split to a 3 cells:
+	 * In the table below, if cell "a" is split to 3 cells:
 	 *
 	 *		+---+---+---+
 	 *		| a | b | c |
@@ -13916,7 +13917,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 	 *		| d | e | f |
 	 *		+---+---+---+
 	 *
-	 * will result in a table below:
+	 * it will result in the table below:
 	 *
 	 *		+---+---+---+---+---+
 	 *		| a |   |   | b | c |
@@ -13924,9 +13925,9 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 	 *		| d         | e | f |
 	 *		+---+---+---+---+---+
 	 *
-	 * So cells a & b will get updated `colspan` to 3 and 2 rows with single cell will be added.
+	 * So cell d will get updated `colspan` to 3 and 2 cells will be added (2 columns created).
 	 *
-	 * Splitting cell that has already a colspan attribute set will distribute cell's colspan evenly and a reminder
+	 * Splitting cell that already has a colspan attribute set will distribute cell's colspan evenly and a reminder
 	 * will be left to original cell:
 	 *
 	 *		+---+---+---+
@@ -13935,7 +13936,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 	 *		| b | c | d |
 	 *		+---+---+---+
 	 *
-	 * Splitting cell a with colspan=3 to a 2 cells will create 1 cell with colspan=1 and cell a will have colspan=2:
+	 * Splitting cell a with colspan=3 to a 2 cells will create 1 cell with colspan=2 and cell a will have colspan=1:
 	 *
 	 *		+---+---+---+
 	 *		| a     |   |
@@ -14015,7 +14016,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 
 				createCells( cellsToInsert, writer, __WEBPACK_IMPORTED_MODULE_1__ckeditor_ckeditor5_engine_src_model_position__["a" /* default */].createAfter( tableCell ), newCellsAttributes );
 
-				const headingColumns = parseInt( table.getAttribute( 'headingColumns' ) || 0 );
+				const headingColumns = table.getAttribute( 'headingColumns' ) || 0;
 
 				// Update heading section if split cell is in heading section.
 				if ( headingColumns > splitCellColumn ) {
@@ -14120,7 +14121,9 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 				}
 
 				for ( const { column, row, cellIndex } of tableMap ) {
-					// As newly created cells and split cell might have rowspan the insertion of new cells must go to appropriate rows:
+					// As both newly created cells and the split cell might have rowspan,
+					// the insertion of new cells must go to appropriate rows:
+					//
 					// 1. It's a row after split cell + it's height.
 					const isAfterSplitCell = row >= splitCellRow + updatedSpan;
 					// 2. Is on the same column.
@@ -14136,7 +14139,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 				}
 			}
 
-			// Second check - the cell has rowspan of 1 or we need to create more cells then the currently one spans over.
+			// Second check - the cell has rowspan of 1 or we need to create more cells than the current cell spans over.
 			if ( rowspan < numberOfCells ) {
 				// We already split the cell in check one so here we split to the remaining number of cells only.
 				const cellsToInsert = numberOfCells - rowspan;
@@ -14167,7 +14170,7 @@ class TableUtils extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_sr
 				createEmptyRows( writer, table, splitCellRow + 1, cellsToInsert, 1, newCellsAttributes );
 
 				// Update heading section if split cell is in heading section.
-				const headingRows = parseInt( table.getAttribute( 'headingRows' ) || 0 );
+				const headingRows = table.getAttribute( 'headingRows' ) || 0;
 
 				if ( headingRows > splitCellRow ) {
 					Object(__WEBPACK_IMPORTED_MODULE_3__commands_utils__["b" /* updateNumericAttribute */])( 'headingRows', headingRows + cellsToInsert, table, writer );
@@ -80004,7 +80007,7 @@ class Table extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_src_plu
  *
  * @extends module:core/plugin~Plugin
  */
-class TablesEditing extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_src_plugin__["a" /* default */] {
+class TableEditing extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_src_plugin__["a" /* default */] {
 	/**
 	 * @inheritDoc
 	 */
@@ -80016,53 +80019,49 @@ class TablesEditing extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core
 		schema.register( 'table', {
 			allowWhere: '$block',
 			allowAttributes: [ 'headingRows', 'headingColumns' ],
-			isBlock: true,
 			isObject: true
 		} );
 
-		schema.register( 'tableRow', {
-			allowIn: 'table',
-			isBlock: true,
-			isLimit: true
-		} );
+		schema.register( 'tableRow', { allowIn: 'table' } );
 
 		schema.register( 'tableCell', {
 			allowIn: 'tableRow',
 			allowContentOf: '$block',
 			allowAttributes: [ 'colspan', 'rowspan' ],
-			isBlock: true,
 			isLimit: true
 		} );
 
 		// Table conversion.
 		conversion.for( 'upcast' ).add( Object(__WEBPACK_IMPORTED_MODULE_4__converters_upcasttable__["a" /* default */])() );
+
 		conversion.for( 'editingDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["c" /* downcastInsertTable */])( { asWidget: true } ) );
 		conversion.for( 'dataDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["c" /* downcastInsertTable */])() );
 
-		// Insert row conversion.
-		conversion.for( 'editingDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["b" /* downcastInsertRow */])( { asWidget: true } ) );
-		conversion.for( 'dataDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["b" /* downcastInsertRow */])() );
-
 		// Table row conversion.
 		conversion.for( 'upcast' ).add( Object(__WEBPACK_IMPORTED_MODULE_1__ckeditor_ckeditor5_engine_src_conversion_upcast_converters__["e" /* upcastElementToElement */])( { model: 'tableRow', view: 'tr' } ) );
+
+		conversion.for( 'editingDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["b" /* downcastInsertRow */])( { asWidget: true } ) );
+		conversion.for( 'dataDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["b" /* downcastInsertRow */])() );
 		conversion.for( 'downcast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["d" /* downcastRemoveRow */])() );
 
 		// Table cell conversion.
-		conversion.for( 'editingDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["a" /* downcastInsertCell */])( { asWidget: true } ) );
-		conversion.for( 'dataDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["a" /* downcastInsertCell */])() );
-
 		conversion.for( 'upcast' ).add( Object(__WEBPACK_IMPORTED_MODULE_1__ckeditor_ckeditor5_engine_src_conversion_upcast_converters__["e" /* upcastElementToElement */])( { model: 'tableCell', view: 'td' } ) );
 		conversion.for( 'upcast' ).add( Object(__WEBPACK_IMPORTED_MODULE_1__ckeditor_ckeditor5_engine_src_conversion_upcast_converters__["e" /* upcastElementToElement */])( { model: 'tableCell', view: 'th' } ) );
+
+		conversion.for( 'editingDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["a" /* downcastInsertCell */])( { asWidget: true } ) );
+		conversion.for( 'dataDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["a" /* downcastInsertCell */])() );
 
 		// Table attributes conversion.
 		conversion.attributeToAttribute( { model: 'colspan', view: 'colspan' } );
 		conversion.attributeToAttribute( { model: 'rowspan', view: 'rowspan' } );
 
+		// Table heading rows and cols conversion.
 		conversion.for( 'editingDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["e" /* downcastTableHeadingColumnsChange */])( { asWidget: true } ) );
 		conversion.for( 'dataDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["e" /* downcastTableHeadingColumnsChange */])() );
 		conversion.for( 'editingDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["f" /* downcastTableHeadingRowsChange */])( { asWidget: true } ) );
 		conversion.for( 'dataDowncast' ).add( Object(__WEBPACK_IMPORTED_MODULE_5__converters_downcast__["f" /* downcastTableHeadingRowsChange */])() );
 
+		// Define all the commands.
 		editor.commands.add( 'insertTable', new __WEBPACK_IMPORTED_MODULE_6__commands_inserttablecommand__["a" /* default */]( editor ) );
 		editor.commands.add( 'insertRowAbove', new __WEBPACK_IMPORTED_MODULE_7__commands_insertrowcommand__["a" /* default */]( editor, { order: 'above' } ) );
 		editor.commands.add( 'insertRowBelow', new __WEBPACK_IMPORTED_MODULE_7__commands_insertrowcommand__["a" /* default */]( editor, { order: 'below' } ) );
@@ -80082,6 +80081,7 @@ class TablesEditing extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core
 
 		editor.commands.add( 'setTableHeaders', new __WEBPACK_IMPORTED_MODULE_13__commands_settableheaderscommand__["a" /* default */]( editor ) );
 
+		// Handle tab key navigation.
 		this.listenTo( editor.editing.view.document, 'keydown', ( ...args ) => this._handleTabOnSelectedTable( ...args ) );
 		this.listenTo( editor.editing.view.document, 'keydown', ( ...args ) => this._handleTabInsideTable( ...args ) );
 	}
@@ -80159,49 +80159,49 @@ class TablesEditing extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core
 		const tableCell = selection.focus.parent;
 		const tableRow = tableCell.parent;
 
-		const currentRow = table.getChildIndex( tableRow );
+		const currentRowIndex = table.getChildIndex( tableRow );
 		const currentCellIndex = tableRow.getChildIndex( tableCell );
 
 		const isForward = !domEventData.shiftKey;
 		const isFirstCellInRow = currentCellIndex === 0;
 
-		if ( !isForward && isFirstCellInRow && currentRow === 0 ) {
+		if ( !isForward && isFirstCellInRow && currentRowIndex === 0 ) {
 			// It's the first cell of a table - don't do anything (stay in current position).
 			return;
 		}
 
 		const isLastCellInRow = currentCellIndex === tableRow.childCount - 1;
-		const isLastRow = currentRow === table.childCount - 1;
+		const isLastRow = currentRowIndex === table.childCount - 1;
 
 		if ( isForward && isLastRow && isLastCellInRow ) {
 			editor.plugins.get( __WEBPACK_IMPORTED_MODULE_16__tableutils__["a" /* default */] ).insertRows( table, { at: table.childCount } );
 		}
 
-		let moveToCell;
+		let cellToFocus;
 
 		// Move to first cell in next row.
 		if ( isForward && isLastCellInRow ) {
-			const nextRow = table.getChild( currentRow + 1 );
+			const nextRow = table.getChild( currentRowIndex + 1 );
 
-			moveToCell = nextRow.getChild( 0 );
+			cellToFocus = nextRow.getChild( 0 );
 		}
 		// Move to last cell in a previous row.
 		else if ( !isForward && isFirstCellInRow ) {
-			const previousRow = table.getChild( currentRow - 1 );
+			const previousRow = table.getChild( currentRowIndex - 1 );
 
-			moveToCell = previousRow.getChild( previousRow.childCount - 1 );
+			cellToFocus = previousRow.getChild( previousRow.childCount - 1 );
 		}
 		// Move to next/previous cell.
 		else {
-			moveToCell = tableRow.getChild( currentCellIndex + ( isForward ? 1 : -1 ) );
+			cellToFocus = tableRow.getChild( currentCellIndex + ( isForward ? 1 : -1 ) );
 		}
 
 		editor.model.change( writer => {
-			writer.setSelection( __WEBPACK_IMPORTED_MODULE_2__ckeditor_ckeditor5_engine_src_model_range__["a" /* default */].createIn( moveToCell ) );
+			writer.setSelection( __WEBPACK_IMPORTED_MODULE_2__ckeditor_ckeditor5_engine_src_model_range__["a" /* default */].createIn( cellToFocus ) );
 		} );
 	}
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = TablesEditing;
+/* harmony export (immutable) */ __webpack_exports__["a"] = TableEditing;
 
 
 
@@ -80262,16 +80262,16 @@ function upcastTable() {
 			conversionApi.writer.insert( table, splitResult.position );
 			conversionApi.consumable.consume( viewTable, { name: true } );
 
-			if ( !rows.length ) {
+			if ( rows.length ) {
+				// Upcast table rows in proper order (heading rows first).
+				rows.forEach( row => conversionApi.convertItem( row, __WEBPACK_IMPORTED_MODULE_1__ckeditor_ckeditor5_engine_src_model_position__["a" /* default */].createAt( table, 'end' ) ) );
+			} else {
 				// Create one row and one table cell for empty table.
 				const row = conversionApi.writer.createElement( 'tableRow' );
 
 				conversionApi.writer.insert( row, __WEBPACK_IMPORTED_MODULE_1__ckeditor_ckeditor5_engine_src_model_position__["a" /* default */].createAt( table, 'end' ) );
 				conversionApi.writer.insertElement( 'tableCell', __WEBPACK_IMPORTED_MODULE_1__ckeditor_ckeditor5_engine_src_model_position__["a" /* default */].createAt( row, 'end' ) );
 			}
-
-			// Upcast table rows in proper order (heading rows first).
-			rows.forEach( row => conversionApi.convertItem( row, __WEBPACK_IMPORTED_MODULE_1__ckeditor_ckeditor5_engine_src_model_position__["a" /* default */].createAt( table, 'end' ) ) );
 
 			// Set conversion result range.
 			data.modelRange = new __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_engine_src_model_range__["a" /* default */](
@@ -80460,8 +80460,8 @@ function downcastInsertTable( options = {} ) {
 		const tableWalker = new __WEBPACK_IMPORTED_MODULE_2__tablewalker__["a" /* default */]( table );
 
 		const tableAttributes = {
-			headingRows: parseInt( table.getAttribute( 'headingRows' ) || 0 ),
-			headingColumns: parseInt( table.getAttribute( 'headingColumns' ) || 0 )
+			headingRows: table.getAttribute( 'headingRows' ) || 0,
+			headingColumns: table.getAttribute( 'headingColumns' ) || 0
 		};
 
 		for ( const tableWalkerValue of tableWalker ) {
@@ -80512,8 +80512,8 @@ function downcastInsertRow( options = {} ) {
 		const tableWalker = new __WEBPACK_IMPORTED_MODULE_2__tablewalker__["a" /* default */]( table, { startRow: row, endRow: row } );
 
 		const tableAttributes = {
-			headingRows: parseInt( table.getAttribute( 'headingRows' ) || 0 ),
-			headingColumns: parseInt( table.getAttribute( 'headingColumns' ) || 0 )
+			headingRows: table.getAttribute( 'headingRows' ) || 0,
+			headingColumns: table.getAttribute( 'headingColumns' ) || 0
 		};
 
 		for ( const tableWalkerValue of tableWalker ) {
@@ -80548,12 +80548,13 @@ function downcastInsertCell( options = {} ) {
 
 		const tableRow = tableCell.parent;
 		const table = tableRow.parent;
+		const rowIndex = table.getChildIndex( tableRow );
 
-		const tableWalker = new __WEBPACK_IMPORTED_MODULE_2__tablewalker__["a" /* default */]( table );
+		const tableWalker = new __WEBPACK_IMPORTED_MODULE_2__tablewalker__["a" /* default */]( table, { startRow: rowIndex, endRow: rowIndex } );
 
 		const tableAttributes = {
-			headingRows: parseInt( table.getAttribute( 'headingRows' ) || 0 ),
-			headingColumns: parseInt( table.getAttribute( 'headingColumns' ) || 0 )
+			headingRows: table.getAttribute( 'headingRows' ) || 0,
+			headingColumns: table.getAttribute( 'headingColumns' ) || 0
 		};
 
 		// We need to iterate over a table in order to get proper row & column values from a walker
@@ -80575,9 +80576,10 @@ function downcastInsertCell( options = {} ) {
  * Conversion helper that acts on headingRows table attribute change.
  *
  * This converter will:
- * - Rename <td> to <th> elements or vice versa depending on headings.
- * - Create <thead> or <tbody> elements if needed.
- * - Remove empty <thead> or <tbody> if needed.
+ *
+ * * rename <td> to <th> elements or vice versa depending on headings,
+ * * create <thead> or <tbody> elements if needed,
+ * * remove empty <thead> or <tbody> if needed.
  *
  * @returns {Function} Conversion helper.
  */
@@ -80628,8 +80630,8 @@ function downcastTableHeadingRowsChange( options = {} ) {
 			const tableWalker = new __WEBPACK_IMPORTED_MODULE_2__tablewalker__["a" /* default */]( table, { startRow: newRows ? newRows - 1 : newRows, endRow: oldRows - 1 } );
 
 			const tableAttributes = {
-				headingRows: parseInt( table.getAttribute( 'headingRows' ) || 0 ),
-				headingColumns: parseInt( table.getAttribute( 'headingColumns' ) || 0 )
+				headingRows: table.getAttribute( 'headingRows' ) || 0,
+				headingColumns: table.getAttribute( 'headingColumns' ) || 0
 			};
 
 			for ( const tableWalkerValue of tableWalker ) {
@@ -80664,8 +80666,8 @@ function downcastTableHeadingColumnsChange( options = {} ) {
 		}
 
 		const tableAttributes = {
-			headingRows: parseInt( table.getAttribute( 'headingRows' ) || 0 ),
-			headingColumns: parseInt( table.getAttribute( 'headingColumns' ) || 0 )
+			headingRows: table.getAttribute( 'headingRows' ) || 0,
+			headingColumns: table.getAttribute( 'headingColumns' ) || 0
 		};
 
 		const oldColumns = data.attributeOldValue;
@@ -81162,12 +81164,21 @@ class InsertColumnCommand extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor
  */
 class SplitCellCommand extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_core_src_command__["a" /* default */] {
 	/**
-	 * @param editor
-	 * @param options
+	 * Creates a new `SplitCellCommand` instance.
+	 *
+	 * @param {module:core/editor/editor~Editor} editor Editor on which this command will be used.
+	 * @param {Object} options
+	 * @param {String} options.direction Indicates whether the command should split cells `'horizontally'` or `'vertically'`.
 	 */
 	constructor( editor, options = {} ) {
 		super( editor );
 
+		/**
+		 * The direction indicates which cell will be split.
+		 *
+		 * @readonly
+		 * @member {String} #direction
+		 */
 		this.direction = options.direction || 'horizontally';
 	}
 
@@ -81253,7 +81264,7 @@ class MergeCellCommand extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_c
 		 * The direction indicates which cell will be merged to currently selected one.
 		 *
 		 * @readonly
-		 * @member {String} module:table/commands/mergecellcommand~MergeCellCommand#direction
+		 * @member {String} #direction
 		 */
 		this.direction = options.direction;
 
@@ -81261,7 +81272,7 @@ class MergeCellCommand extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_c
 		 * Whether the merge is horizontal (left/right) or vertical (up/down).
 		 *
 		 * @readonly
-		 * @member {Boolean} module:table/commands/mergecellcommand~MergeCellCommand#isHorizontal
+		 * @member {Boolean} #isHorizontal
 		 */
 		this.isHorizontal = this.direction == 'right' || this.direction == 'left';
 	}
@@ -81369,7 +81380,7 @@ function getVerticalCell( tableCell, direction ) {
 		return;
 	}
 
-	const headingRows = parseInt( table.getAttribute( 'headingRows' ) || 0 );
+	const headingRows = table.getAttribute( 'headingRows' ) || 0;
 
 	// Don't search for mergeable cell if direction points out of the current table section.
 	if ( headingRows && ( ( direction == 'down' && rowIndex === headingRows - 1 ) || ( direction == 'up' && rowIndex === headingRows ) ) ) {
@@ -81449,7 +81460,7 @@ class RemoveRowCommand extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_c
 		const table = tableRow.parent;
 
 		const currentRow = table.getChildIndex( tableRow );
-		const headingRows = parseInt( table.getAttribute( 'headingRows' ) || 0 );
+		const headingRows = table.getAttribute( 'headingRows' ) || 0;
 
 		model.change( writer => {
 			if ( headingRows && currentRow <= headingRows ) {
@@ -81470,7 +81481,7 @@ class RemoveRowCommand extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor5_c
 				.filter( ( { row, rowspan } ) => row <= currentRow - 1 && row + rowspan > currentRow )
 				.forEach( ( { cell, rowspan } ) => Object(__WEBPACK_IMPORTED_MODULE_4__utils__["b" /* updateNumericAttribute */])( 'rowspan', rowspan - 1, cell, writer ) );
 
-			// Move cells to another row
+			// Move cells to another row.
 			const targetRow = currentRow + 1;
 			const tableWalker = new __WEBPACK_IMPORTED_MODULE_3__tablewalker__["a" /* default */]( table, { includeSpanned: true, startRow: targetRow, endRow: targetRow } );
 
@@ -81554,7 +81565,7 @@ class RemoveColumnCommand extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckeditor
 		const tableRow = tableCell.parent;
 		const table = tableRow.parent;
 
-		const headingColumns = parseInt( table.getAttribute( 'headingColumns' ) || 0 );
+		const headingColumns = table.getAttribute( 'headingColumns' ) || 0;
 		const row = table.getChildIndex( tableRow );
 
 		// Cache the table before removing or updating colspans.
@@ -81642,7 +81653,7 @@ class SetTableHeadersCommand extends __WEBPACK_IMPORTED_MODULE_0__ckeditor_ckedi
 		const table = Object(__WEBPACK_IMPORTED_MODULE_2__utils__["a" /* getParentTable */])( selection.getFirstPosition() );
 
 		model.change( writer => {
-			const currentHeadingRows = parseInt( table.getAttribute( 'headingRows' ) || 0 );
+			const currentHeadingRows = table.getAttribute( 'headingRows' ) || 0;
 
 			if ( currentHeadingRows !== rowsToSet && rowsToSet > 0 ) {
 				// Changing heading rows requires to check if any of a heading cell is overlaping vertically the table head.
@@ -81687,7 +81698,7 @@ function getOverlappingCells( table, headingRowsToSet, currentHeadingRows ) {
 
 // @private
 function updateTableAttribute( table, attributeName, newValue, writer ) {
-	const currentValue = parseInt( table.getAttribute( attributeName ) || 0 );
+	const currentValue = table.getAttribute( attributeName ) || 0;
 
 	if ( newValue !== currentValue ) {
 		Object(__WEBPACK_IMPORTED_MODULE_2__utils__["b" /* updateNumericAttribute */])( attributeName, newValue, table, writer, 0 );
