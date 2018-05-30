@@ -1,9 +1,11 @@
 'use strict';
 
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
+const BabiliPlugin = require('babel-minify-webpack-plugin');
 const {styles} = require('@ckeditor/ckeditor5-dev-utils');
 const buildConfig = require('./build-config');
 const path = require('path');
+const webpack = require('webpack');
 const file = 'ck.' + process.env.editor + '.js';
 
 module.exports = {
@@ -19,7 +21,11 @@ module.exports = {
     plugins: [
         new CKEditorWebpackPlugin({
             languages: [buildConfig.language]
-        })
+        }),
+        new BabiliPlugin(null, {
+            comments: false
+        }),
+        new webpack.optimize.ModuleConcatenationPlugin()
     ],
     module: {
         rules: [
