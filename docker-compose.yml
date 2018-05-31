@@ -4,9 +4,9 @@ networks:
     external:
       name: proxy
 services:
-  ck:
+  ck5:
     image: akilli/node
-    container_name: ck
+    container_name: ck5
     restart: unless-stopped
     stdin_open: true
     tty: true
