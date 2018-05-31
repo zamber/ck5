@@ -28,7 +28,7 @@
     "@ckeditor/ckeditor5-list": "^10.0.0",
     "@ckeditor/ckeditor5-markdown-gfm": "^10.0.0",
     "@ckeditor/ckeditor5-paragraph": "^10.0.0",
-    "@ckeditor/ckeditor5-table": "0.0.1",
+    "@ckeditor/ckeditor5-table": "^0.0.1",
     "@ckeditor/ckeditor5-theme-lark": "^10.0.0",
     "@ckeditor/ckeditor5-typing": "^10.0.0",
     "@ckeditor/ckeditor5-ui": "^10.0.0",
@@ -57,7 +57,7 @@
     "postcss-loader": "^2.0.10",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.20.3",
-    "umberto": "^0.4.3",
+    "umberto": "^0.5.0",
     "webpack": "^3.11.0",
     "webpack-sources": "1.0.1"
   },
