@@ -1,3 +1,3 @@
 # `akilli/ck5-editor`
 
-Repository for custom CKEditor 5 builds. 
+Custom CKEditor 5 builds. 
