@@ -24,7 +24,6 @@ module.exports = {
     moduleName: mod,
     plugins: [
         '@ckeditor/ckeditor5-essentials/src/essentials',
-        '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter',
         '@ckeditor/ckeditor5-autoformat/src/autoformat',
         '@ckeditor/ckeditor5-heading/src/heading',
         '@ckeditor/ckeditor5-paragraph/src/paragraph',
