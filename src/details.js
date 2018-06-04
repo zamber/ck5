@@ -1,9 +1,10 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import Widget from '@ckeditor/ckeditor5-widget/src/widget';
 
 
 export default class Details extends Plugin {
     static get requires() {
-        return [];
+        return [Widget];
     }
 
     static get pluginName() {
