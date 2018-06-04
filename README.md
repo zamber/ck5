@@ -1,3 +1,3 @@
-# akilli/ck5-details
+# ckeditor5-details
 
 Details widget for CKEditor 5
