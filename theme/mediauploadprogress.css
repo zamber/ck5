@@ -1,0 +1,21 @@
+:root {
+    --ck-image-upload-progress-line-width: 30px;
+}
+
+.ck-content .image {
+    position: relative;
+    overflow: hidden;
+}
+
+.ck-content .image.ck-infinite-progress::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.ck-content .image .ck-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

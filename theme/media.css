@@ -1,0 +1,10 @@
+.ck-content .media {
+    clear: both;
+    text-align: center;
+}
+
+.ck-content .media > img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}

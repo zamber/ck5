@@ -3,3 +3,47 @@ msgstr ""
 "Language: \n"
 "Language-Team: \n"
 "Plural-Forms: \n"
+
+msgctxt "Label for the media widget."
+msgid "media widget"
+msgstr "media widget"
+
+msgctxt "Label for the Side media option."
+msgid "Side media"
+msgstr "Side media"
+
+msgctxt "Label for the Full size media option."
+msgid "Full size media"
+msgstr "Full size media"
+
+msgctxt "Label for the Left aligned media option"
+msgid "Left aligned media"
+msgstr "Left aligned media"
+
+msgctxt "Label for the Centered media option"
+msgid "Centered media"
+msgstr "Centered media"
+
+msgctxt "Label for the Right aligned media option"
+msgid "Right aligned media"
+msgstr "Right aligned media"
+
+msgctxt "Label for the Change media text alternative button."
+msgid "Change media text alternative"
+msgstr "Change media text alternative"
+
+msgctxt "Label for the media text alternative input."
+msgid "Text alternative"
+msgstr "Text alternative"
+
+msgctxt "Placeholder text for media caption displayed when caption is empty."
+msgid "Enter media caption"
+msgstr "Enter media caption"
+
+msgctxt "Label for the insert media toolbar button."
+msgid "Insert media"
+msgstr "Insert media"
+
+msgctxt "Title of the notification displayed when upload fails."
+msgid "Upload failed"
+msgstr "Upload failed"
