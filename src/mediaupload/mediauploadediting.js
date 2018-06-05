@@ -6,16 +6,10 @@ import ModelSelection from '@ckeditor/ckeditor5-engine/src/model/selection';
 import {isMediaType, findOptimalInsertionPosition} from '../../src/mediaupload/utils';
 
 export default class MediaUploadEditing extends Plugin {
-    /**
-     * @inheritDoc
-     */
     static get requires() {
         return [FileRepository, Notification];
     }
 
-    /**
-     * @inheritDoc
-     */
     init() {
         const editor = this.editor;
         const doc = editor.model.document;
