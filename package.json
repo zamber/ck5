@@ -35,7 +35,8 @@
     "@ckeditor/ckeditor5-undo": "^10.0.0",
     "@ckeditor/ckeditor5-upload": "^10.0.0",
     "@ckeditor/ckeditor5-utils": "^10.0.0",
-    "@ckeditor/ckeditor5-widget": "^10.0.0"
+    "@ckeditor/ckeditor5-widget": "^10.0.0",
+    "@akilli/ckeditor5-media": "akilli/ckeditor5-media"
   },
   "devDependencies": {
     "@ckeditor/ckeditor5-collaboration": "^10.0.0",

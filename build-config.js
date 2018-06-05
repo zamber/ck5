@@ -33,12 +33,12 @@ module.exports = {
         '@ckeditor/ckeditor5-link/src/link',
         '@ckeditor/ckeditor5-list/src/list',
         '@ckeditor/ckeditor5-block-quote/src/blockquote',
-        '@ckeditor/ckeditor5-image/src/image',
-        '@ckeditor/ckeditor5-image/src/imagecaption',
-        '@ckeditor/ckeditor5-image/src/imagestyle',
-        '@ckeditor/ckeditor5-image/src/imagetoolbar',
-        '@ckeditor/ckeditor5-image/src/imageupload',
-        '@ckeditor/ckeditor5-table/src/table'
+        '@ckeditor/ckeditor5-table/src/table',
+        '@akilli/ckeditor5-media/src/media',
+        '@akilli/ckeditor5-media/src/mediacaption',
+        '@akilli/ckeditor5-media/src/mediastyle',
+        '@akilli/ckeditor5-media/src/mediatoolbar',
+        '@akilli/ckeditor5-media/src/mediaupload'
     ],
     config: {
         language: 'de',
@@ -54,7 +54,7 @@ module.exports = {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
-                'imageUpload',
+                'mediaUpload',
                 'insertTable',
                 'insertRowBelow',
                 'insertColumnAfter',
@@ -68,8 +68,9 @@ module.exports = {
                 {model: 'heading2', view: 'h3', title: 'Heading 2', class: 'ck-heading_heading2'}
             ]
         },
-        image: {
-            toolbar: ['imageStyle:full', 'imageStyle:side', '|', 'imageTextAlternative']
+        media: {
+            toolbar: ['mediaStyle:alignLeft', 'mediaStyle:full', 'mediaStyle:alignRight', '|', 'mediaTextAlternative'],
+            styles: ['full', 'alignLeft', 'alignRight']
         }
     }
 };
