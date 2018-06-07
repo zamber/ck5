@@ -15,6 +15,7 @@ import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
 import ListPlugin from '@ckeditor/ckeditor5-list/src/list';
 import BlockquotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
+import DetailsPlugin from '@akilli/ckeditor5-details/src/details';
 import MediaPlugin from '@akilli/ckeditor5-media/src/media';
 import MediacaptionPlugin from '@akilli/ckeditor5-media/src/mediacaption';
 import MediastylePlugin from '@akilli/ckeditor5-media/src/mediastyle';
@@ -36,6 +37,7 @@ BalloonEditor.build = {
 		ListPlugin,
 		BlockquotePlugin,
 		TablePlugin,
+		DetailsPlugin,
 		MediaPlugin,
 		MediacaptionPlugin,
 		MediastylePlugin,
@@ -56,6 +58,7 @@ BalloonEditor.build = {
 				'bulletedList',
 				'numberedList',
 				'blockQuote',
+				'details',
 				'mediaUpload',
 				'insertTable',
 				'insertRowBelow',
