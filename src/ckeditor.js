@@ -22,83 +22,84 @@ import MediastylePlugin from '@akilli/ckeditor5-media/src/mediastyle';
 import MediatoolbarPlugin from '@akilli/ckeditor5-media/src/mediatoolbar';
 import MediauploadPlugin from '@akilli/ckeditor5-media/src/mediaupload';
 
-export default class BalloonEditor extends BalloonEditorBase {}
+export default class BalloonEditor extends BalloonEditorBase {
+}
 
 BalloonEditor.build = {
-	plugins: [
-		EssentialsPlugin,
-		AutoformatPlugin,
-		HeadingPlugin,
-		ParagraphPlugin,
-		BoldPlugin,
-		ItalicPlugin,
-		UnderlinePlugin,
-		LinkPlugin,
-		ListPlugin,
-		BlockquotePlugin,
-		TablePlugin,
-		DetailsPlugin,
-		MediaPlugin,
-		MediacaptionPlugin,
-		MediastylePlugin,
-		MediatoolbarPlugin,
-		MediauploadPlugin
-	],
-	config: {
-		language: 'de',
-		toolbar: {
-			items: [
-				'undo',
-				'redo',
-				'heading',
-				'bold',
-				'italic',
-				'underline',
-				'link',
-				'bulletedList',
-				'numberedList',
-				'blockQuote',
-				'details',
-				'mediaUpload',
-				'insertTable',
-				'insertRowBelow',
-				'insertColumnAfter'
-			]
-		},
-		heading: {
-			options: [
-				{
-					model: 'paragraph',
-					title: 'Paragraph',
-					'class': 'ck-heading_paragraph'
-				},
-				{
-					model: 'heading1',
-					view: 'h2',
-					title: 'Heading 1',
-					'class': 'ck-heading_heading1'
-				},
-				{
-					model: 'heading2',
-					view: 'h3',
-					title: 'Heading 2',
-					'class': 'ck-heading_heading2'
-				}
-			]
-		},
-		media: {
-			toolbar: [
-				'mediaStyle:alignLeft',
-				'mediaStyle:full',
-				'mediaStyle:alignRight',
-				'|',
-				'mediaTextAlternative'
-			],
-			styles: [
-				'full',
-				'alignLeft',
-				'alignRight'
-			]
-		}
-	}
+    plugins: [
+        EssentialsPlugin,
+        AutoformatPlugin,
+        HeadingPlugin,
+        ParagraphPlugin,
+        BoldPlugin,
+        ItalicPlugin,
+        UnderlinePlugin,
+        LinkPlugin,
+        ListPlugin,
+        BlockquotePlugin,
+        TablePlugin,
+        DetailsPlugin,
+        MediaPlugin,
+        MediacaptionPlugin,
+        MediastylePlugin,
+        MediatoolbarPlugin,
+        MediauploadPlugin
+    ],
+    config: {
+        language: 'de',
+        toolbar: {
+            items: [
+                'undo',
+                'redo',
+                'heading',
+                'bold',
+                'italic',
+                'underline',
+                'link',
+                'bulletedList',
+                'numberedList',
+                'blockQuote',
+                'details',
+                'mediaUpload',
+                'insertTable',
+                'insertRowBelow',
+                'insertColumnAfter'
+            ]
+        },
+        heading: {
+            options: [
+                {
+                    model: 'paragraph',
+                    title: 'Paragraph',
+                    'class': 'ck-heading_paragraph'
+                },
+                {
+                    model: 'heading1',
+                    view: 'h2',
+                    title: 'Heading 1',
+                    'class': 'ck-heading_heading1'
+                },
+                {
+                    model: 'heading2',
+                    view: 'h3',
+                    title: 'Heading 2',
+                    'class': 'ck-heading_heading2'
+                }
+            ]
+        },
+        media: {
+            toolbar: [
+                'mediaStyle:alignLeft',
+                'mediaStyle:full',
+                'mediaStyle:alignRight',
+                '|',
+                'mediaTextAlternative'
+            ],
+            styles: [
+                'full',
+                'alignLeft',
+                'alignRight'
+            ]
+        }
+    }
 };
