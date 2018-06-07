@@ -10,6 +10,7 @@ export default class DetailsEditing extends Plugin {
         schema.register('details', {
             allowIn: '$root',
             allowWhere: '$block',
+            allowContentOf: '$root',
             isBlock: true,
             isObject: true
         });
