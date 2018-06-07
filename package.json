@@ -8,19 +8,6 @@
     "ckeditor 5",
     "ckeditor5-feature"
   ],
-  "dependencies": {
-    "@ckeditor/ckeditor5-core": "^10.0.0",
-    "@ckeditor/ckeditor5-engine": "^10.0.0",
-    "@ckeditor/ckeditor5-ui": "^10.0.0",
-    "@ckeditor/ckeditor5-utils": "^10.0.0",
-    "@ckeditor/ckeditor5-theme-lark": "^10.0.0",
-    "@ckeditor/ckeditor5-widget": "^10.0.0"
-  },
-  "devDependencies": {},
-  "engines": {
-    "node": ">=6.0.0",
-    "npm": ">=3.0.0"
-  },
   "author": "Ayhan Akilli",
   "license": "MIT",
   "bugs": "https://github.com/akilli/ckeditor5-details/issues",
@@ -32,5 +19,13 @@
     "lang",
     "src",
     "theme"
-  ]
+  ],
+  "dependencies": {
+    "@ckeditor/ckeditor5-core": "^10.0.0",
+    "@ckeditor/ckeditor5-engine": "^10.0.0",
+    "@ckeditor/ckeditor5-ui": "^10.0.0",
+    "@ckeditor/ckeditor5-utils": "^10.0.0",
+    "@ckeditor/ckeditor5-theme-lark": "^10.0.0",
+    "@ckeditor/ckeditor5-widget": "^10.0.0"
+  }
 }
