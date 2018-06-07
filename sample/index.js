@@ -2,21 +2,15 @@
 
 (function (document, ClassicEditor) {
     document.addEventListener('DOMContentLoaded', () => {
-        const save = document.querySelector('#save');
-        const rte = document.querySelector('#rte');
         let editor;
 
-        if (!rte) {
-            return;
-        }
-
         ClassicEditor
-            .create(rte)
+            .create(document.querySelector('#rte'))
             .then(ed => {
                 editor = ed;
                 console.log(ed);
             });
-        save.addEventListener('click', function () {
+        document.querySelector('#save').addEventListener('click', function () {
             console.log(editor.getData());
         });
     });
