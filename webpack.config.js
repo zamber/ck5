@@ -6,14 +6,13 @@ const {styles} = require('@ckeditor/ckeditor5-dev-utils');
 const buildConfig = require('./build-config');
 const path = require('path');
 const webpack = require('webpack');
-const file = 'ck.' + process.env.editor + '.js';
 
 module.exports = {
     devtool: 'source-map',
-    entry: path.resolve(__dirname, 'src', file),
+    entry: path.resolve(__dirname, 'src', 'ckeditor.js'),
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: file,
+        filename: 'ckeditor.js',
         libraryTarget: 'umd',
         libraryExport: 'default',
         library: buildConfig.moduleName

@@ -1,27 +1,8 @@
 'use strict';
 
-let ed, mod;
-
-switch (process.env.editor) {
-    case 'balloon':
-        ed = '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor';
-        mod = 'BalloonEditor';
-        break;
-    case 'classic':
-        ed = '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
-        mod = 'ClassicEditor';
-        break;
-    case 'inline':
-        ed = '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
-        mod = 'InlineEditor';
-        break;
-    default:
-        throw 'Invalid Editor';
-}
-
 module.exports = {
-    editor: ed,
-    moduleName: mod,
+    editor: '@ckeditor/ckeditor5-editor-classic/src/classiceditor',
+    moduleName: 'ClassicEditor',
     plugins: [
         '@ckeditor/ckeditor5-essentials/src/essentials',
         '@ckeditor/ckeditor5-autoformat/src/autoformat',

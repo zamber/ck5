@@ -1,3 +1,3 @@
-# ckeditor5
+# ckeditor5-build-classic
 
-Custom CKEditor 5 builds. 
+Custom CKEditor 5 classic build. 
