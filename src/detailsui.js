@@ -7,12 +7,12 @@ export default class DetailsUI extends Plugin {
         const editor = this.editor;
         const t = editor.t;
 
-        editor.ui.componentFactory.add('insertImage', locale => {
+        editor.ui.componentFactory.add('details', locale => {
             const command = editor.commands.get('details');
             const buttonView = new ButtonView(locale);
 
             buttonView.set({
-                label: t('Insert details'),
+                label: t('Details'),
                 icon: icon,
                 tooltip: true
             });

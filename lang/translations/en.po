@@ -5,5 +5,5 @@ msgstr ""
 "Plural-Forms: \n"
 
 msgctxt "Label for the insert details toolbar button."
-msgid "Insert details"
-msgstr "Insert details"
+msgid "Details"
+msgstr "Details"
