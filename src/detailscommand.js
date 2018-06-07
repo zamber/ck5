@@ -1,4 +1,5 @@
 import Command from '@ckeditor/ckeditor5-core/src/command';
+import Position from '@ckeditor/ckeditor5-engine/src/model/position';
 
 export default class DetailsCommand extends Command {
     refresh() {
