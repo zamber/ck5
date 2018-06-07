@@ -1,6 +1,6 @@
 'use strict';
 
-(function (document, BalloonEditor) {
+(function (document, ClassicEditor) {
     document.addEventListener('DOMContentLoaded', () => {
         const save = document.querySelector('#save');
         const rte = document.querySelector('#rte');
@@ -10,7 +10,7 @@
             return;
         }
 
-        BalloonEditor
+        ClassicEditor
             .create(rte)
             .then(ed => {
                 editor = ed;
@@ -20,4 +20,4 @@
             console.log(editor.getData());
         });
     });
-})(document, BalloonEditor);
+})(document, ClassicEditor);
