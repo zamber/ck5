@@ -8,7 +8,7 @@ export default class DetailsCommand extends Command {
         const schema = model.schema;
         const validParent = getInsertDetailsParent(selection.getFirstPosition());
 
-        this.isEnabled = schema.checkChild(validParent, 'table');
+        this.isEnabled = schema.checkChild(validParent, 'details');
     }
 
     execute() {
