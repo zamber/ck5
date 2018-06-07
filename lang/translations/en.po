@@ -3,3 +3,7 @@ msgstr ""
 "Language: \n"
 "Language-Team: \n"
 "Plural-Forms: \n"
+
+msgctxt "Label for the insert details toolbar button."
+msgid "Insert details"
+msgstr "Insert details"
