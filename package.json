@@ -21,11 +21,11 @@
     "theme"
   ],
   "dependencies": {
-    "@ckeditor/ckeditor5-core": "^10.0.0",
-    "@ckeditor/ckeditor5-engine": "^10.0.0",
-    "@ckeditor/ckeditor5-ui": "^10.0.0",
-    "@ckeditor/ckeditor5-utils": "^10.0.0",
-    "@ckeditor/ckeditor5-theme-lark": "^10.0.0",
-    "@ckeditor/ckeditor5-widget": "^10.0.0"
+    "@ckeditor/ckeditor5-core": "^10.1.0",
+    "@ckeditor/ckeditor5-engine": "^10.1.0",
+    "@ckeditor/ckeditor5-ui": "^10.1.0",
+    "@ckeditor/ckeditor5-utils": "^10.1.0",
+    "@ckeditor/ckeditor5-theme-lark": "^10.1.0",
+    "@ckeditor/ckeditor5-widget": "^10.1.0"
   }
 }
