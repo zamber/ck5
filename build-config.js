@@ -15,6 +15,7 @@ module.exports = {
         '@ckeditor/ckeditor5-list/src/list',
         '@ckeditor/ckeditor5-block-quote/src/blockquote',
         '@ckeditor/ckeditor5-table/src/table',
+        '@ckeditor/ckeditor5-table/src/tabletoolbar',
         '@akilli/ckeditor5-media/src/media',
         '@akilli/ckeditor5-media/src/mediacaption',
         '@akilli/ckeditor5-media/src/mediastyle',
@@ -36,10 +37,7 @@ module.exports = {
                 'numberedList',
                 'blockQuote',
                 'mediaUpload',
-                'insertTable',
-                'insertRowBelow',
-                'insertColumnAfter',
-
+                'insertTable'
             ]
         },
         heading: {
@@ -52,6 +50,9 @@ module.exports = {
         media: {
             toolbar: ['mediaStyle:alignLeft', 'mediaStyle:full', 'mediaStyle:alignRight', '|', 'mediaTextAlternative'],
             styles: ['full', 'alignLeft', 'alignRight']
+        },
+        table: {
+            toolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
         }
     }
 };
