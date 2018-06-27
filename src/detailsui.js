@@ -16,11 +16,7 @@ export default class DetailsUI extends Plugin {
                 icon: icon,
                 tooltip: true
             });
-
-            // Bind button model to command.
             view.bind('isOn', 'isEnabled').to(command, 'value', 'isEnabled');
-
-            // Execute command.
             this.listenTo(view, 'execute', () => editor.execute('details'));
 
             return view;
