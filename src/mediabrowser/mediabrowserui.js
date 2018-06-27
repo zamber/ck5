@@ -9,15 +9,19 @@ export default class MediaBrowserUI extends Plugin {
 
         editor.ui.componentFactory.add('mediaBrowser', locale => {
             const view = new ButtonView(locale);
-            const command = editor.commands.get('mediaBrowser');
 
             view.set({
                 label: t('Insert media'),
                 icon: icon,
                 tooltip: true
             });
-            view.bind('isOn', 'isEnabled').to(command, 'value', 'isEnabled');
-            this.listenTo(view, 'execute', () => editor.execute('mediaBrowser'));
+            view.on('execute', () => {
+                editor.model.change(writer => {
+                    const mediaElement = writer.createElement('media', {src: 'sample.jpg', alt: 'Sample JPG'});
+
+                    editor.model.insertContent(mediaElement, editor.model.document.selection);
+                });
+            });
 
             return view;
         });
