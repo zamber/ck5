@@ -17,9 +17,23 @@ export default class MediaBrowserUI extends Plugin {
             });
             view.on('execute', () => {
                 editor.model.change(writer => {
-                    const mediaElement = writer.createElement('media', {src: 'sample.jpg', alt: 'Sample JPG'});
+                    const win = window.open(
+                        'browser.html',
+                        'browser',
+                        'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'
+                    );
 
-                    editor.model.insertContent(mediaElement, editor.model.document.selection);
+                    win.addEventListener('load', () => {
+                        win.document.querySelectorAll('a[href]').forEach(a => {
+                            a.addEventListener('click', ev => {
+                                const mediaElement = writer.createElement('media', {src: a.getAttribute('href')});
+
+                                ev.preventDefault();
+                                editor.model.insertContent(mediaElement, editor.model.document.selection);
+                                win.close();
+                            });
+                        });
+                    });
                 });
             });
 
