@@ -17,6 +17,7 @@ module.exports = {
         '@ckeditor/ckeditor5-table/src/table',
         '@ckeditor/ckeditor5-table/src/tabletoolbar',
         '../src/media',
+        '../src/mediabrowser',
         '../src/mediacaption',
         '../src/mediastyle',
         '../src/mediatoolbar'
@@ -35,6 +36,7 @@ module.exports = {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
+                'mediaBrowser',
                 'insertTable'
             ]
         },

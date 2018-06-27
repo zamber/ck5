@@ -17,6 +17,7 @@ import BlockquotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
 import TabletoolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import MediaPlugin from '../src/media';
+import MediabrowserPlugin from '../src/mediabrowser';
 import MediacaptionPlugin from '../src/mediacaption';
 import MediastylePlugin from '../src/mediastyle';
 import MediatoolbarPlugin from '../src/mediatoolbar';
@@ -38,6 +39,7 @@ ClassicEditor.build = {
         TablePlugin,
         TabletoolbarPlugin,
         MediaPlugin,
+        MediabrowserPlugin,
         MediacaptionPlugin,
         MediastylePlugin,
         MediatoolbarPlugin
@@ -56,6 +58,7 @@ ClassicEditor.build = {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
+                'mediaBrowser',
                 'insertTable'
             ]
         },
