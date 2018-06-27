@@ -4,37 +4,25 @@ import first from '@ckeditor/ckeditor5-utils/src/first';
 export function viewFigureToModel() {
     return dispatcher => {
         dispatcher.on('element:figure', function (evt, data, conversionApi) {
-            // Do not convert if this is not an "media figure".
             if (!conversionApi.consumable.test(data.viewItem, {name: true, classes: 'media'})) {
                 return;
             }
 
-            // Find an media element inside the figure element.
             const view = Array.from(data.viewItem.getChildren()).find(viewChild => viewChild.is('img'));
 
-            // Do not convert if media element is absent, is missing src attribute or was already converted.
             if (!view || !view.hasAttribute('src') || !conversionApi.consumable.test(view, {name: true})) {
                 return;
             }
 
-            // Convert view media to model media.
             const result = conversionApi.convertItem(view, data.modelCursor);
-
-            // Get media element from conversion result.
             const model = first(result.modelRange.getItems());
 
-            // When media wasn't successfully converted then finish conversion.
             if (!model) {
                 return;
             }
 
-            // Convert rest of the figure element's children as a media children.
             conversionApi.convertChildren(data.viewItem, ModelPosition.createAt(model));
-
-            // Set media range as conversion result.
             data.modelRange = result.modelRange;
-
-            // Continue conversion where media conversion ends.
             data.modelCursor = result.modelCursor;
         });
     };
