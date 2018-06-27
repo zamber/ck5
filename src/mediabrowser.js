@@ -1,5 +1,5 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import MediaBrowserUI from './mediabrowser/mediabrowserui';
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 
 export default class MediaBrowser extends Plugin {
     static get requires() {

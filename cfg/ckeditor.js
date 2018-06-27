@@ -25,85 +25,85 @@ import MediatoolbarPlugin from '../src/mediatoolbar';
 export default class ClassicEditor extends ClassicEditorBase {}
 
 ClassicEditor.build = {
-    plugins: [
-        EssentialsPlugin,
-        AutoformatPlugin,
-        HeadingPlugin,
-        ParagraphPlugin,
-        BoldPlugin,
-        ItalicPlugin,
-        UnderlinePlugin,
-        LinkPlugin,
-        ListPlugin,
-        BlockquotePlugin,
-        TablePlugin,
-        TabletoolbarPlugin,
-        MediaPlugin,
-        MediabrowserPlugin,
-        MediacaptionPlugin,
-        MediastylePlugin,
-        MediatoolbarPlugin
-    ],
-    config: {
-        language: 'de',
-        toolbar: {
-            items: [
-                'undo',
-                'redo',
-                'heading',
-                'bold',
-                'italic',
-                'underline',
-                'link',
-                'bulletedList',
-                'numberedList',
-                'blockQuote',
-                'mediaBrowser',
-                'insertTable'
-            ]
-        },
-        heading: {
-            options: [
-                {
-                    model: 'paragraph',
-                    title: 'Paragraph',
-                    'class': 'ck-heading_paragraph'
-                },
-                {
-                    model: 'heading1',
-                    view: 'h2',
-                    title: 'Heading 1',
-                    'class': 'ck-heading_heading1'
-                },
-                {
-                    model: 'heading2',
-                    view: 'h3',
-                    title: 'Heading 2',
-                    'class': 'ck-heading_heading2'
-                }
-            ]
-        },
-        media: {
-            browser: 'browser.html',
-            toolbar: [
-                'mediaStyle:alignLeft',
-                'mediaStyle:full',
-                'mediaStyle:alignRight',
-                '|',
-                'mediaTextAlternative'
-            ],
-            styles: [
-                'full',
-                'alignLeft',
-                'alignRight'
-            ]
-        },
-        table: {
-            toolbar: [
-                'tableColumn',
-                'tableRow',
-                'mergeTableCells'
-            ]
-        }
-    }
+	plugins: [
+		EssentialsPlugin,
+		AutoformatPlugin,
+		HeadingPlugin,
+		ParagraphPlugin,
+		BoldPlugin,
+		ItalicPlugin,
+		UnderlinePlugin,
+		LinkPlugin,
+		ListPlugin,
+		BlockquotePlugin,
+		TablePlugin,
+		TabletoolbarPlugin,
+		MediaPlugin,
+		MediabrowserPlugin,
+		MediacaptionPlugin,
+		MediastylePlugin,
+		MediatoolbarPlugin
+	],
+	config: {
+		language: 'de',
+		toolbar: {
+			items: [
+				'undo',
+				'redo',
+				'heading',
+				'bold',
+				'italic',
+				'underline',
+				'link',
+				'bulletedList',
+				'numberedList',
+				'blockQuote',
+				'mediaBrowser',
+				'insertTable'
+			]
+		},
+		heading: {
+			options: [
+				{
+					model: 'paragraph',
+					title: 'Paragraph',
+					'class': 'ck-heading_paragraph'
+				},
+				{
+					model: 'heading1',
+					view: 'h2',
+					title: 'Heading 1',
+					'class': 'ck-heading_heading1'
+				},
+				{
+					model: 'heading2',
+					view: 'h3',
+					title: 'Heading 2',
+					'class': 'ck-heading_heading2'
+				}
+			]
+		},
+		media: {
+			browser: 'browser.html',
+			toolbar: [
+				'mediaStyle:alignLeft',
+				'mediaStyle:full',
+				'mediaStyle:alignRight',
+				'|',
+				'mediaTextAlternative'
+			],
+			styles: [
+				'full',
+				'alignLeft',
+				'alignRight'
+			]
+		},
+		table: {
+			toolbar: [
+				'tableColumn',
+				'tableRow',
+				'mergeTableCells'
+			]
+		}
+	}
 };

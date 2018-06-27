@@ -1,5 +1,5 @@
-import {toWidget, isWidget} from '@ckeditor/ckeditor5-widget/src/utils';
 import ModelElement from '@ckeditor/ckeditor5-engine/src/model/element';
+import {isWidget, toWidget} from '@ckeditor/ckeditor5-widget/src/utils';
 
 const mediaSymbol = Symbol('isMedia');
 
@@ -11,7 +11,7 @@ export function toMediaWidget(viewElement, writer, label) {
             const mediaElement = viewElement.getChild(0);
             const altText = mediaElement.getAttribute('alt');
 
-            return altText ? `${ altText } ${ label }` : label;
+            return altText ? `${altText} ${label}` : label;
         }
     });
 }

@@ -1,7 +1,7 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import MediaStyleCommand from './mediastylecommand';
 import MediaEditing from '../media/mediaediting';
-import {viewToModelStyleAttribute, modelToViewStyleAttribute} from './converters';
+import MediaStyleCommand from './mediastylecommand';
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import {modelToViewStyleAttribute, viewToModelStyleAttribute} from './converters';
 import {normalizeMediaStyles} from './utils';
 
 export default class MediaStyleEditing extends Plugin {

@@ -1,19 +1,9 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-
-import {
-    viewFigureToModel,
-    modelToViewAttributeConverter,
-    srcsetAttributeConverter
-} from './converters';
-
-import {toMediaWidget} from './utils';
-import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
-import {
-    upcastElementToElement,
-    upcastAttributeToAttribute
-} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
-
 import ViewPosition from '@ckeditor/ckeditor5-engine/src/view/position';
+import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
+import {modelToViewAttributeConverter, viewFigureToModel} from './converters';
+import {toMediaWidget} from './utils';
+import {upcastAttributeToAttribute, upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
 export default class MediaEditing extends Plugin {
     init() {
@@ -27,7 +17,7 @@ export default class MediaEditing extends Plugin {
             isObject: true,
             isBlock: true,
             allowWhere: '$block',
-            allowAttributes: ['alt', 'src', 'srcset']
+            allowAttributes: ['alt', 'src']
         });
 
         conversion.for('dataDowncast').add(downcastElementToElement({
@@ -42,8 +32,7 @@ export default class MediaEditing extends Plugin {
 
         conversion.for('downcast')
             .add(modelToViewAttributeConverter('src'))
-            .add(modelToViewAttributeConverter('alt'))
-            .add(srcsetAttributeConverter());
+            .add(modelToViewAttributeConverter('alt'));
 
         conversion.for('upcast')
             .add(upcastElementToElement({
@@ -61,26 +50,6 @@ export default class MediaEditing extends Plugin {
                     key: 'alt'
                 },
                 model: 'alt'
-            }))
-            .add(upcastAttributeToAttribute({
-                view: {
-                    name: 'img',
-                    key: 'srcset'
-                },
-                model: {
-                    key: 'srcset',
-                    value: viewMedia => {
-                        const value = {
-                            data: viewMedia.getAttribute('srcset')
-                        };
-
-                        if (viewMedia.hasAttribute('width')) {
-                            value.width = viewMedia.getAttribute('width');
-                        }
-
-                        return value;
-                    }
-                }
             }))
             .add(viewFigureToModel());
     }

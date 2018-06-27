@@ -1,8 +1,7 @@
-import log from '@ckeditor/ckeditor5-utils/src/log';
-
 import centerIcon from '@ckeditor/ckeditor5-core/theme/icons/object-center.svg';
 import fullWidthIcon from '@ckeditor/ckeditor5-core/theme/icons/object-full-width.svg';
 import leftIcon from '@ckeditor/ckeditor5-core/theme/icons/object-left.svg';
+import log from '@ckeditor/ckeditor5-utils/src/log';
 import rightIcon from '@ckeditor/ckeditor5-core/theme/icons/object-right.svg';
 
 const defaultStyles = {
