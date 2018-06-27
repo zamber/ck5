@@ -26,10 +26,10 @@ export default class MediaBrowserUI extends Plugin {
                     win.addEventListener('load', () => {
                         win.document.querySelectorAll('a[href]').forEach(a => {
                             a.addEventListener('click', ev => {
-                                const mediaElement = writer.createElement('media', {src: a.getAttribute('href')});
+                                const element = writer.createElement('media', {src: a.getAttribute('href')});
 
                                 ev.preventDefault();
-                                editor.model.insertContent(mediaElement, editor.model.document.selection);
+                                editor.model.insertContent(element, editor.model.document.selection);
                                 win.close();
                             });
                         });
