@@ -1,31 +1,31 @@
 import ModelElement from '@ckeditor/ckeditor5-engine/src/model/element';
 import {isWidget, toWidget} from '@ckeditor/ckeditor5-widget/src/utils';
 
-const mediaSymbol = Symbol('isMedia');
+const symbol = Symbol('isMedia');
 
-export function toMediaWidget(viewElement, writer, label) {
-    writer.setCustomProperty(mediaSymbol, true, viewElement);
+export function toMediaWidget(element, writer, label) {
+    writer.setCustomProperty(symbol, true, element);
 
-    return toWidget(viewElement, writer, {
+    return toWidget(element, writer, {
         label: function () {
-            const mediaElement = viewElement.getChild(0);
-            const altText = mediaElement.getAttribute('alt');
+            const media = element.getChild(0);
+            const altText = media.getAttribute('alt');
 
             return altText ? `${altText} ${label}` : label;
         }
     });
 }
 
-export function isMediaWidget(viewElement) {
-    return !!viewElement.getCustomProperty(mediaSymbol) && isWidget(viewElement);
+export function isMediaWidget(element) {
+    return !!element.getCustomProperty(symbol) && isWidget(element);
 }
 
-export function isMediaWidgetSelected(selection) {
-    const viewElement = selection.getSelectedElement();
+export function isMediaWidgetSelected(sel) {
+    const element = sel.getSelectedElement();
 
-    return !!viewElement && isMediaWidget(viewElement);
+    return !!element && isMediaWidget(element);
 }
 
-export function isMedia(modelElement) {
-    return modelElement instanceof ModelElement && modelElement.name === 'media';
+export function isMedia(element) {
+    return element instanceof ModelElement && element.name === 'media';
 }
