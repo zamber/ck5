@@ -20,7 +20,6 @@ import MediaPlugin from '../src/media';
 import MediacaptionPlugin from '../src/mediacaption';
 import MediastylePlugin from '../src/mediastyle';
 import MediatoolbarPlugin from '../src/mediatoolbar';
-import MediauploadPlugin from '../src/mediaupload';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -41,8 +40,7 @@ ClassicEditor.build = {
         MediaPlugin,
         MediacaptionPlugin,
         MediastylePlugin,
-        MediatoolbarPlugin,
-        MediauploadPlugin
+        MediatoolbarPlugin
     ],
     config: {
         language: 'de',
@@ -58,7 +56,6 @@ ClassicEditor.build = {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
-                'mediaUpload',
                 'insertTable'
             ]
         },

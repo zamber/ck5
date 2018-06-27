@@ -19,8 +19,7 @@ module.exports = {
         '../src/media',
         '../src/mediacaption',
         '../src/mediastyle',
-        '../src/mediatoolbar',
-        '../src/mediaupload'
+        '../src/mediatoolbar'
     ],
     config: {
         language: 'de',
@@ -36,7 +35,6 @@ module.exports = {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
-                'mediaUpload',
                 'insertTable'
             ]
         },
