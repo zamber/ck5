@@ -9,21 +9,21 @@ export default class DetailsUI extends Plugin {
 
         editor.ui.componentFactory.add('details', locale => {
             const command = editor.commands.get('details');
-            const buttonView = new ButtonView(locale);
+            const view = new ButtonView(locale);
 
-            buttonView.set({
+            view.set({
                 label: t('Details'),
                 icon: icon,
                 tooltip: true
             });
 
             // Bind button model to command.
-            buttonView.bind('isOn', 'isEnabled').to(command, 'value', 'isEnabled');
+            view.bind('isOn', 'isEnabled').to(command, 'value', 'isEnabled');
 
             // Execute command.
-            this.listenTo(buttonView, 'execute', () => editor.execute('details'));
+            this.listenTo(view, 'execute', () => editor.execute('details'));
 
-            return buttonView;
+            return view;
         });
     }
 }
