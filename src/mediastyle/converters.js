@@ -6,25 +6,22 @@ export function modelToViewStyleAttribute(styles) {
             return;
         }
 
-        // Check if there is class name associated with given value.
         const newStyle = getStyleByName(data.attributeNewValue, styles);
         const oldStyle = getStyleByName(data.attributeOldValue, styles);
-
-        const viewElement = conversionApi.mapper.toViewElement(data.item);
-        const viewWriter = conversionApi.writer;
+        const element = conversionApi.mapper.toViewElement(data.item);
+        const writer = conversionApi.writer;
 
         if (oldStyle) {
-            viewWriter.removeClass(oldStyle.className, viewElement);
+            writer.removeClass(oldStyle.className, element);
         }
 
         if (newStyle) {
-            viewWriter.addClass(newStyle.className, viewElement);
+            writer.addClass(newStyle.className, element);
         }
     };
 }
 
 export function viewToModelStyleAttribute(styles) {
-    // Convert only non–default styles.
     const filteredStyles = styles.filter(style => !style.isDefault);
 
     return (evt, data, conversionApi) => {
@@ -35,16 +32,12 @@ export function viewToModelStyleAttribute(styles) {
         const viewFigureElement = data.viewItem;
         const modelMediaElement = first(data.modelRange.getItems());
 
-        // Check if `mediaStyle` attribute is allowed for current element.
         if (!conversionApi.schema.checkAttribute(modelMediaElement, 'mediaStyle')) {
             return;
         }
 
-        // Convert style one by one.
         for (const style of filteredStyles) {
-            // Try to consume class corresponding with style.
             if (conversionApi.consumable.consume(viewFigureElement, {classes: style.className})) {
-                // And convert this style to model attribute.
                 conversionApi.writer.setAttribute('mediaStyle', style.name, modelMediaElement);
             }
         }

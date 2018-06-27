@@ -13,41 +13,29 @@ export default class MediaCaptionEditing extends Plugin {
         const editing = editor.editing;
         const t = editor.t;
 
-        // Schema configuration.
         schema.register('caption', {
             allowIn: 'media',
             allowContentOf: '$block',
             isLimit: true
         });
 
-        // Add caption element to each media inserted without it.
-        editor.model.document.registerPostFixer(writer => this._insertMissingModelCaptionElement(writer));
-
-        // View to model converter for the data pipeline.
+        editor.model.document.registerPostFixer(writer => this._insertMissingCaption(writer));
         editor.conversion.for('upcast').add(upcastElementToElement({
             view: matchMediaCaption,
             model: 'caption'
         }));
 
-        // Model to view converter for the data pipeline.
         const createCaptionForData = writer => writer.createContainerElement('figcaption');
         data.downcastDispatcher.on('insert:caption', captionModelToView(createCaptionForData, false));
 
-        // Model to view converter for the editing pipeline.
         const createCaptionForEditing = captionElementCreator(view, t('Enter media caption'));
         editing.downcastDispatcher.on('insert:caption', captionModelToView(createCaptionForEditing));
-
-        // Always show caption in view when something is inserted in model.
         editing.downcastDispatcher.on(
             'insert',
             this._fixCaptionVisibility(data => data.item),
             {priority: 'high'}
         );
-
-        // Hide caption when everything is removed from it.
         editing.downcastDispatcher.on('remove', this._fixCaptionVisibility(data => data.position.parent), {priority: 'high'});
-
-        // Update caption visibility on view in post fixer.
         view.document.registerPostFixer(writer => this._updateCaptionVisibility(writer));
     }
 
@@ -55,8 +43,6 @@ export default class MediaCaptionEditing extends Plugin {
         const mapper = this.editor.editing.mapper;
         const lastCaption = this._lastSelectedCaption;
         let viewCaption;
-
-        // If whole media is selected.
         const modelSelection = this.editor.model.document.selection;
         const selectedElement = modelSelection.getSelectedElement();
 
@@ -65,7 +51,6 @@ export default class MediaCaptionEditing extends Plugin {
             viewCaption = mapper.toViewElement(modelCaption);
         }
 
-        // If selection is placed inside caption.
         const position = modelSelection.getFirstPosition();
         const modelCaption = getParentCaption(position.parent);
 
@@ -73,34 +58,30 @@ export default class MediaCaptionEditing extends Plugin {
             viewCaption = mapper.toViewElement(modelCaption);
         }
 
-        // Is currently any caption selected?
-        if (viewCaption) {
-            // Was any caption selected before?
-            if (lastCaption) {
-                // Same caption as before?
-                if (lastCaption === viewCaption) {
-                    return showCaption(viewCaption, viewWriter);
-                } else {
-                    hideCaptionIfEmpty(lastCaption, viewWriter);
-                    this._lastSelectedCaption = viewCaption;
-
-                    return showCaption(viewCaption, viewWriter);
-                }
-            } else {
-                this._lastSelectedCaption = viewCaption;
-                return showCaption(viewCaption, viewWriter);
-            }
-        } else {
-            // Was any caption selected before?
-            if (lastCaption) {
-                const viewModified = hideCaptionIfEmpty(lastCaption, viewWriter);
-                this._lastSelectedCaption = null;
-
-                return viewModified;
-            } else {
-                return false;
-            }
+        if (viewCaption && lastCaption && lastCaption === viewCaption) {
+            return showCaption(viewCaption, viewWriter);
         }
+
+        if (viewCaption && lastCaption) {
+            hideCaptionIfEmpty(lastCaption, viewWriter);
+            this._lastSelectedCaption = viewCaption;
+
+            return showCaption(viewCaption, viewWriter);
+        }
+
+        if (viewCaption) {
+            this._lastSelectedCaption = viewCaption;
+            return showCaption(viewCaption, viewWriter);
+        }
+
+        if (lastCaption) {
+            const viewModified = hideCaptionIfEmpty(lastCaption, viewWriter);
+            this._lastSelectedCaption = null;
+
+            return viewModified;
+        }
+
+        return false;
     }
 
     _fixCaptionVisibility(nodeFinder) {
@@ -124,7 +105,7 @@ export default class MediaCaptionEditing extends Plugin {
         };
     }
 
-    _insertMissingModelCaptionElement(writer) {
+    _insertMissingCaption(writer) {
         const model = this.editor.model;
         const changes = model.document.differ.getChanges();
 
@@ -148,7 +129,6 @@ function captionModelToView(elementCreator, hide = true) {
     return (evt, data, conversionApi) => {
         const captionElement = data.item;
 
-        // Return if element shouldn't be present when empty.
         if (!captionElement.childCount && !hide) {
             return;
         }
@@ -162,7 +142,6 @@ function captionModelToView(elementCreator, hide = true) {
             const viewCaption = elementCreator(conversionApi.writer);
             const viewWriter = conversionApi.writer;
 
-            // Hide if empty.
             if (!captionElement.childCount) {
                 viewWriter.addClass('ck-hidden', viewCaption);
             }

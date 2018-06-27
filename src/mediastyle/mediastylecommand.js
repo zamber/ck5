@@ -34,15 +34,14 @@ export default class MediaStyleCommand extends Command {
 
     execute(options) {
         const styleName = options.value;
-
         const model = this.editor.model;
-        const mediaElement = model.document.selection.getSelectedElement();
+        const element = model.document.selection.getSelectedElement();
 
         model.change(writer => {
             if (this.styles[styleName].isDefault) {
-                writer.removeAttribute('mediaStyle', mediaElement);
+                writer.removeAttribute('mediaStyle', element);
             } else {
-                writer.setAttribute('mediaStyle', styleName, mediaElement);
+                writer.setAttribute('mediaStyle', styleName, element);
             }
         });
     }

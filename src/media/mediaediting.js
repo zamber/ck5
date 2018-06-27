@@ -12,7 +12,6 @@ export default class MediaEditing extends Plugin {
         const t = editor.t;
         const conversion = editor.conversion;
 
-        // Configure schema.
         schema.register('media', {
             isObject: true,
             isBlock: true,
@@ -24,16 +23,13 @@ export default class MediaEditing extends Plugin {
             model: 'media',
             view: (modelElement, viewWriter) => createMediaViewElement(viewWriter)
         }));
-
         conversion.for('editingDowncast').add(downcastElementToElement({
             model: 'media',
             view: (modelElement, viewWriter) => toMediaWidget(createMediaViewElement(viewWriter), viewWriter, t('media widget'))
         }));
-
         conversion.for('downcast')
             .add(modelToViewAttributeConverter('src'))
             .add(modelToViewAttributeConverter('alt'));
-
         conversion.for('upcast')
             .add(upcastElementToElement({
                 view: {
