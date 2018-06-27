@@ -84,6 +84,7 @@ ClassicEditor.build = {
             ]
         },
         media: {
+            browser: 'browser.html',
             toolbar: [
                 'mediaStyle:alignLeft',
                 'mediaStyle:full',

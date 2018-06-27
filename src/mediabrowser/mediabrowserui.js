@@ -17,8 +17,14 @@ export default class MediaBrowserUI extends Plugin {
             });
             view.on('execute', () => {
                 editor.model.change(writer => {
+                    const browser = editor.config.get('media.browser');
+
+                    if (!browser || !browser.length) {
+                        return;
+                    }
+
                     const win = window.open(
-                        'browser.html',
+                        browser,
                         'browser',
                         'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'
                     );

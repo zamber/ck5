@@ -48,6 +48,7 @@ module.exports = {
             ]
         },
         media: {
+            browser: 'browser.html',
             toolbar: ['mediaStyle:alignLeft', 'mediaStyle:full', 'mediaStyle:alignRight', '|', 'mediaTextAlternative'],
             styles: ['full', 'alignLeft', 'alignRight']
         },
