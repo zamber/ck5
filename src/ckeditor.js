@@ -17,92 +17,93 @@ import BlockquotePlugin from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import TablePlugin from '@ckeditor/ckeditor5-table/src/table';
 import TabletoolbarPlugin from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import MediaPlugin from '@akilli/ckeditor5-media/src/media';
+import MediabrowserPlugin from '@akilli/ckeditor5-media/src/mediabrowser';
 import MediacaptionPlugin from '@akilli/ckeditor5-media/src/mediacaption';
 import MediastylePlugin from '@akilli/ckeditor5-media/src/mediastyle';
 import MediatoolbarPlugin from '@akilli/ckeditor5-media/src/mediatoolbar';
-import MediauploadPlugin from '@akilli/ckeditor5-media/src/mediaupload';
 
 export default class InlineEditor extends InlineEditorBase {}
 
 InlineEditor.build = {
-    plugins: [
-        EssentialsPlugin,
-        AutoformatPlugin,
-        HeadingPlugin,
-        ParagraphPlugin,
-        BoldPlugin,
-        ItalicPlugin,
-        UnderlinePlugin,
-        LinkPlugin,
-        ListPlugin,
-        BlockquotePlugin,
-        TablePlugin,
-        TabletoolbarPlugin,
-        MediaPlugin,
-        MediacaptionPlugin,
-        MediastylePlugin,
-        MediatoolbarPlugin,
-        MediauploadPlugin
-    ],
-    config: {
-        language: 'de',
-        toolbar: {
-            items: [
-                'undo',
-                'redo',
-                'heading',
-                'bold',
-                'italic',
-                'underline',
-                'link',
-                'bulletedList',
-                'numberedList',
-                'blockQuote',
-                'mediaUpload',
-                'insertTable'
-            ]
-        },
-        heading: {
-            options: [
-                {
-                    model: 'paragraph',
-                    title: 'Paragraph',
-                    'class': 'ck-heading_paragraph'
-                },
-                {
-                    model: 'heading1',
-                    view: 'h2',
-                    title: 'Heading 1',
-                    'class': 'ck-heading_heading1'
-                },
-                {
-                    model: 'heading2',
-                    view: 'h3',
-                    title: 'Heading 2',
-                    'class': 'ck-heading_heading2'
-                }
-            ]
-        },
-        media: {
-            toolbar: [
-                'mediaStyle:alignLeft',
-                'mediaStyle:full',
-                'mediaStyle:alignRight',
-                '|',
-                'mediaTextAlternative'
-            ],
-            styles: [
-                'full',
-                'alignLeft',
-                'alignRight'
-            ]
-        },
-        table: {
-            toolbar: [
-                'tableColumn',
-                'tableRow',
-                'mergeTableCells'
-            ]
-        }
-    }
+	plugins: [
+		EssentialsPlugin,
+		AutoformatPlugin,
+		HeadingPlugin,
+		ParagraphPlugin,
+		BoldPlugin,
+		ItalicPlugin,
+		UnderlinePlugin,
+		LinkPlugin,
+		ListPlugin,
+		BlockquotePlugin,
+		TablePlugin,
+		TabletoolbarPlugin,
+		MediaPlugin,
+		MediabrowserPlugin,
+		MediacaptionPlugin,
+		MediastylePlugin,
+		MediatoolbarPlugin
+	],
+	config: {
+		language: 'de',
+		toolbar: {
+			items: [
+				'undo',
+				'redo',
+				'heading',
+				'bold',
+				'italic',
+				'underline',
+				'link',
+				'bulletedList',
+				'numberedList',
+				'blockQuote',
+				'mediaBrowser',
+				'insertTable'
+			]
+		},
+		heading: {
+			options: [
+				{
+					model: 'paragraph',
+					title: 'Paragraph',
+					'class': 'ck-heading_paragraph'
+				},
+				{
+					model: 'heading1',
+					view: 'h2',
+					title: 'Heading 1',
+					'class': 'ck-heading_heading1'
+				},
+				{
+					model: 'heading2',
+					view: 'h3',
+					title: 'Heading 2',
+					'class': 'ck-heading_heading2'
+				}
+			]
+		},
+		media: {
+			browser: 'browser.html',
+			toolbar: [
+				'mediaStyle:alignLeft',
+				'mediaStyle:full',
+				'mediaStyle:alignRight',
+				'|',
+				'mediaTextAlternative'
+			],
+			styles: [
+				'full',
+				'alignLeft',
+				'alignRight'
+			]
+		},
+		table: {
+			toolbar: [
+				'tableColumn',
+				'tableRow',
+				'mergeTableCells'
+			]
+		}
+	}
 };

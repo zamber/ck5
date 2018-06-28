@@ -17,10 +17,10 @@ module.exports = {
         '@ckeditor/ckeditor5-table/src/table',
         '@ckeditor/ckeditor5-table/src/tabletoolbar',
         '@akilli/ckeditor5-media/src/media',
+        '@akilli/ckeditor5-media/src/mediabrowser',
         '@akilli/ckeditor5-media/src/mediacaption',
         '@akilli/ckeditor5-media/src/mediastyle',
-        '@akilli/ckeditor5-media/src/mediatoolbar',
-        '@akilli/ckeditor5-media/src/mediaupload'
+        '@akilli/ckeditor5-media/src/mediatoolbar'
     ],
     config: {
         language: 'de',
@@ -36,7 +36,7 @@ module.exports = {
                 'bulletedList',
                 'numberedList',
                 'blockQuote',
-                'mediaUpload',
+                'mediaBrowser',
                 'insertTable'
             ]
         },
@@ -48,6 +48,7 @@ module.exports = {
             ]
         },
         media: {
+            browser: 'browser.html',
             toolbar: ['mediaStyle:alignLeft', 'mediaStyle:full', 'mediaStyle:alignRight', '|', 'mediaTextAlternative'],
             styles: ['full', 'alignLeft', 'alignRight']
         },
