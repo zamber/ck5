@@ -29,17 +29,11 @@ export default class MediaBrowserUI extends Plugin {
                         'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'
                     );
 
-                    win.addEventListener('load', () => {
-                        win.document.querySelectorAll('a[href]').forEach(a => {
-                            a.addEventListener('click', ev => {
-                                const element = writer.createElement('media', {src: a.getAttribute('href')});
-
-                                ev.preventDefault();
-                                editor.model.insertContent(element, editor.model.document.selection);
-                                win.close();
-                            });
-                        });
-                    });
+                    window.addEventListener('message', ev => {
+                        if (ev.origin === win.origin && ev.data.id === 'ckMediaBrowser' && !!ev.data.src) {
+                            editor.model.insertContent(writer.createElement('media', {src: ev.data.src}), editor.model.document.selection);
+                        }
+                    }, false);
                 });
             });
 
