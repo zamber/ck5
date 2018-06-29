@@ -21,66 +21,66 @@ import DetailsPlugin from '../src/details';
 export default class ClassicEditor extends ClassicEditorBase {}
 
 ClassicEditor.build = {
-    plugins: [
-        EssentialsPlugin,
-        AutoformatPlugin,
-        HeadingPlugin,
-        ParagraphPlugin,
-        BoldPlugin,
-        ItalicPlugin,
-        UnderlinePlugin,
-        LinkPlugin,
-        ListPlugin,
-        BlockquotePlugin,
-        TablePlugin,
-        TabletoolbarPlugin,
-        DetailsPlugin
-    ],
-    config: {
-        language: 'de',
-        toolbar: {
-            items: [
-                'undo',
-                'redo',
-                'heading',
-                'bold',
-                'italic',
-                'underline',
-                'link',
-                'bulletedList',
-                'numberedList',
-                'blockQuote',
-                'details',
-                'insertTable'
-            ]
-        },
-        heading: {
-            options: [
-                {
-                    model: 'paragraph',
-                    title: 'Paragraph',
-                    'class': 'ck-heading_paragraph'
-                },
-                {
-                    model: 'heading1',
-                    view: 'h2',
-                    title: 'Heading 1',
-                    'class': 'ck-heading_heading1'
-                },
-                {
-                    model: 'heading2',
-                    view: 'h3',
-                    title: 'Heading 2',
-                    'class': 'ck-heading_heading2'
-                }
-            ]
-        },
-        table: {
-            toolbar: [
-                'tableColumn',
-                'tableRow',
-                'mergeTableCells'
-            ]
-        }
-    }
+	plugins: [
+		EssentialsPlugin,
+		AutoformatPlugin,
+		HeadingPlugin,
+		ParagraphPlugin,
+		BoldPlugin,
+		ItalicPlugin,
+		UnderlinePlugin,
+		LinkPlugin,
+		ListPlugin,
+		BlockquotePlugin,
+		TablePlugin,
+		TabletoolbarPlugin,
+		DetailsPlugin
+	],
+	config: {
+		language: 'de',
+		toolbar: {
+			items: [
+				'undo',
+				'redo',
+				'heading',
+				'bold',
+				'italic',
+				'underline',
+				'link',
+				'bulletedList',
+				'numberedList',
+				'blockQuote',
+				'details',
+				'insertTable'
+			]
+		},
+		heading: {
+			options: [
+				{
+					model: 'paragraph',
+					title: 'Paragraph',
+					'class': 'ck-heading_paragraph'
+				},
+				{
+					model: 'heading1',
+					view: 'h2',
+					title: 'Heading 1',
+					'class': 'ck-heading_heading1'
+				},
+				{
+					model: 'heading2',
+					view: 'h3',
+					title: 'Heading 2',
+					'class': 'ck-heading_heading2'
+				}
+			]
+		},
+		table: {
+			toolbar: [
+				'tableColumn',
+				'tableRow',
+				'mergeTableCells'
+			]
+		}
+	}
 };
