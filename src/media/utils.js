@@ -1,3 +1,4 @@
+import BalloonPanelView from '@ckeditor/ckeditor5-ui/src/panel/balloon/balloonpanelview';
 import ModelElement from '@ckeditor/ckeditor5-engine/src/model/element';
 import {isWidget, toWidget} from '@ckeditor/ckeditor5-widget/src/utils';
 
@@ -28,4 +29,29 @@ export function isMediaWidgetSelected(sel) {
 
 export function isMedia(element) {
     return element instanceof ModelElement && element.name === 'media';
+}
+
+export function getBalloonPositionData(editor) {
+    const editingView = editor.editing.view;
+    const defaultPositions = BalloonPanelView.defaultPositions;
+
+    return {
+        target: editingView.domConverter.viewToDom(editingView.document.selection.getSelectedElement()),
+        positions: [
+            defaultPositions.northArrowSouth,
+            defaultPositions.northArrowSouthWest,
+            defaultPositions.northArrowSouthEast,
+            defaultPositions.southArrowNorth,
+            defaultPositions.southArrowNorthWest,
+            defaultPositions.southArrowNorthEast
+        ]
+    };
+}
+
+export function repositionContextualBalloon(editor) {
+    const balloon = editor.plugins.get('ContextualBalloon');
+
+    if (isMediaWidgetSelected(editor.editing.view.document.selection)) {
+        balloon.updatePosition(getBalloonPositionData(editor));
+    }
 }

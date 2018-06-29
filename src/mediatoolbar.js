@@ -1,8 +1,7 @@
 import ContextualBalloon from '@ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ToolbarView from '@ckeditor/ckeditor5-ui/src/toolbar/toolbarview';
-import {isMediaWidgetSelected} from './media/utils';
-import {getBalloonPositionData, repositionContextualBalloon} from './media/ui/utils';
+import {getBalloonPositionData, isMediaWidgetSelected, repositionContextualBalloon} from './media/utils';
 
 const balloonClassName = 'ck-toolbar-container';
 

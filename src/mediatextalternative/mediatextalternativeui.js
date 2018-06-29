@@ -1,11 +1,10 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
-import clickOutsideHandler from '@ckeditor/ckeditor5-ui/src/bindings/clickoutsidehandler';
-import TextAlternativeFormView from './ui/textalternativeformview';
 import ContextualBalloon from '@ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon';
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import TextAlternativeFormView from './ui/textalternativeformview';
+import clickOutsideHandler from '@ckeditor/ckeditor5-ui/src/bindings/clickoutsidehandler';
+import {getBalloonPositionData, isMediaWidgetSelected, repositionContextualBalloon} from '../media/utils';
 import textAlternativeIcon from '@ckeditor/ckeditor5-core/theme/icons/low-vision.svg';
-import {repositionContextualBalloon, getBalloonPositionData} from '../media/ui/utils';
-import {isMediaWidgetSelected} from '../media/utils';
 
 export default class MediaTextAlternativeUI extends Plugin {
     static get requires() {
