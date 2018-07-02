@@ -20,6 +20,13 @@ export default class DetailsCommand extends Command {
 
         model.change(writer => {
             const details = writer.createElement('details');
+            const summary = writer.createElement('summary');
+            const paragraph = writer.createElement('paragraph');
+
+            writer.append(writer.createText('Details'), summary);
+            writer.append(summary, details);
+            writer.append(writer.createText('Content'), paragraph);
+            writer.append(paragraph, details);
             writer.insert(details, insertPosition);
         });
     }

@@ -5,6 +5,7 @@ export default class DetailsEditing extends Plugin {
     init() {
         const editor = this.editor;
         const schema = editor.model.schema;
+        const conversion = editor.conversion;
 
         editor.commands.add('details', new DetailsCommand(editor));
         schema.register('details', {
@@ -14,7 +15,12 @@ export default class DetailsEditing extends Plugin {
             isBlock: true,
             isObject: true
         });
-        editor.conversion.elementToElement({model: 'details', view: 'details'});
+        schema.register('summary', {
+            allowIn: 'details',
+            isBlock: true
+        });
+        conversion.elementToElement({model: 'details', view: 'details'});
+        conversion.elementToElement({model: 'summary', view: 'summary'});
     }
 
     afterInit() {
