@@ -1,9 +1,13 @@
 import DetailsCommand from './detailscommand';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
+import {toDetailsWidget} from './utils';
+import {upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
 export default class DetailsEditing extends Plugin {
     init() {
         const editor = this.editor;
+        const t = editor.t;
         const schema = editor.model.schema;
         const conversion = editor.conversion;
 
@@ -19,8 +23,22 @@ export default class DetailsEditing extends Plugin {
             allowIn: 'details',
             isBlock: true
         });
-        conversion.elementToElement({model: 'details', view: 'details'});
-        conversion.elementToElement({model: 'summary', view: 'summary'});
+        conversion.for('upcast').add(upcastElementToElement({
+            model: 'details',
+            view: 'details'
+        }));
+        conversion.for('dataDowncast').add(downcastElementToElement({
+            model: 'details',
+            view: 'details'
+        }));
+        conversion.for('editingDowncast').add(downcastElementToElement({
+            model: 'details',
+            view: (modelElement, viewWriter) => toDetailsWidget(viewWriter.createContainerElement('details'), viewWriter, t('details widget'))
+        }));
+        conversion.elementToElement({
+            model: 'summary',
+            view: 'summary'
+        });
     }
 
     afterInit() {
