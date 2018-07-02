@@ -36,6 +36,10 @@ msgctxt "Label for the media text alternative input."
 msgid "Text alternative"
 msgstr "Text alternative"
 
+msgctxt "Placeholder text for media caption displayed when caption is empty."
+msgid "Enter media caption"
+msgstr "Enter media caption"
+
 msgctxt "Label for the insert media toolbar button."
 msgid "Insert media"
 msgstr "Insert media"
