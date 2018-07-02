@@ -25,15 +25,17 @@ export default class DetailsEditing extends Plugin {
 
     afterInit() {
         const editor = this.editor;
-        const command = editor.commands.get('details');
+        const model = editor.model;
 
-        this.listenTo(this.editor.editing.view.document, 'enter', (evt, data) => {
-            const doc = this.editor.model.document;
+        this.listenTo(editor.editing.view.document, 'enter', (evt, data) => {
+            const doc = editor.model.document;
             const positionParent = doc.selection.getLastPosition().parent;
 
-            if (doc.selection.isCollapsed && positionParent.isEmpty && command.value) {
-                this.editor.execute('details');
-                this.editor.editing.view.scrollToTheSelection();
+            if (positionParent.parent && positionParent.parent.name === 'details' && doc.selection.isCollapsed && positionParent.isEmpty) {
+                model.change(writer => {
+                    writer.insert(positionParent, positionParent.parent, 'after');
+                });
+                editor.editing.view.scrollToTheSelection();
 
                 data.preventDefault();
                 evt.stop();
