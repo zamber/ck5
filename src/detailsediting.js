@@ -1,7 +1,8 @@
 import DetailsCommand from './detailscommand';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import ViewPosition from '@ckeditor/ckeditor5-engine/src/view/position';
 import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
-import {toWidget} from '@ckeditor/ckeditor5-widget/src/utils';
+import {toWidget, toWidgetEditable} from '@ckeditor/ckeditor5-widget/src/utils';
 import {upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
 export default class DetailsEditing extends Plugin {
@@ -18,6 +19,10 @@ export default class DetailsEditing extends Plugin {
             isBlock: true,
             isObject: true
         });
+        schema.register('summary', {
+            allowIn: 'details',
+            isBlock: true
+        });
         conversion.for('upcast').add(upcastElementToElement({
             model: 'details',
             view: 'details'
@@ -28,12 +33,8 @@ export default class DetailsEditing extends Plugin {
         }));
         conversion.for('editingDowncast').add(downcastElementToElement({
             model: 'details',
-            view: (modelElement, viewWriter) => toWidget(viewWriter.createContainerElement('details'), viewWriter)
+            view: toDetailsEditingElement
         }));
-        schema.register('summary', {
-            allowIn: 'details',
-            isBlock: true
-        });
         conversion.elementToElement({
             model: 'summary',
             view: 'summary'
@@ -59,4 +60,21 @@ export default class DetailsEditing extends Plugin {
             }
         });
     }
+}
+
+function toDetailsEditingElement(model, writer) {
+    const details = writer.createContainerElement('details');
+    const p = writer.createEditableElement('p', {class: 'summary'});
+    const div = writer.createEditableElement('div', {class: 'content'});
+
+    for (let child of model.getChildren()) {
+        console.log(child);
+    }
+
+    writer.insert(ViewPosition.createAt(details), p);
+    toWidgetEditable(p, writer);
+    writer.insert(ViewPosition.createAfter(p), div);
+    toWidgetEditable(div, writer);
+
+    return toWidget(details, writer);
 }
