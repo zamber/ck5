@@ -1,3 +1,6 @@
+/**
+ * @module details/detailscommand
+ */
 import Command from '@ckeditor/ckeditor5-core/src/command';
 import Position from '@ckeditor/ckeditor5-engine/src/model/position';
 
@@ -45,6 +48,13 @@ export default class DetailsCommand extends Command {
     }
 }
 
+/**
+ * Returns valid parent to insert details
+ *
+ * @param {module:engine/model/position~Position} position
+ *
+ * @returns {module:engine/model/element~Element}
+ */
 function getInsertDetailsParent(position) {
     const parent = position.parent;
 

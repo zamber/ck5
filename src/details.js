@@ -1,3 +1,6 @@
+/**
+ * @module details/details
+ */
 import DetailsEditing from './detailsediting';
 import DetailsUI from './detailsui';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
