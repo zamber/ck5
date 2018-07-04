@@ -24,10 +24,10 @@ export default class MediaEditing extends Plugin {
         const conversion = editor.conversion;
 
         schema.register('media', {
-            isObject: true,
-            isBlock: true,
+            allowAttributes: ['alt', 'src'],
             allowWhere: '$block',
-            allowAttributes: ['alt', 'src']
+            isBlock: true,
+            isObject: true
         });
 
         conversion.for('dataDowncast').add(downcastElementToElement({
@@ -43,20 +43,20 @@ export default class MediaEditing extends Plugin {
             .add(modelToViewAttributeConverter('alt'));
         conversion.for('upcast')
             .add(upcastElementToElement({
+                model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src')}),
                 view: {
                     name: 'img',
                     attributes: {
                         src: true
                     }
-                },
-                model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src')})
+                }
             }))
             .add(upcastAttributeToAttribute({
+                model: 'alt',
                 view: {
                     name: 'img',
                     key: 'alt'
-                },
-                model: 'alt'
+                }
             }))
             .add(viewFigureToModel());
     }

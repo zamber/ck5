@@ -25,15 +25,15 @@ export default class MediaCaptionEditing extends Plugin {
         const t = editor.t;
 
         schema.register('caption', {
-            allowIn: 'media',
             allowContentOf: '$block',
+            allowIn: 'media',
             isLimit: true
         });
 
         editor.model.document.registerPostFixer(writer => this._insertMissingCaption(writer));
         editor.conversion.for('upcast').add(upcastElementToElement({
-            view: matchMediaCaption,
-            model: 'caption'
+            model: 'caption',
+            view: matchMediaCaption
         }));
 
         const createCaptionForData = writer => writer.createContainerElement('figcaption');
