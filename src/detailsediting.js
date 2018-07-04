@@ -99,6 +99,8 @@ export default class DetailsEditing extends Plugin {
 /**
  * Downcasts a given {@link module:engine/model/element~Element} to a details widget
  *
+ * @private
+ *
  * @param {module:engine/model/element~Element} modelElement
  * @param {module:engine/view/writer~Writer} viewWriter
  *
@@ -113,6 +115,8 @@ function detailsEditingDowncast(modelElement, viewWriter) {
 /**
  * Downcasts a given {@link module:engine/model/element~Element} to a details summary editable
  *
+ * @private
+ *
  * @param {module:engine/model/element~Element} modelElement
  * @param {module:engine/view/writer~Writer} viewWriter
  *
@@ -126,6 +130,8 @@ function detailsSummaryEditingDowncast(modelElement, viewWriter) {
 
 /**
  * Downcasts a given {@link module:engine/model/element~Element} to a details content editable
+ *
+ * @private
  *
  * @param {module:engine/model/element~Element} modelElement
  * @param {module:engine/view/writer~Writer} viewWriter

@@ -51,6 +51,8 @@ export default class DetailsCommand extends Command {
 /**
  * Returns valid parent to insert details
  *
+ * @private
+ *
  * @param {module:engine/model/position~Position} position
  *
  * @returns {module:engine/model/element~Element}
