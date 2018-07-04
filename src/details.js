@@ -2,6 +2,7 @@ import DetailsEditing from './detailsediting';
 import DetailsUI from './detailsui';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import Widget from '@ckeditor/ckeditor5-widget/src/widget';
+import '../theme/details.css';
 
 export default class Details extends Plugin {
     static get requires() {
