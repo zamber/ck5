@@ -30,6 +30,12 @@ export default class MediaTextAlternativeUI extends Plugin {
         this._createForm();
     }
 
+    /**
+     * Creates a button showing the balloon panel for changing the image text alternative and registers it in the editor
+     * {@link module:ui/componentfactory~ComponentFactory ComponentFactory}.
+     *
+     * @private
+     */
     _createButton() {
         const editor = this.editor;
         const t = editor.t;
@@ -52,6 +58,11 @@ export default class MediaTextAlternativeUI extends Plugin {
         });
     }
 
+    /**
+     * Creates the form view
+     *
+     * @private
+     */
     _createForm() {
         const editor = this.editor;
         const view = editor.editing.view;
@@ -59,10 +70,7 @@ export default class MediaTextAlternativeUI extends Plugin {
 
         this._balloon = this.editor.plugins.get('ContextualBalloon');
         this._form = new TextAlternativeFormView(editor.locale);
-
-        // Render the form so its #element is available for clickOutsideHandler.
         this._form.render();
-
         this.listenTo(this._form, 'submit', () => {
             editor.execute('mediaTextAlternative', {
                 newValue: this._form.labeledInput.inputView.element.value
@@ -70,18 +78,13 @@ export default class MediaTextAlternativeUI extends Plugin {
 
             this._hideForm(true);
         });
-
         this.listenTo(this._form, 'cancel', () => {
             this._hideForm(true);
         });
-
-        // Close the form on Esc key press.
         this._form.keystrokes.set('Esc', (data, cancel) => {
             this._hideForm(true);
             cancel();
         });
-
-        // Reposition the balloon or hide the form if an media widget is no longer selected.
         this.listenTo(view, 'render', () => {
             if (!isMediaWidgetSelected(viewDocument.selection)) {
                 this._hideForm(true);
@@ -89,8 +92,6 @@ export default class MediaTextAlternativeUI extends Plugin {
                 repositionContextualBalloon(editor);
             }
         });
-
-        // Close on click outside of balloon panel element.
         clickOutsideHandler({
             emitter: this._form,
             activator: () => this._isVisible,
@@ -99,6 +100,11 @@ export default class MediaTextAlternativeUI extends Plugin {
         });
     }
 
+    /**
+     * Shows the {@link #_form} in the {@link #_balloon}.
+     *
+     * @private
+     */
     _showForm() {
         if (this._isVisible) {
             return;
@@ -115,17 +121,19 @@ export default class MediaTextAlternativeUI extends Plugin {
             });
         }
 
-        // Make sure that each time the panel shows up, the field remains in sync with the value of
-        // the command. If the user typed in the input, then canceled the balloon (`labeledInput#value`
-        // stays unaltered) and re-opened it without changing the value of the command, they would see the
-        // old value instead of the actual value of the command.
-        // https://github.com/ckeditor/ckeditor5-image/issues/114
         labeledInput.inputView.element.value = command.value || '';
         labeledInput.value = labeledInput.inputView.element.value;
 
         this._form.labeledInput.select();
     }
 
+    /**
+     * Removes the {@link #_form} from the {@link #_balloon}.
+     *
+     * @private
+     *
+     * @param {Boolean} [focusEditable=false] Controls whether the editing view is focused afterwards.
+     */
     _hideForm(focusEditable) {
         if (!this._isVisible) {
             return;
@@ -138,6 +146,11 @@ export default class MediaTextAlternativeUI extends Plugin {
         }
     }
 
+    /**
+     * @private
+     *
+     * @returns {Boolean}
+     */
     get _isVisible() {
         return this._balloon.visibleView === this._form;
     }

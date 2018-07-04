@@ -1,5 +1,5 @@
 /**
- * @module media/mediatextalternative/mediatextalternative/textalternativeformview
+ * @module media/mediatextalternative/ui/textalternativeformview
  */
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import FocusCycler from '@ckeditor/ckeditor5-ui/src/focuscycler';
@@ -14,18 +14,78 @@ import checkIcon from '@ckeditor/ckeditor5-core/theme/icons/check.svg';
 import submitHandler from '@ckeditor/ckeditor5-ui/src/bindings/submithandler';
 import '../../../theme/textalternativeform.css';
 
+/**
+ * Media Text Alternative Form View
+ *
+ * @extends module:ui/view~View
+ */
 export default class TextAlternativeFormView extends View {
+    /**
+     * @inheritDoc
+     */
     constructor(locale) {
         super(locale);
 
         const t = this.locale.t;
+
+        /**
+         * Tracks information about the DOM focus in the form.
+         *
+         * @readonly
+         *
+         * @member {module:utils/focustracker~FocusTracker}
+         */
         this.focusTracker = new FocusTracker();
+
+        /**
+         * An instance of the {@link module:utils/keystrokehandler~KeystrokeHandler}.
+         *
+         * @readonly
+         *
+         * @member {module:utils/keystrokehandler~KeystrokeHandler}
+         */
         this.keystrokes = new KeystrokeHandler();
+
+        /**
+         * A textarea with a label.
+         *
+         * @member {module:ui/labeledinput/labeledinputview~LabeledInputView} #labeledTextarea
+         */
         this.labeledInput = this._createLabeledInputView();
+
+        /**
+         * A button used to submit the form.
+         *
+         * @member {module:ui/button/buttonview~ButtonView} #saveButtonView
+         */
         this.saveButtonView = this._createButton(t('Save'), checkIcon, 'ck-button-save');
         this.saveButtonView.type = 'submit';
+
+        /**
+         * A button used to cancel the form.
+         *
+         * @member {module:ui/button/buttonview~ButtonView} #cancelButtonView
+         */
         this.cancelButtonView = this._createButton(t('Cancel'), cancelIcon, 'ck-button-cancel', 'cancel');
+
+        /**
+         * A collection of views which can be focused in the form.
+         *
+         * @readonly
+         * @protected
+         *
+         * @member {module:ui/viewcollection~ViewCollection}
+         */
         this._focusables = new ViewCollection();
+
+        /**
+         * Helps cycling over {@link #_focusables} in the form.
+         *
+         * @readonly
+         * @protected
+         *
+         * @member {module:ui/focuscycler~FocusCycler}
+         */
         this._focusCycler = new FocusCycler({
             focusables: this._focusables,
             focusTracker: this.focusTracker,
@@ -53,6 +113,9 @@ export default class TextAlternativeFormView extends View {
         });
     }
 
+    /**
+     * @inheritDoc
+     */
     render() {
         super.render();
 
@@ -67,6 +130,18 @@ export default class TextAlternativeFormView extends View {
             });
     }
 
+    /**
+     * Creates the button view.
+     *
+     * @private
+     *
+     * @param {String} label
+     * @param {String} icon
+     * @param {String} className
+     * @param {String} eventName
+     *
+     * @returns {module:ui/button/buttonview~ButtonView}
+     */
     _createButton(label, icon, className, eventName) {
         const button = new ButtonView(this.locale);
 
@@ -89,6 +164,13 @@ export default class TextAlternativeFormView extends View {
         return button;
     }
 
+    /**
+     * Creates an input with a label.
+     *
+     * @private
+     *
+     * @returns {module:ui/labeledinput/labeledinputview~LabeledInputView}
+     */
     _createLabeledInputView() {
         const t = this.locale.t;
         const labeledInput = new LabeledInputView(this.locale, InputTextView);
