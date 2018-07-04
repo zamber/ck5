@@ -1,7 +1,15 @@
 import Command from '@ckeditor/ckeditor5-core/src/command';
 import Position from '@ckeditor/ckeditor5-engine/src/model/position';
 
+/**
+ * Details Command
+ *
+ * @extends module:core/command~Command
+ */
 export default class DetailsCommand extends Command {
+    /**
+     * @inheritDoc
+     */
     refresh() {
         const model = this.editor.model;
         const selection = model.document.selection;
@@ -11,6 +19,9 @@ export default class DetailsCommand extends Command {
         this.isEnabled = schema.checkChild(validParent, 'details');
     }
 
+    /**
+     * @inheritDoc
+     */
     execute() {
         const model = this.editor.model;
         const selection = model.document.selection;

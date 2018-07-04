@@ -4,7 +4,15 @@ import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversio
 import {toWidget, toWidgetEditable} from '@ckeditor/ckeditor5-widget/src/utils';
 import {upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
+/**
+ * Details Editing Plugin
+ *
+ * @extends module:core/plugin~Plugin
+ */
 export default class DetailsEditing extends Plugin {
+    /**
+     * @inheritDoc
+     */
     init() {
         const editor = this.editor;
         const schema = editor.model.schema;
@@ -61,6 +69,9 @@ export default class DetailsEditing extends Plugin {
         }));
     }
 
+    /**
+     * @inheritDoc
+     */
     afterInit() {
         const editor = this.editor;
         const model = editor.model;
