@@ -13,32 +13,25 @@ export default class DetailsEditing extends Plugin {
 
         editor.commands.add('details', new DetailsCommand(editor));
         schema.register('details', {
+            allowAttributes: ['summary'],
+            allowContentOf: '$root',
             allowIn: '$root',
             allowWhere: '$block',
-            allowContentOf: '$root',
             isBlock: true,
             isObject: true
         });
-        schema.register('summary', {
-            allowIn: 'details',
-            isBlock: true
-        });
         conversion.for('upcast').add(upcastElementToElement({
-            model: 'details',
+            model: detailsUpcast,
             view: 'details'
         }));
         conversion.for('dataDowncast').add(downcastElementToElement({
             model: 'details',
-            view: 'details'
+            view: detailsDataDowncast
         }));
         conversion.for('editingDowncast').add(downcastElementToElement({
             model: 'details',
-            view: toDetailsEditingElement
+            view: detailsEditingDowncast
         }));
-        conversion.elementToElement({
-            model: 'summary',
-            view: 'summary'
-        });
     }
 
     afterInit() {
@@ -62,19 +55,38 @@ export default class DetailsEditing extends Plugin {
     }
 }
 
-function toDetailsEditingElement(model, writer) {
-    const details = writer.createContainerElement('details');
-    const p = writer.createEditableElement('p', {class: 'summary'});
-    const div = writer.createEditableElement('div', {class: 'content'});
+function detailsUpcast(viewElement, modelWriter) {
+    const details = modelWriter.createElement('details');
 
-    for (let child of model.getChildren()) {
-        console.log(child);
-    }
+    console.log(viewElement);
 
-    writer.insert(ViewPosition.createAt(details), p);
-    toWidgetEditable(p, writer);
-    writer.insert(ViewPosition.createAfter(p), div);
-    toWidgetEditable(div, writer);
+    return details;
+}
 
-    return toWidget(details, writer);
+function detailsDataDowncast(modelElement, viewWriter) {
+    const details = viewWriter.createContainerElement('details');
+    const summary = viewWriter.createContainerElement('summary');
+    const summaryText = viewWriter.createText(modelElement.getAttribute('summary'));
+
+    viewWriter.insert(ViewPosition.createAt(details), summary);
+    viewWriter.insert(ViewPosition.createAt(summary), summaryText);
+
+    return details;
+}
+
+function detailsEditingDowncast(modelElement, viewWriter) {
+    const details = viewWriter.createContainerElement('details');
+    const summary = viewWriter.createContainerElement('summary');
+    const summaryText = viewWriter.createText(modelElement.getAttribute('summary'));
+    const content = viewWriter.createEditableElement('div', {class: 'content'});
+
+    console.log(modelElement);
+
+    viewWriter.insert(ViewPosition.createAt(details), summary);
+    toWidgetEditable(summary, viewWriter);
+    viewWriter.insert(ViewPosition.createAt(summary), summaryText);
+    viewWriter.insert(ViewPosition.createAfter(summary), content);
+    toWidgetEditable(content, viewWriter);
+
+    return toWidget(details, viewWriter);
 }

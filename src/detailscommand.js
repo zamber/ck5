@@ -19,13 +19,11 @@ export default class DetailsCommand extends Command {
         const insertPosition = isRoot ? Position.createAt(firstPosition) : Position.createAfter(firstPosition.parent);
 
         model.change(writer => {
-            const details = writer.createElement('details');
-            const summary = writer.createElement('summary');
+            const details = writer.createElement('details', {summary: 'Summary'});
             const paragraph = writer.createElement('paragraph');
+            const paragraphText = writer.createText('Content');
 
-            writer.append(writer.createText('Details'), summary);
-            writer.append(summary, details);
-            writer.append(writer.createText('Content'), paragraph);
+            writer.append(paragraphText, paragraph);
             writer.append(paragraph, details);
             writer.insert(details, insertPosition);
         });
