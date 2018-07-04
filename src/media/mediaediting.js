@@ -1,3 +1,6 @@
+/**
+ * @module media/media/mediaediting
+ */
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ViewPosition from '@ckeditor/ckeditor5-engine/src/view/position';
 import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
@@ -5,7 +8,15 @@ import {modelToViewAttributeConverter, viewFigureToModel} from './converters';
 import {toMediaWidget} from './utils';
 import {upcastAttributeToAttribute, upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
+/**
+ * Media Editing Plugin
+ *
+ * @extends module:core/plugin~Plugin
+ */
 export default class MediaEditing extends Plugin {
+    /**
+     * @inheritDoc
+     */
     init() {
         const editor = this.editor;
         const schema = editor.model.schema;
@@ -51,7 +62,16 @@ export default class MediaEditing extends Plugin {
     }
 }
 
-export function createMediaViewElement(viewWriter) {
+/**
+ * Creates a view element represeting the media.
+ *
+ * @private
+ *
+ * @param {module:engine/view/writer~Writer} viewWriter
+ *
+ * @returns {module:engine/view/containerelement~ContainerElement}
+ */
+function createMediaViewElement(viewWriter) {
     const img = viewWriter.createEmptyElement('img');
     const figure = viewWriter.createContainerElement('figure', {class: 'media'});
 

@@ -1,10 +1,21 @@
+/**
+ * @module media/mediacaption/mediacaptionediting
+ */
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ViewPosition from '@ckeditor/ckeditor5-engine/src/view/position';
 import {captionElementCreator, getCaptionFromMedia, matchMediaCaption} from './utils';
 import {isMedia} from '../media/utils';
 import {upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
+/**
+ * Media Caption Editing Plugin
+ *
+ * @extends module:core/plugin~Plugin
+ */
 export default class MediaCaptionEditing extends Plugin {
+    /**
+     * @inheritDoc
+     */
     init() {
         const editor = this.editor;
         const view = editor.editing.view;
@@ -39,6 +50,16 @@ export default class MediaCaptionEditing extends Plugin {
         view.document.registerPostFixer(writer => this._updateCaptionVisibility(writer));
     }
 
+    /**
+     * Updates the view before each rendering, making sure that empty captions are hidden and then visible when the
+     * media is selected.
+     *
+     * @private
+     *
+     * @param {module:engine/view/writer~Writer} viewWriter
+     *
+     * @returns {Boolean}
+     */
     _updateCaptionVisibility(viewWriter) {
         const mapper = this.editor.editing.mapper;
         const lastCaption = this._lastSelectedCaption;
@@ -84,6 +105,16 @@ export default class MediaCaptionEditing extends Plugin {
         return false;
     }
 
+    /**
+     * Returns a converter that fixes caption visibility during the model-to-view conversion.
+     * Checks if the changed node is placed inside the caption element and fixes its visibility in the view.
+     *
+     * @private
+     *
+     * @param {Function} nodeFinder
+     *
+     * @returns {Function}
+     */
     _fixCaptionVisibility(nodeFinder) {
         return (evt, data, conversionApi) => {
             const node = nodeFinder(data);
@@ -105,6 +136,16 @@ export default class MediaCaptionEditing extends Plugin {
         };
     }
 
+    /**
+     * Checks whether the data inserted to the model document has a media element that has no caption element inside it.
+     * If there is none, it adds it to the media element.
+     *
+     * @private
+     *
+     * @param {module:engine/model/writer~Writer} writer
+     *
+     * @returns {Boolean}
+     */
     _insertMissingCaption(writer) {
         const model = this.editor.model;
         const changes = model.document.differ.getChanges();
@@ -125,6 +166,16 @@ export default class MediaCaptionEditing extends Plugin {
     }
 }
 
+/**
+ * Creates a converter that converts media caption model element to view element.
+ *
+ * @private
+ *
+ * @param {Function} elementCreator
+ * @param {Boolean} hide
+ *
+ * @returns {Function}
+ */
 function captionModelToView(elementCreator, hide = true) {
     return (evt, data, conversionApi) => {
         const captionElement = data.item;
@@ -151,6 +202,16 @@ function captionModelToView(elementCreator, hide = true) {
     };
 }
 
+/**
+ * Inserts `viewCaption` at the end of `viewMedia` and binds it to `modelCaption`.
+ *
+ * @private
+ *
+ * @param {module:engine/view/containerelement~ContainerElement} viewCaption
+ * @param {module:engine/model/element~Element} modelCaption
+ * @param {module:engine/view/containerelement~ContainerElement} viewMedia
+ * @param {Object} conversionApi
+ */
 function insertViewCaptionAndBind(viewCaption, modelCaption, viewMedia, conversionApi) {
     const viewPosition = ViewPosition.createAt(viewMedia, 'end');
 
@@ -158,6 +219,15 @@ function insertViewCaptionAndBind(viewCaption, modelCaption, viewMedia, conversi
     conversionApi.mapper.bindElements(modelCaption, viewCaption);
 }
 
+/**
+ * Checks if the provided node or one of its ancestors is a caption element, and returns it.
+ *
+ * @private
+ *
+ * @param {module:engine/model/node~Node} node
+ *
+ * @returns {module:engine/model/element~Element|null}
+ */
 function getParentCaption(node) {
     const ancestors = node.getAncestors({includeSelf: true});
     const caption = ancestors.find(ancestor => ancestor.name === 'caption');
@@ -169,6 +239,16 @@ function getParentCaption(node) {
     return null;
 }
 
+/**
+ * Hides a given caption in the view if it is empty.
+ *
+ * @private
+ *
+ * @param {module:engine/view/containerelement~ContainerElement} caption
+ * @param {module:engine/view/writer~Writer} viewWriter
+ *
+ * @returns {Boolean}
+ */
 function hideCaptionIfEmpty(caption, viewWriter) {
     if (!caption.childCount && !caption.hasClass('ck-hidden')) {
         viewWriter.addClass('ck-hidden', caption);
@@ -178,6 +258,14 @@ function hideCaptionIfEmpty(caption, viewWriter) {
     return false;
 }
 
+/**
+ * Shows the caption.
+ *
+ * @param {module:engine/view/containerelement~ContainerElement} caption
+ * @param {module:engine/view/writer~Writer} viewWriter
+ *
+ * @returns {Boolean}
+ */
 function showCaption(caption, viewWriter) {
     if (caption.hasClass('ck-hidden')) {
         viewWriter.removeClass('ck-hidden', caption);

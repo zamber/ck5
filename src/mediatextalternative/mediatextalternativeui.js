@@ -1,3 +1,6 @@
+/**
+ * @module media/mediatextalternative/mediatextalternativeui
+ */
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import ContextualBalloon from '@ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
@@ -6,11 +9,22 @@ import clickOutsideHandler from '@ckeditor/ckeditor5-ui/src/bindings/clickoutsid
 import {getBalloonPositionData, isMediaWidgetSelected, repositionContextualBalloon} from '../media/utils';
 import textAlternativeIcon from '@ckeditor/ckeditor5-core/theme/icons/low-vision.svg';
 
+/**
+ * Media Text Alternative UI Plugin
+ *
+ * @extends module:core/plugin~Plugin
+ */
 export default class MediaTextAlternativeUI extends Plugin {
+    /**
+     * @inheritDoc
+     */
     static get requires() {
         return [ContextualBalloon];
     }
 
+    /**
+     * @inheritDoc
+     */
     init() {
         this._createButton();
         this._createForm();

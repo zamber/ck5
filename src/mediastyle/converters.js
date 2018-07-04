@@ -1,5 +1,15 @@
+/**
+ * @module media/mediastyle/converters
+ */
 import first from '@ckeditor/ckeditor5-utils/src/first';
 
+/**
+ * Returns a converter for the `mediaStyle` attribute. It can be used for adding, changing and removing the attribute.
+ *
+ * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
+ *
+ * @returns {Function}
+ */
 export function modelToViewStyleAttribute(styles) {
     return (evt, data, conversionApi) => {
         if (!conversionApi.consumable.consume(data.item, evt.name)) {
@@ -21,6 +31,13 @@ export function modelToViewStyleAttribute(styles) {
     };
 }
 
+/**
+ * Returns a view-to-model converter converting image CSS classes to a proper value in the model.
+ *
+ * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
+ *
+ * @returns {Function}
+ */
 export function viewToModelStyleAttribute(styles) {
     const filteredStyles = styles.filter(style => !style.isDefault);
 
@@ -44,6 +61,14 @@ export function viewToModelStyleAttribute(styles) {
     };
 }
 
+/**
+ * Returns the style with a given `name` from an array of styles.
+ *
+ * @param {String} name
+ * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
+ *
+ * @returns {module:media/mediastyle/mediastyleediting~MediaStyleFormat|null}
+ */
 function getStyleByName(name, styles) {
     for (const style of styles) {
         if (style.name === name) {

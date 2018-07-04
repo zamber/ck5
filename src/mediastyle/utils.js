@@ -1,9 +1,17 @@
+/**
+ * @module media/mediastyle/utils
+ */
 import centerIcon from '@ckeditor/ckeditor5-core/theme/icons/object-center.svg';
 import fullWidthIcon from '@ckeditor/ckeditor5-core/theme/icons/object-full-width.svg';
 import leftIcon from '@ckeditor/ckeditor5-core/theme/icons/object-left.svg';
 import log from '@ckeditor/ckeditor5-utils/src/log';
 import rightIcon from '@ckeditor/ckeditor5-core/theme/icons/object-right.svg';
 
+/**
+ * Default media styles provided by the plugin that can be referred in the media configuration.
+ *
+ * @member {Object.<String, Object>}
+ */
 const defaultStyles = {
     full: {
         name: 'full',
@@ -37,6 +45,11 @@ const defaultStyles = {
     }
 };
 
+/**
+ * Default media style icons provided by the plugin that can be referred in the media configuration.
+ *
+ * @member {Object.<String, String>}
+ */
 const defaultIcons = {
     full: fullWidthIcon,
     left: leftIcon,
@@ -44,12 +57,25 @@ const defaultIcons = {
     center: centerIcon
 };
 
+/**
+ * Returns an array with items normalized in the {@link module:media/mediastyle/mediastyleediting~MediaStyleFormat}
+ * format and a complete `icon` markup for each style.
+ *
+ * @returns {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>}
+ */
 export function normalizeMediaStyles(configuredStyles = []) {
     return configuredStyles
         .map(_normalizeStyle)
         .map(style => Object.assign({}, style));
 }
 
+/**
+ * @private
+ *
+ * @param {Object} style
+ *
+ * @returns {module:media/mediastyle/mediastyleediting~MediaStyleFormat}
+ */
 function _normalizeStyle(style) {
     if (typeof style === 'string') {
         const styleName = style;

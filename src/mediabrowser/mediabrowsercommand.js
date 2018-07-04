@@ -1,6 +1,17 @@
+/**
+ * @module media/mediabrowser/mediabrowsercommand
+ */
 import Command from '@ckeditor/ckeditor5-core/src/command';
 
+/**
+ * Media Browser Command
+ *
+ * @extends module:core/command~Command
+ */
 export default class MediaBrowserCommand extends Command {
+    /**
+     * @inheritDoc
+     */
     execute(options) {
         const editor = this.editor;
 

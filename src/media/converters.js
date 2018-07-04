@@ -1,6 +1,23 @@
+/**
+ * @module media/media/converters
+ */
 import ModelPosition from '@ckeditor/ckeditor5-engine/src/model/position';
 import first from '@ckeditor/ckeditor5-utils/src/first';
 
+/**
+ * Returns a function that converts the image view representation:
+ *
+ *     <figure class="media"><img src="..." alt="..."></img></figure>
+ *
+ * to the model representation:
+ *
+ *     <media src="..." alt="..."></media>
+ *
+ * The entire content of the `<figure>` element except the first `<img>` is being converted as children of the `<media>`
+ * model element.
+ *
+ * @returns {Function}
+ */
 export function viewFigureToModel() {
     return dispatcher => {
         dispatcher.on('element:figure', function (evt, data, conversionApi) {
@@ -28,9 +45,16 @@ export function viewFigureToModel() {
     };
 }
 
+/**
+ * Converts model to view attributes
+ *
+ * @param {String} attributeKey
+ *
+ * @returns {Function}
+ */
 export function modelToViewAttributeConverter(attributeKey) {
     return dispatcher => {
-        dispatcher.on(`attribute:${ attributeKey }:media`, converter);
+        dispatcher.on(`attribute:${attributeKey}:media`, converter);
     };
 
     function converter(evt, data, conversionApi) {

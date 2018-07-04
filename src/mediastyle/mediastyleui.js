@@ -1,9 +1,24 @@
+/**
+ * @module media/mediastyle/mediastyleui
+ */
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import {normalizeMediaStyles} from './utils';
 import '../../theme/mediastyle.css';
 
+/**
+ * Media Style UI Plugin
+ *
+ * @extends module:core/plugin~Plugin
+ */
 export default class MediaStyleUI extends Plugin {
+    /**
+     * Returns the default localized style titles provided by the plugin.
+     *
+     * @see media/mediastyle/utils
+     *
+     * @returns {Object.<String,String>}
+     */
     get localizedDefaultStylesTitles() {
         const t = this.editor.t;
 
@@ -16,6 +31,9 @@ export default class MediaStyleUI extends Plugin {
         };
     }
 
+    /**
+     * @inheritDoc
+     */
     init() {
         const editor = this.editor;
         const configuredStyles = editor.config.get('media.styles');
@@ -26,9 +44,16 @@ export default class MediaStyleUI extends Plugin {
         }
     }
 
+    /**
+     * Creates a button for each style and stores it in the editor {@link module:ui/componentfactory~ComponentFactory}.
+     *
+     * @private
+     *
+     * @param {module:media/mediastyle/mediastyleediting~MediaStyleFormat} style
+     */
     _createButton(style) {
         const editor = this.editor;
-        const componentName = `mediaStyle:${ style.name }`;
+        const componentName = `mediaStyle:${style.name}`;
 
         editor.ui.componentFactory.add(componentName, locale => {
             const command = editor.commands.get('mediaStyle');
@@ -49,6 +74,14 @@ export default class MediaStyleUI extends Plugin {
     }
 }
 
+/**
+ * Returns the translated `title` from the passed styles array.
+ *
+ * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
+ * @param {Object.<String,String>} titles
+ *
+ * @returns {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>}
+ */
 function translateStyles(styles, titles) {
     for (const style of styles) {
         if (titles[style.title]) {

@@ -1,8 +1,19 @@
+/**
+ * @module media/mediabrowser/mediabrowserui
+ */
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import icon from '@ckeditor/ckeditor5-core/theme/icons/image.svg';
 
+/**
+ * Media Browser UI Plugin
+ *
+ * @extends module:core/plugin~Plugin
+ */
 export default class MediaBrowserUI extends Plugin {
+    /**
+     * @inheritDoc
+     */
     init() {
         const editor = this.editor;
         const t = editor.t;

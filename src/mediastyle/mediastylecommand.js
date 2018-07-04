@@ -1,11 +1,40 @@
+/**
+ * @module media/mediastyle/mediastylecommand
+ */
 import Command from '@ckeditor/ckeditor5-core/src/command';
 import {isMedia} from '../media/utils';
 
+/**
+ * Media Style Command
+ *
+ * @extends module:core/command~Command
+ */
 export default class MediaStyleCommand extends Command {
+    /**
+     * Creates an instance of the media style command. Each command instance is handling one style.
+     *
+     * @param {module:core/editor/editor~Editor} editor.
+     * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
+     */
     constructor(editor, styles) {
         super(editor);
 
+        /**
+         * The cached name of the default style if it is present. If there is no default style, it defaults to `false`.
+         *
+         * @private
+         *
+         * @type {Boolean|String}
+         */
         this._defaultStyle = false;
+
+        /**
+         * A style handled by this command.
+         *
+         * @readonly
+         *
+         * @member {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} #styles
+         */
         this.styles = styles.reduce((styles, style) => {
             styles[style.name] = style;
 
@@ -17,6 +46,9 @@ export default class MediaStyleCommand extends Command {
         }, {});
     }
 
+    /**
+     * @inheritDoc
+     */
     refresh() {
         const element = this.editor.model.document.selection.getSelectedElement();
 
@@ -32,6 +64,9 @@ export default class MediaStyleCommand extends Command {
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     execute(options) {
         const styleName = options.value;
         const model = this.editor.model;
