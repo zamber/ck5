@@ -4,7 +4,8 @@
 import DetailsCommand from './detailscommand';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
-import {toWidget, toWidgetEditable} from '@ckeditor/ckeditor5-widget/src/utils';
+import {toDetailsWidget} from './utils';
+import {toWidgetEditable} from '@ckeditor/ckeditor5-widget/src/utils';
 import {upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
 /**
@@ -19,6 +20,7 @@ export default class DetailsEditing extends Plugin {
     init() {
         const editor = this.editor;
         const schema = editor.model.schema;
+        const t = editor.t;
         const conversion = editor.conversion;
         const detailsCfg = {model: 'details', view: 'details'};
         const summaryCfg = {model: 'detailsSummary', view: 'summary'};
@@ -44,7 +46,7 @@ export default class DetailsEditing extends Plugin {
         conversion.for('dataDowncast').add(downcastElementToElement(detailsCfg));
         conversion.for('editingDowncast').add(downcastElementToElement({
             model: 'details',
-            view: detailsEditingDowncast
+            view: (modelElement, viewWriter) => toDetailsWidget(viewWriter.createContainerElement('details'), viewWriter, t('details widget'))
         }));
         schema.register('detailsSummary', {
             allowContentOf: '$block',
@@ -94,22 +96,6 @@ export default class DetailsEditing extends Plugin {
             }
         });
     }
-}
-
-/**
- * Downcasts a given {@link module:engine/model/element~Element} to a details widget
- *
- * @private
- *
- * @param {module:engine/model/element~Element} modelElement
- * @param {module:engine/view/writer~Writer} viewWriter
- *
- * @returns {module:engine/view/element~Element}
- */
-function detailsEditingDowncast(modelElement, viewWriter) {
-    const details = viewWriter.createContainerElement('details');
-
-    return toWidget(details, viewWriter);
 }
 
 /**
