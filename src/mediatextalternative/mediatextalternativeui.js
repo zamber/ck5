@@ -3,8 +3,8 @@
  */
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import ContextualBalloon from '@ckeditor/ckeditor5-ui/src/panel/balloon/contextualballoon';
+import MediaTextAlternativeForm from './mediatextalternativeform';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import TextAlternativeFormView from './ui/textalternativeformview';
 import clickOutsideHandler from '@ckeditor/ckeditor5-ui/src/bindings/clickoutsidehandler';
 import {getBalloonPositionData, isMediaWidgetSelected, repositionContextualBalloon} from '../media/utils';
 import textAlternativeIcon from '@ckeditor/ckeditor5-core/theme/icons/low-vision.svg';
@@ -69,7 +69,7 @@ export default class MediaTextAlternativeUI extends Plugin {
         const viewDocument = view.document;
 
         this._balloon = this.editor.plugins.get('ContextualBalloon');
-        this._form = new TextAlternativeFormView(editor.locale);
+        this._form = new MediaTextAlternativeForm(editor.locale);
         this._form.render();
         this.listenTo(this._form, 'submit', () => {
             editor.execute('mediaTextAlternative', {

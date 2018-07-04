@@ -1,5 +1,5 @@
 /**
- * @module media/mediatextalternative/ui/textalternativeformview
+ * @module media/mediatextalternative/mediatextalternativeform
  */
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import FocusCycler from '@ckeditor/ckeditor5-ui/src/focuscycler';
@@ -12,14 +12,14 @@ import ViewCollection from '@ckeditor/ckeditor5-ui/src/viewcollection';
 import cancelIcon from '@ckeditor/ckeditor5-core/theme/icons/cancel.svg';
 import checkIcon from '@ckeditor/ckeditor5-core/theme/icons/check.svg';
 import submitHandler from '@ckeditor/ckeditor5-ui/src/bindings/submithandler';
-import '../../../theme/textalternativeform.css';
+import '../../theme/mediatextalternativeform.css';
 
 /**
- * Media Text Alternative Form View
+ * Media Text Alternative Form
  *
  * @extends module:ui/view~View
  */
-export default class TextAlternativeFormView extends View {
+export default class MediaTextAlternativeForm extends View {
     /**
      * @inheritDoc
      */
