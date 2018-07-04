@@ -4,12 +4,12 @@ import {isWidget, toWidget} from '@ckeditor/ckeditor5-widget/src/utils';
 
 const symbol = Symbol('isMedia');
 
-export function toMediaWidget(element, writer, label) {
-    writer.setCustomProperty(symbol, true, element);
+export function toMediaWidget(viewElement, viewWriter, label) {
+    viewWriter.setCustomProperty(symbol, true, viewElement);
 
-    return toWidget(element, writer, {
+    return toWidget(viewElement, viewWriter, {
         label: function () {
-            const media = element.getChild(0);
+            const media = viewElement.getChild(0);
             const altText = media.getAttribute('alt');
 
             return altText ? `${altText} ${label}` : label;
@@ -17,14 +17,14 @@ export function toMediaWidget(element, writer, label) {
     });
 }
 
-export function isMediaWidget(element) {
-    return !!element.getCustomProperty(symbol) && isWidget(element);
+export function isMediaWidget(viewElement) {
+    return !!viewElement.getCustomProperty(symbol) && isWidget(viewElement);
 }
 
-export function isMediaWidgetSelected(sel) {
-    const element = sel.getSelectedElement();
+export function isMediaWidgetSelected(selection) {
+    const viewElement = selection.getSelectedElement();
 
-    return !!element && isMediaWidget(element);
+    return !!viewElement && isMediaWidget(viewElement);
 }
 
 export function isMedia(element) {

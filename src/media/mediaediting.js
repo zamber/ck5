@@ -51,11 +51,11 @@ export default class MediaEditing extends Plugin {
     }
 }
 
-export function createMediaViewElement(writer) {
-    const emptyElement = writer.createEmptyElement('img');
-    const figure = writer.createContainerElement('figure', {class: 'media'});
+export function createMediaViewElement(viewWriter) {
+    const img = viewWriter.createEmptyElement('img');
+    const figure = viewWriter.createContainerElement('figure', {class: 'media'});
 
-    writer.insert(ViewPosition.createAt(figure), emptyElement);
+    viewWriter.insert(ViewPosition.createAt(figure), img);
 
     return figure;
 }
