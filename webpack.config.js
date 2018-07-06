@@ -1,14 +1,14 @@
 'use strict';
 
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
-const BabiliPlugin = require('babel-minify-webpack-plugin');
-const {styles} = require('@ckeditor/ckeditor5-dev-utils');
+const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
 const buildConfig = require('./build-config');
 const path = require('path');
-const webpack = require('webpack');
+const {styles} = require('@ckeditor/ckeditor5-dev-utils');
 
 module.exports = {
     devtool: 'source-map',
+    performance: {hints: false},
     entry: path.resolve(__dirname, 'src', 'ckeditor.js'),
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -17,14 +17,22 @@ module.exports = {
         libraryExport: 'default',
         library: buildConfig.moduleName
     },
+    optimization: {
+        minimizer: [
+            new UglifyJsWebpackPlugin({
+                sourceMap: true,
+                uglifyOptions: {
+                    output: {
+                        comments: /^!/
+                    }
+                }
+            })
+        ]
+    },
     plugins: [
         new CKEditorWebpackPlugin({
             language: buildConfig.config.language
-        }),
-        new BabiliPlugin(null, {
-            comments: false
-        }),
-        new webpack.optimize.ModuleConcatenationPlugin()
+        })
     ],
     module: {
         rules: [
