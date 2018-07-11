@@ -1,7 +1,7 @@
-import BalloonEditorBase from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
+import EditorBase from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
@@ -17,11 +17,11 @@ import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 
-export default class BalloonEditor extends BalloonEditorBase {
+export default class Editor extends EditorBase {
 }
 
-BalloonEditor.build = {};
-BalloonEditor.build.plugins = [
+Editor.build = {};
+Editor.build.plugins = [
     Autoformat,
     BlockQuote,
     Bold,
@@ -40,7 +40,7 @@ BalloonEditor.build.plugins = [
     TableToolbar,
     Underline
 ];
-BalloonEditor.build.config = {
+Editor.build.config = {
     heading: {
         options: [
             {
