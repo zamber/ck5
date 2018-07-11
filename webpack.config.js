@@ -2,7 +2,6 @@
 
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
 const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
-const buildConfig = require('./build-config');
 const path = require('path');
 const {styles} = require('@ckeditor/ckeditor5-dev-utils');
 
@@ -13,9 +12,9 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'ckeditor.js',
+        library: 'BalloonEditor',
         libraryTarget: 'umd',
-        libraryExport: 'default',
-        library: buildConfig.moduleName
+        libraryExport: 'default'
     },
     optimization: {
         minimizer: [
@@ -31,7 +30,7 @@ module.exports = {
     },
     plugins: [
         new CKEditorWebpackPlugin({
-            language: buildConfig.config.language
+            language: 'de'
         })
     ],
     module: {
