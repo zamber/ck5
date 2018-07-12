@@ -24,12 +24,12 @@ export default class MediaBrowserCommand extends Command {
 
             const win = window.open(
                 browser,
-                'browser',
+                'mediabrowser',
                 'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'
             );
 
             window.addEventListener('message', ev => {
-                if (ev.origin === win.origin && ev.data.id === 'ckMediaBrowser' && !!ev.data.src) {
+                if (ev.origin === win.origin && ev.data.id === 'mediabrowser' && !!ev.data.src) {
                     editor.model.insertContent(writer.createElement('media', {src: ev.data.src}), editor.model.document.selection);
                 }
             }, false);
