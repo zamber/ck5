@@ -22,14 +22,12 @@ export default class MediaBrowserCommand extends Command {
                 return;
             }
 
-            const win = window.open(
-                browser,
-                'mediabrowser',
-                'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'
-            );
+            const feat = 'alwaysRaised=yes,dependent=yes,height=' + window.screen.height + ',location=no,menubar=no,' +
+                'minimizable=no,modal=yes,resizable=yes,scrollbars=yes,toolbar=no,width=' + window.screen.width;
+            const win = window.open(browser, 'mediabrowser', feat);
 
             window.addEventListener('message', ev => {
-                if (ev.origin === win.origin && ev.data.id === 'mediabrowser' && !!ev.data.src) {
+                if (ev.origin === win.origin && ev.source === win && !!ev.data.src) {
                     editor.model.insertContent(writer.createElement('media', {src: ev.data.src}), editor.model.document.selection);
                 }
             }, false);
