@@ -16,8 +16,7 @@ import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 export default class Editor extends EditorBase {
 }
 
-Editor.build = {};
-Editor.build.plugins = [
+Editor.builtinPlugins = [
     Autoformat,
     BlockQuote,
     Bold,
@@ -32,7 +31,7 @@ Editor.build.plugins = [
     TableToolbar,
     Underline
 ];
-Editor.build.config = {
+Editor.defaultConfig = {
     heading: {
         options: [
             {
