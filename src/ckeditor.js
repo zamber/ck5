@@ -15,7 +15,6 @@ import MediaToolbar from '@akilli/ckeditor5-media/src/mediatoolbar';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
-import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 
 export default class Editor extends EditorBase {
 }
@@ -36,8 +35,7 @@ Editor.builtinPlugins = [
     MediaToolbar,
     Paragraph,
     Table,
-    TableToolbar,
-    Underline
+    TableToolbar
 ];
 Editor.defaultConfig = {
     heading: {
@@ -91,7 +89,6 @@ Editor.defaultConfig = {
             'heading',
             'bold',
             'italic',
-            'underline',
             'link',
             'bulletedList',
             'numberedList',
