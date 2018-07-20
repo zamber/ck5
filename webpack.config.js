@@ -10,7 +10,7 @@ module.exports = {
     performance: {hints: false},
     entry: path.resolve(__dirname, 'src', 'ckeditor.js'),
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'dist'),
         filename: 'ckeditor.js',
         library: 'ClassicEditor',
         libraryTarget: 'umd',
