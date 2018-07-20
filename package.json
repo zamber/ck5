@@ -20,9 +20,9 @@
     "type": "git",
     "url": "https://github.com/akilli/ckeditor5-build-balloon.git"
   },
-  "main": "./build/ckeditor.js",
+  "main": "./dist/ckeditor.js",
   "files": [
-    "build"
+    "dist"
   ],
   "devDependencies": {
     "@ckeditor/ckeditor5-editor-balloon": "^11.0.0",
