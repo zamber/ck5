@@ -26,6 +26,7 @@
   ],
   "devDependencies": {
     "@ckeditor/ckeditor5-editor-balloon": "^11.0.0",
+    "@akilli/ckeditor5-details": "akilli/ckeditor5-details",
     "@akilli/ckeditor5-media": "akilli/ckeditor5-media",
     "@ckeditor/ckeditor5-autoformat": "^10.0.2",
     "@ckeditor/ckeditor5-basic-styles": "^10.0.2",
