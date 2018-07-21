@@ -29,6 +29,7 @@ export default class MediaBrowserCommand extends Command {
             window.addEventListener('message', ev => {
                 if (ev.origin === win.origin && ev.source === win && !!ev.data.src) {
                     editor.model.insertContent(writer.createElement('media', {src: ev.data.src}), editor.model.document.selection);
+                    win.close();
                 }
             }, false);
         });
