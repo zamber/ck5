@@ -12,7 +12,7 @@ export default class MediaBrowserCommand extends Command {
     /**
      * @inheritDoc
      */
-    execute(options) {
+    execute() {
         const editor = this.editor;
 
         editor.model.change(writer => {
