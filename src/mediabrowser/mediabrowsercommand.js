@@ -24,9 +24,8 @@ export default class MediaBrowserCommand extends Command {
                 return;
             }
 
-            const feat = 'alwaysRaised=yes,dependent=yes,height=' + editorWin.screen.height + ',location=no,' +
-                'menubar=no,minimizable=no,modal=yes,resizable=yes,scrollbars=yes,toolbar=no,width=' +
-                editorWin.screen.width;
+            const feat = 'alwaysRaised=yes,dependent=yes,height=' + editorWin.screen.height + ',location=no,menubar=no,' +
+                'minimizable=no,modal=yes,resizable=yes,scrollbars=yes,toolbar=no,width=' + editorWin.screen.width;
             const win = editorWin.open(browser, 'mediabrowser', feat);
             let origin;
 
