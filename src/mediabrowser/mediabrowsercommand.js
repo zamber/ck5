@@ -32,7 +32,6 @@ export default class MediaBrowserCommand extends Command {
             try {
                 origin = win.origin;
             } catch (e) {
-                editorWin.console.log(e);
                 const a = editorDoc.createElement('a');
                 a.href = browser;
                 origin = a.origin;
