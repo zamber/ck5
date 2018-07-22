@@ -14,6 +14,8 @@ export default class MediaBrowserCommand extends Command {
      */
     execute() {
         const editor = this.editor;
+        const editorDoc = editor.sourceElement.ownerDocument;
+        const editorWin = editorDoc.defaultView;
 
         editor.model.change(writer => {
             const browser = editor.config.get('media.browser');
@@ -22,12 +24,23 @@ export default class MediaBrowserCommand extends Command {
                 return;
             }
 
-            const feat = 'alwaysRaised=yes,dependent=yes,height=' + window.screen.height + ',location=no,menubar=no,' +
-                'minimizable=no,modal=yes,resizable=yes,scrollbars=yes,toolbar=no,width=' + window.screen.width;
-            const win = window.open(browser, 'mediabrowser', feat);
+            const feat = 'alwaysRaised=yes,dependent=yes,height=' + editorWin.screen.height + ',location=no,' +
+                'menubar=no,minimizable=no,modal=yes,resizable=yes,scrollbars=yes,toolbar=no,width=' +
+                editorWin.screen.width;
+            const win = editorWin.open(browser, 'mediabrowser', feat);
+            let origin;
 
-            window.addEventListener('message', ev => {
-                if (ev.origin === win.origin && ev.source === win && !!ev.data.src) {
+            try {
+                origin = win.origin;
+            } catch (e) {
+                editorWin.console.log(e);
+                const a = editorDoc.createElement('a');
+                a.href = browser;
+                origin = a.origin;
+            }
+
+            editorWin.addEventListener('message', ev => {
+                if (ev.origin === origin && ev.source === win && !!ev.data.src) {
                     editor.model.insertContent(writer.createElement('media', {src: ev.data.src}), editor.model.document.selection);
                     win.close();
                 }
