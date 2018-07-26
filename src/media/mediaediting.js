@@ -102,12 +102,14 @@ export default class MediaEditing extends Plugin {
 function createMediaViewElement(modelElement, viewWriter) {
     const type = getType(modelElement.getAttribute('type'));
     const figure = viewWriter.createContainerElement('figure', {class: 'media ' + type.id});
-    const media = viewWriter.createEmptyElement(type.element);
+    let media;
 
-    if (['audio', 'video'].includes(type.id)) {
-        media.setAttribute('controls', 'controls');
+    if (type.id === 'image') {
+        media = viewWriter.createEmptyElement(type.element);
+    } else if (['audio', 'video'].includes(type.id)) {
+        media = viewWriter.createContainerElement(type.element, {controls: 'controls'});
     } else if (type.id === 'iframe') {
-        media.setAttribute('allowfullscreen', 'allowfullscreen');
+        media = viewWriter.createContainerElement(type.element, {allowfullscreen: 'allowfullscreen'});
     }
 
     viewWriter.insert(ViewPosition.createAt(figure), media);
