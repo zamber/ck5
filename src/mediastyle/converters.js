@@ -32,7 +32,7 @@ export function modelToViewStyleAttribute(styles) {
 }
 
 /**
- * Returns a view-to-model converter converting image CSS classes to a proper value in the model.
+ * Returns a view-to-model converter converting media CSS classes to a proper value in the model.
  *
  * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
  *

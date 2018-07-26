@@ -31,7 +31,7 @@ export default class MediaTextAlternativeUI extends Plugin {
     }
 
     /**
-     * Creates a button showing the balloon panel for changing the image text alternative and registers it in the editor
+     * Creates a button showing the balloon panel for changing the media text alternative and registers it in the editor
      * {@link module:ui/componentfactory~ComponentFactory ComponentFactory}.
      *
      * @private

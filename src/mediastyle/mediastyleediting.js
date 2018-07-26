@@ -56,11 +56,11 @@ export default class MediaStyleEditing extends Plugin {
  *
  *     import fullSizeIcon from 'path/to/icon.svg';
  *
- *     const imageStyleFormat = {
+ *     const mediaStyleFormat = {
  *         name: 'fullSize',
  *         icon: fullSizeIcon,
- *         title: 'Full size image',
- *         className: 'image-full-size'
+ *         title: 'Full size media',
+ *         className: 'media-full-size'
  *     }
  *
  * @typedef {Object} module:media/mediastyle/mediastyleediting~MediaStyleFormat
