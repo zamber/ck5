@@ -144,25 +144,26 @@ export function getTypeFromElement(element) {
  *
  * @param {string} url
  *
- * @return {Promise<Object>}
+ * @return {?Object}
  */
-export async function getTypeFromUrl(url) {
-    let response;
+export function getTypeFromUrl(url) {
+    const xhr = new XMLHttpRequest();
 
     try {
-        response = await fetch(url);
+        xhr.open('HEAD', url, false);
+        xhr.send();
     } catch (e) {
         console.log(e);
         return null;
     }
 
-    if (response.ok) {
-        const mime = response.headers.get('content-type').split(';')[0].trim();
-        const ids = getTypeIds();
+    if (xhr.readyState === xhr.DONE && xhr.status >= 200 && xhr.status < 300) {
+        const mime = xhr.getResponseHeader('Content-Type').split(';')[0].trim();
+        const types = this.getTypeIds();
 
-        for (let i = 0; i < ids.length; ++i) {
-            if (mediaTypes[ids[i]].mime.includes(mime)) {
-                return mediaTypes[ids[i]];
+        for (let i = 0; i < types.length; ++i) {
+            if (this.types[types[i]].mime.includes(mime)) {
+                return types[i];
             }
         }
     }
