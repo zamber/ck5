@@ -5,7 +5,7 @@ import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ViewPosition from '@ckeditor/ckeditor5-engine/src/view/position';
 import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
 import {modelToViewAttributeConverter, viewFigureToModel} from './converters';
-import {toMediaWidget} from './utils';
+import {getType, toMediaWidget} from './utils';
 import {upcastAttributeToAttribute, upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
 /**
@@ -100,13 +100,13 @@ export default class MediaEditing extends Plugin {
  * @returns {module:engine/view/containerelement~ContainerElement}
  */
 function createMediaViewElement(modelElement, viewWriter) {
-    const type = modelElement.getAttribute('type');
-    const figure = viewWriter.createContainerElement('figure', {class: 'media ' + type});
-    const media = viewWriter.createEmptyElement(type === 'image' ? 'img' : type);
+    const type = getType(modelElement.getAttribute('type'));
+    const figure = viewWriter.createContainerElement('figure', {class: 'media ' + type.id});
+    const media = viewWriter.createEmptyElement(type.element);
 
-    if (['audio', 'video'].includes(type)) {
+    if (['audio', 'video'].includes(type.id)) {
         media.setAttribute('controls', 'controls');
-    } else if (type === 'iframe') {
+    } else if (type.id === 'iframe') {
         media.setAttribute('allowfullscreen', 'allowfullscreen');
     }
 

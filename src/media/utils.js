@@ -101,17 +101,6 @@ export function isMedia(modelElement) {
 }
 
 /**
- * Checks if a given view element is a media type element.
- *
- * @param {module:engine/view/element~Element} viewElement
- *
- * @returns {Boolean}
- */
-export function isMediaType(viewElement) {
-    return viewElement.is('audio') || viewElement.is('iframe') || viewElement.is('img') || viewElement.is('video');
-}
-
-/**
  * Returns all media types IDs
  *
  * @return {string[]}
@@ -129,6 +118,25 @@ export function getTypeIds() {
  */
 export function getType(type) {
     return mediaTypes[type] || null;
+}
+
+/**
+ * Returns given media type from given element or null
+ *
+ * @param {string} element
+ *
+ * @return {?Object}
+ */
+export function getTypeFromElement(element) {
+    const ids = getTypeIds();
+
+    for (let i = 0; i < ids.length; ++i) {
+        if (mediaTypes[ids[i]].element === element) {
+            return mediaTypes[ids[i]];
+        }
+    }
+
+    return null;
 }
 
 /**
@@ -150,11 +158,11 @@ export async function getTypeFromUrl(url) {
 
     if (response.ok) {
         const mime = response.headers.get('content-type').split(';')[0].trim();
-        const types = getTypeIds();
+        const ids = getTypeIds();
 
-        for (let i = 0; i < types.length; ++i) {
-            if (mediaTypes[types[i]].mime.includes(mime)) {
-                return mediaTypes[types[i]];
+        for (let i = 0; i < ids.length; ++i) {
+            if (mediaTypes[ids[i]].mime.includes(mime)) {
+                return mediaTypes[ids[i]];
             }
         }
     }
