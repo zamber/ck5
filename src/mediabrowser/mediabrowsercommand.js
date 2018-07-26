@@ -2,7 +2,7 @@
  * @module media/mediabrowser/mediabrowsercommand
  */
 import Command from '@ckeditor/ckeditor5-core/src/command';
-import MediaUtils from '../utils/MediaUtils';
+import {getTypeFromUrl} from '../media/utils';
 
 /**
  * Media Browser Command
@@ -44,7 +44,7 @@ export default class MediaBrowserCommand extends Command {
                     editor.model.insertContent(writer.createElement('media', {
                         alt: ev.data.alt || '',
                         src: ev.data.src,
-                        type: ev.data.type || MediaUtils.getTypeFromUrl(ev.data.src)
+                        type: ev.data.type || getTypeFromUrl(ev.data.src)
                     }), editor.model.document.selection);
                     win.close();
                 }
