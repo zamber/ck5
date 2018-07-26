@@ -24,7 +24,7 @@ export default class MediaEditing extends Plugin {
         const conversion = editor.conversion;
 
         schema.register('media', {
-            allowAttributes: ['alt', 'src', 'type'],
+            allowAttributes: ['alt', 'height', 'src', 'type', 'width'],
             allowWhere: '$block',
             isBlock: true,
             isObject: true
@@ -39,8 +39,10 @@ export default class MediaEditing extends Plugin {
             view: (modelElement, viewWriter) => toMediaWidget(createMediaViewElement(modelElement, viewWriter), viewWriter, t('media widget'))
         }));
         conversion.for('downcast')
+            .add(modelToViewAttributeConverter('alt'))
+            .add(modelToViewAttributeConverter('height'))
             .add(modelToViewAttributeConverter('src'))
-            .add(modelToViewAttributeConverter('alt'));
+            .add(modelToViewAttributeConverter('width'));
         conversion.for('upcast')
             .add(upcastElementToElement({
                 model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src'), 'type': 'audio'}),
@@ -69,13 +71,6 @@ export default class MediaEditing extends Plugin {
                     }
                 }
             }))
-            .add(upcastAttributeToAttribute({
-                model: 'alt',
-                view: {
-                    name: 'img',
-                    key: 'alt'
-                }
-            }))
             .add(upcastElementToElement({
                 model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src'), 'type': 'video'}),
                 view: {
@@ -83,6 +78,69 @@ export default class MediaEditing extends Plugin {
                     attributes: {
                         src: true
                     }
+                }
+            }))
+            .add(upcastAttributeToAttribute({
+                model: 'alt',
+                view: {
+                    name: 'img',
+                    key: 'alt'
+                }
+            }))
+            .add(upcastAttributeToAttribute({
+                model: 'height',
+                view: {
+                    name: 'audio',
+                    key: 'height'
+                }
+            }))
+            .add(upcastAttributeToAttribute({
+                model: 'height',
+                view: {
+                    name: 'iframe',
+                    key: 'height'
+                }
+            }))
+            .add(upcastAttributeToAttribute({
+                model: 'height',
+                view: {
+                    name: 'img',
+                    key: 'height'
+                }
+            }))
+            .add(upcastAttributeToAttribute({
+                model: 'height',
+                view: {
+                    name: 'video',
+                    key: 'height'
+                }
+            }))
+            .add(upcastAttributeToAttribute({
+                model: 'width',
+                view: {
+                    name: 'audio',
+                    key: 'width'
+                }
+            }))
+            .add(upcastAttributeToAttribute({
+                model: 'width',
+                view: {
+                    name: 'iframe',
+                    key: 'width'
+                }
+            }))
+            .add(upcastAttributeToAttribute({
+                model: 'width',
+                view: {
+                    name: 'img',
+                    key: 'width'
+                }
+            }))
+            .add(upcastAttributeToAttribute({
+                model: 'width',
+                view: {
+                    name: 'video',
+                    key: 'width'
                 }
             }))
             .add(viewFigureToModel());
