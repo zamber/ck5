@@ -104,6 +104,12 @@ function createMediaViewElement(modelElement, viewWriter) {
     const figure = viewWriter.createContainerElement('figure', {class: 'media ' + type});
     const media = viewWriter.createEmptyElement(type === 'image' ? 'img' : type);
 
+    if (['audio', 'video'].includes(type)) {
+        media.setAttribute('controls', 'controls');
+    } else if (type === 'iframe') {
+        media.setAttribute('allowfullscreen', 'allowfullscreen');
+    }
+
     viewWriter.insert(ViewPosition.createAt(figure), media);
 
     return figure;

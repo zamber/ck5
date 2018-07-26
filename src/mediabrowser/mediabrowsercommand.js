@@ -2,6 +2,7 @@
  * @module media/mediabrowser/mediabrowsercommand
  */
 import Command from '@ckeditor/ckeditor5-core/src/command';
+import MediaUtils from '../utils/MediaUtils';
 
 /**
  * Media Browser Command
@@ -39,11 +40,11 @@ export default class MediaBrowserCommand extends Command {
             }
 
             editorWin.addEventListener('message', ev => {
-                if (ev.origin === origin && ev.source === win && !!ev.data.src && !!ev.data.type) {
+                if (ev.origin === origin && ev.source === win && !!ev.data.src) {
                     editor.model.insertContent(writer.createElement('media', {
                         alt: ev.data.alt || '',
                         src: ev.data.src,
-                        type: ev.data.type
+                        type: ev.data.type || MediaUtils.getTypeFromUrl(ev.data.src)
                     }), editor.model.document.selection);
                     win.close();
                 }
