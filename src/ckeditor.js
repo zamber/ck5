@@ -37,7 +37,7 @@ Editor.builtinPlugins = [
     MediaToolbar,
     Paragraph,
     Table,
-    TableToolbar
+    TableToolbar,
 ];
 Editor.defaultConfig = {
     heading: {
@@ -45,19 +45,19 @@ Editor.defaultConfig = {
             {
                 model: 'paragraph',
                 title: 'Paragraph',
-                'class': 'ck-heading_paragraph'
+                'class': 'ck-heading_paragraph',
             },
             {
                 model: 'heading1',
                 view: 'h2',
                 title: 'Heading 1',
-                'class': 'ck-heading_heading1'
+                'class': 'ck-heading_heading1',
             },
             {
                 model: 'heading2',
                 view: 'h3',
                 title: 'Heading 2',
-                'class': 'ck-heading_heading2'
+                'class': 'ck-heading_heading2',
             }
         ]
     },
@@ -67,37 +67,37 @@ Editor.defaultConfig = {
         styles: [
             'full',
             'alignLeft',
-            'alignRight'
+            'alignRight',
         ],
         toolbar: [
             'mediaStyle:alignLeft',
             'mediaStyle:full',
             'mediaStyle:alignRight',
             '|',
-            'mediaTextAlternative'
+            'mediaTextAlternative',
         ]
     },
     table: {
         toolbar: [
             'tableColumn',
             'tableRow',
-            'mergeTableCells'
+            'mergeTableCells',
         ]
     },
     toolbar: {
         items: [
             'undo',
             'redo',
-            'heading',
             'bold',
             'italic',
             'link',
+            'heading',
             'bulletedList',
             'numberedList',
             'blockQuote',
-            'details',
             'mediaBrowser',
-            'insertTable'
+            'insertTable',
+            'details',
         ]
     }
 };
