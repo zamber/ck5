@@ -70,6 +70,17 @@ export function isMedia(modelElement) {
 }
 
 /**
+ * Checks if a given view element is a media type element.
+ *
+ * @param {module:engine/view/element~Element} viewElement
+ *
+ * @returns {Boolean}
+ */
+export function isMediaType(viewElement) {
+    return viewElement.is('audio') || viewElement.is('iframe') || viewElement.is('img') || viewElement.is('video');
+}
+
+/**
  * Returns the positioning options that control the geometry of the
  * {@link module:ui/panel/balloon/contextualballoon~ContextualBalloon} with respect to the selected element in the
  * editor content.

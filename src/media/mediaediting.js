@@ -24,7 +24,7 @@ export default class MediaEditing extends Plugin {
         const conversion = editor.conversion;
 
         schema.register('media', {
-            allowAttributes: ['alt', 'src'],
+            allowAttributes: ['alt', 'src', 'type'],
             allowWhere: '$block',
             isBlock: true,
             isObject: true
@@ -32,18 +32,36 @@ export default class MediaEditing extends Plugin {
 
         conversion.for('dataDowncast').add(downcastElementToElement({
             model: 'media',
-            view: (modelElement, viewWriter) => createMediaViewElement(viewWriter)
+            view: createMediaViewElement
         }));
         conversion.for('editingDowncast').add(downcastElementToElement({
             model: 'media',
-            view: (modelElement, viewWriter) => toMediaWidget(createMediaViewElement(viewWriter), viewWriter, t('media widget'))
+            view: (modelElement, viewWriter) => toMediaWidget(createMediaViewElement(modelElement, viewWriter), viewWriter, t('media widget'))
         }));
         conversion.for('downcast')
             .add(modelToViewAttributeConverter('src'))
             .add(modelToViewAttributeConverter('alt'));
         conversion.for('upcast')
             .add(upcastElementToElement({
-                model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src')}),
+                model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src'), 'type': 'audio'}),
+                view: {
+                    name: 'audio',
+                    attributes: {
+                        src: true
+                    }
+                }
+            }))
+            .add(upcastElementToElement({
+                model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src'), 'type': 'iframe'}),
+                view: {
+                    name: 'iframe',
+                    attributes: {
+                        src: true
+                    }
+                }
+            }))
+            .add(upcastElementToElement({
+                model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src'), 'type': 'image'}),
                 view: {
                     name: 'img',
                     attributes: {
@@ -58,6 +76,15 @@ export default class MediaEditing extends Plugin {
                     key: 'alt'
                 }
             }))
+            .add(upcastElementToElement({
+                model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src'), 'type': 'video'}),
+                view: {
+                    name: 'video',
+                    attributes: {
+                        src: true
+                    }
+                }
+            }))
             .add(viewFigureToModel());
     }
 }
@@ -67,15 +94,17 @@ export default class MediaEditing extends Plugin {
  *
  * @private
  *
+ * @param {module:engine/model/element~Element} modelElement
  * @param {module:engine/view/writer~Writer} viewWriter
  *
  * @returns {module:engine/view/containerelement~ContainerElement}
  */
-function createMediaViewElement(viewWriter) {
-    const img = viewWriter.createEmptyElement('img');
-    const figure = viewWriter.createContainerElement('figure', {class: 'media'});
+function createMediaViewElement(modelElement, viewWriter) {
+    const type = modelElement.getAttribute('type');
+    const figure = viewWriter.createContainerElement('figure', {class: 'media ' + type});
+    const media = viewWriter.createEmptyElement(type === 'image' ? 'img' : type);
 
-    viewWriter.insert(ViewPosition.createAt(figure), img);
+    viewWriter.insert(ViewPosition.createAt(figure), media);
 
     return figure;
 }

@@ -3,18 +3,19 @@
  */
 import ModelPosition from '@ckeditor/ckeditor5-engine/src/model/position';
 import first from '@ckeditor/ckeditor5-utils/src/first';
+import {isMediaType} from './utils';
 
 /**
- * Returns a function that converts the image view representation:
+ * Returns a function that converts the media view representation:
  *
- *     <figure class="media"><img src="..." alt="..."></img></figure>
+ *     <figure class="media"><img src="..." alt="..."></figure>
  *
  * to the model representation:
  *
- *     <media src="..." alt="..."></media>
+ *     <media type="..." src="..." alt="..."></media>
  *
- * The entire content of the `<figure>` element except the first `<img>` is being converted as children of the `<media>`
- * model element.
+ * The entire content of the `<figure>` element except the media view element is being converted as children of the
+ * `<media>` model element.
  *
  * @returns {Function}
  */
@@ -25,9 +26,9 @@ export function viewFigureToModel() {
                 return;
             }
 
-            const view = Array.from(data.viewItem.getChildren()).find(viewChild => viewChild.is('img'));
+            const view = data.viewItem.getChild(0);
 
-            if (!view || !view.hasAttribute('src') || !conversionApi.consumable.test(view, {name: true})) {
+            if (!view || !isMediaType(view) || !view.hasAttribute('src') || !conversionApi.consumable.test(view, {name: true})) {
                 return;
             }
 
@@ -38,6 +39,7 @@ export function viewFigureToModel() {
                 return;
             }
 
+            model.setAttribute('type', view.name === 'img' ? 'image' : view.name);
             conversionApi.convertChildren(data.viewItem, ModelPosition.createAt(model));
             data.modelRange = result.modelRange;
             data.modelCursor = result.modelCursor;
