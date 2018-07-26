@@ -62,21 +62,6 @@ Editor.defaultConfig = {
         ]
     },
     language: 'de',
-    media: {
-        browser: null,
-        styles: [
-            'full',
-            'alignLeft',
-            'alignRight',
-        ],
-        toolbar: [
-            'mediaStyle:alignLeft',
-            'mediaStyle:full',
-            'mediaStyle:alignRight',
-            '|',
-            'mediaTextAlternative',
-        ]
-    },
     table: {
         toolbar: [
             'tableColumn',
