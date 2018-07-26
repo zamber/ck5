@@ -1,8 +1,7 @@
 /**
  * @module media/mediastyle/utils
  */
-import centerIcon from '@ckeditor/ckeditor5-core/theme/icons/object-center.svg';
-import fullWidthIcon from '@ckeditor/ckeditor5-core/theme/icons/object-full-width.svg';
+import fullIcon from '@ckeditor/ckeditor5-core/theme/icons/object-full-width.svg';
 import leftIcon from '@ckeditor/ckeditor5-core/theme/icons/object-left.svg';
 import log from '@ckeditor/ckeditor5-utils/src/log';
 import rightIcon from '@ckeditor/ckeditor5-core/theme/icons/object-right.svg';
@@ -16,32 +15,20 @@ const defaultStyles = {
     full: {
         name: 'full',
         title: 'Full size media',
-        icon: fullWidthIcon,
+        icon: fullIcon,
         isDefault: true
     },
-    side: {
-        name: 'side',
-        title: 'Side media',
-        icon: rightIcon,
-        className: 'media-style-side'
-    },
-    alignLeft: {
-        name: 'alignLeft',
+    left: {
+        name: 'left',
         title: 'Left aligned media',
         icon: leftIcon,
-        className: 'media-style-align-left'
+        className: 'left'
     },
-    alignCenter: {
-        name: 'alignCenter',
-        title: 'Centered media',
-        icon: centerIcon,
-        className: 'media-style-align-center'
-    },
-    alignRight: {
-        name: 'alignRight',
+    right: {
+        name: 'right',
         title: 'Right aligned media',
         icon: rightIcon,
-        className: 'media-style-align-right'
+        className: 'right'
     }
 };
 
@@ -51,10 +38,9 @@ const defaultStyles = {
  * @member {Object.<String, String>}
  */
 const defaultIcons = {
-    full: fullWidthIcon,
+    full: fullIcon,
     left: leftIcon,
-    right: rightIcon,
-    center: centerIcon
+    right: rightIcon
 };
 
 /**
@@ -83,14 +69,8 @@ function _normalizeStyle(style) {
         if (defaultStyles[styleName]) {
             style = Object.assign({}, defaultStyles[styleName]);
         } else {
-            log.warn(
-                'media-style-not-found: There is no such media style of given name.',
-                {name: styleName}
-            );
-
-            style = {
-                name: styleName
-            };
+            log.warn('There is no such media style of given name.', {name: styleName});
+            style = {name: styleName};
         }
     } else if (defaultStyles[style.name]) {
         const defaultStyle = defaultStyles[style.name];

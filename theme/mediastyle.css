@@ -1,30 +1,30 @@
 :root {
-    --ck-media-style-spacing: 1.5em;
+    --ck-media-caption-size: 0.875rem;
+    --ck-media-margin: 1.5rem;
+    --ck-media-maxwidth: 50%;
 }
 
-.ck-content .media-style-side,
-.ck-content .media-style-align-left,
-.ck-content .media-style-align-center,
-.ck-content .media-style-align-right {
-    max-width: 50%;
+.ck-content figure.media audio,
+.ck-content figure.media iframe,
+.ck-content figure.media img,
+.ck-content figure.media video {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
-.ck-content .media-style-side {
-    float: right;
-    margin-left: var(--ck-media-style-spacing);
+.ck-content figure.media figcaption {
+    font-size: var(--ck-media-caption-size);
 }
 
-.ck-content .media-style-align-left {
+.ck-content figure.media.left {
+    max-width: var(--ck-media-maxwidth);
     float: left;
-    margin-right: var(--ck-media-style-spacing);
+    margin-right: var(--ck-media-margin);
 }
 
-.ck-content .media-style-align-center {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.ck-content .media-style-align-right {
+.ck-content figure.media.right {
+    max-width: var(--ck-media-maxwidth);
     float: right;
-    margin-left: var(--ck-media-style-spacing);
+    margin-left: var(--ck-media-margin);
 }

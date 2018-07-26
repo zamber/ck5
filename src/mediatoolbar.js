@@ -40,6 +40,14 @@ export default class MediaToolbar extends Plugin {
         const editor = this.editor;
         const balloonToolbar = editor.plugins.get('BalloonToolbar');
 
+        editor.config.define('media.toolbar', [
+            'mediaStyle:left',
+            'mediaStyle:full',
+            'mediaStyle:right',
+            '|',
+            'mediaTextAlternative',
+        ]);
+
         if (balloonToolbar) {
             this.listenTo(balloonToolbar, 'show', evt => {
                 if (isMediaWidgetSelected(editor.editing.view.document.selection)) {

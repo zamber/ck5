@@ -36,12 +36,9 @@ export default class MediaStyleEditing extends Plugin {
         const data = editor.data;
         const editing = editor.editing;
 
-        editor.config.define('media.styles', ['full', 'side']);
-
+        editor.config.define('media.styles', ['full', 'left', 'right']);
         const styles = normalizeMediaStyles(editor.config.get('media.styles'));
-
         schema.extend('media', {allowAttributes: 'mediaStyle'});
-
         const modelToViewConverter = modelToViewStyleAttribute(styles);
 
         editing.downcastDispatcher.on('attribute:mediaStyle:media', modelToViewConverter);
