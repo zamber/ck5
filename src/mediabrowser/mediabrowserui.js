@@ -3,7 +3,7 @@
  */
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import icon from '@ckeditor/ckeditor5-core/theme/icons/image.svg';
+import icon from '../../theme/icons/media.svg';
 
 /**
  * Media Browser UI Plugin
