@@ -159,11 +159,11 @@ export function getTypeFromUrl(url) {
 
     if (xhr.readyState === xhr.DONE && xhr.status >= 200 && xhr.status < 300) {
         const mime = xhr.getResponseHeader('Content-Type').split(';')[0].trim();
-        const types = this.getTypeIds();
+        const ids = getTypeIds();
 
-        for (let i = 0; i < types.length; ++i) {
-            if (this.types[types[i]].mime.includes(mime)) {
-                return types[i];
+        for (let i = 0; i < ids.length; ++i) {
+            if (mediaTypes[ids[i]].mime.includes(mime)) {
+                return mediaTypes[ids[i]];
             }
         }
     }
