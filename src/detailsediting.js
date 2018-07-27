@@ -20,7 +20,6 @@ export default class DetailsEditing extends Plugin {
     init() {
         const editor = this.editor;
         const schema = editor.model.schema;
-        const t = editor.t;
         const conversion = editor.conversion;
         const detailsCfg = {model: 'details', view: 'details'};
         const summaryCfg = {model: 'detailsSummary', view: 'summary'};
@@ -46,7 +45,7 @@ export default class DetailsEditing extends Plugin {
         conversion.for('dataDowncast').add(downcastElementToElement(detailsCfg));
         conversion.for('editingDowncast').add(downcastElementToElement({
             model: 'details',
-            view: (modelElement, viewWriter) => toDetailsWidget(viewWriter.createContainerElement('details'), viewWriter, t('details widget'))
+            view: (modelElement, viewWriter) => toDetailsWidget(viewWriter.createContainerElement('details'))
         }));
         schema.register('detailsSummary', {
             allowContentOf: '$block',

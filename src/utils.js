@@ -16,16 +16,13 @@ const symbol = Symbol('isDetails');
  *
  * @param {module:engine/view/element~Element} viewElement
  * @param {module:engine/view/writer~Writer} viewWriter
- * @param {String} label
  *
  * @returns {module:engine/view/element~Element}
  */
-export function toDetailsWidget(viewElement, viewWriter, label) {
+export function toDetailsWidget(viewElement, viewWriter) {
     viewWriter.setCustomProperty(symbol, true, viewElement);
 
-    return toWidget(viewElement, viewWriter, {
-        label: label
-    });
+    return toWidget(viewElement, viewWriter);
 }
 
 /**
