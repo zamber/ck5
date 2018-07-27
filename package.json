@@ -1,12 +1,16 @@
 {
   "name": "@akilli/ckeditor5-details",
   "version": "0.0.0",
-  "description": "Details feature for CKEditor 5",
+  "description": "Details Widget for CKEditor 5",
   "keywords": [
     "ckeditor",
     "ckeditor5",
     "ckeditor 5",
-    "ckeditor5-feature"
+    "ckeditor5-feature",
+    "details-widget",
+    "widget",
+    "details",
+    "summary"
   ],
   "author": "Ayhan Akilli",
   "license": "MIT",
