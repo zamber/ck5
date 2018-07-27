@@ -18,10 +18,10 @@ export default class MediaCaptionEditing extends Plugin {
      */
     init() {
         const editor = this.editor;
-        const view = editor.editing.view;
+        const editing = editor.editing;
+        const view = editing.view;
         const schema = editor.model.schema;
         const data = editor.data;
-        const editing = editor.editing;
         const t = editor.t;
 
         schema.register('caption', {
@@ -41,11 +41,7 @@ export default class MediaCaptionEditing extends Plugin {
 
         const createCaptionForEditing = captionElementCreator(view, t('Enter media caption'));
         editing.downcastDispatcher.on('insert:caption', captionModelToView(createCaptionForEditing));
-        editing.downcastDispatcher.on(
-            'insert',
-            this._fixCaptionVisibility(data => data.item),
-            {priority: 'high'}
-        );
+        editing.downcastDispatcher.on('insert', this._fixCaptionVisibility(data => data.item), {priority: 'high'});
         editing.downcastDispatcher.on('remove', this._fixCaptionVisibility(data => data.position.parent), {priority: 'high'});
         view.document.registerPostFixer(writer => this._updateCaptionVisibility(writer));
     }
@@ -156,7 +152,6 @@ export default class MediaCaptionEditing extends Plugin {
 
                 if (!getCaptionFromMedia(item)) {
                     writer.appendElement('caption', item);
-
                     return true;
                 }
             }

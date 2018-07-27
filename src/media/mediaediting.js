@@ -20,7 +20,6 @@ export default class MediaEditing extends Plugin {
     init() {
         const editor = this.editor;
         const schema = editor.model.schema;
-        const t = editor.t;
         const conversion = editor.conversion;
 
         schema.register('media', {
@@ -36,7 +35,7 @@ export default class MediaEditing extends Plugin {
         }));
         conversion.for('editingDowncast').add(downcastElementToElement({
             model: 'media',
-            view: (modelElement, viewWriter) => toMediaWidget(createMediaViewElement(modelElement, viewWriter), viewWriter, t('media widget'))
+            view: (modelElement, viewWriter) => toMediaWidget(createMediaViewElement(modelElement, viewWriter), viewWriter)
         }));
         conversion.for('downcast')
             .add(modelToViewAttributeConverter('alt'))

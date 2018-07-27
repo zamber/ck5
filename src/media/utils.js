@@ -48,21 +48,13 @@ const mediaTypes = {
  *
  * @param {module:engine/view/element~Element} viewElement
  * @param {module:engine/view/writer~Writer} viewWriter
- * @param {String} label
  *
  * @returns {module:engine/view/element~Element}
  */
-export function toMediaWidget(viewElement, viewWriter, label) {
+export function toMediaWidget(viewElement, viewWriter) {
     viewWriter.setCustomProperty(symbol, true, viewElement);
 
-    return toWidget(viewElement, viewWriter, {
-        label: function () {
-            const media = viewElement.getChild(0);
-            const altText = media.getAttribute('alt');
-
-            return altText ? `${altText} ${label}` : label;
-        }
-    });
+    return toWidget(viewElement, viewWriter);
 }
 
 /**
