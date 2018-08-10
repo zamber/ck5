@@ -100,7 +100,6 @@ export function isMedia(modelElement) {
  * @returns {Boolean}
  */
 export function isMediaElement(element) {
-    console.log(Array.from(element.getClassNames()), Array.from(element.getClassNames()).some(item => mediaTypes.hasOwnProperty(item)));
     return element.name === 'figure' && Array.from(element.getClassNames()).some(item => mediaTypes.hasOwnProperty(item));
 }
 
