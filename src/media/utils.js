@@ -100,7 +100,7 @@ export function isMedia(modelElement) {
  * @returns {Boolean}
  */
 export function isMediaElement(viewElement) {
-    return viewElement && viewElement.name === 'figure' && Array.from(viewElement.getClassNames()).some(item => mediaTypes.hasOwnProperty(item));
+    return viewElement.name === 'figure' && Array.from(viewElement.getClassNames()).some(item => mediaTypes.hasOwnProperty(item));
 }
 
 /**
