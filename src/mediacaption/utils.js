@@ -3,6 +3,7 @@
  */
 import ModelElement from '@ckeditor/ckeditor5-engine/src/model/element';
 import {attachPlaceholder} from '@ckeditor/ckeditor5-engine/src/view/placeholder';
+import {isMediaElement} from '../media/utils';
 import {toWidgetEditable} from '@ckeditor/ckeditor5-widget/src/utils';
 
 /**
@@ -67,11 +68,5 @@ export function getCaptionFromMedia(modelMedia) {
  * @returns {Object|null}
  */
 export function matchMediaCaption(element) {
-    const parent = element.parent;
-
-    if (element.name === 'figcaption' && parent && parent.name === 'figure' && parent.hasClass('media')) {
-        return {name: true};
-    }
-
-    return null;
+    return element.name === 'figcaption' && isMediaElement(element.parent) ? {name: true} : null;
 }
