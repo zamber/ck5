@@ -158,7 +158,7 @@ export default class MediaEditing extends Plugin {
  */
 function createMediaViewElement(modelElement, viewWriter) {
     const type = getType(modelElement.getAttribute('type'));
-    const figure = viewWriter.createContainerElement('figure', {class: 'media'});
+    const figure = viewWriter.createContainerElement('figure', {class: type.id});
     let media;
 
     if (type.id === 'image') {

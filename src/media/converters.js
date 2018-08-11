@@ -3,7 +3,7 @@
  */
 import ModelPosition from '@ckeditor/ckeditor5-engine/src/model/position';
 import first from '@ckeditor/ckeditor5-utils/src/first';
-import {getTypeFromElement} from './utils';
+import {getTypeFromElement, getTypeIds} from './utils';
 
 /**
  * Returns a function that converts the media view representation:
@@ -22,14 +22,14 @@ import {getTypeFromElement} from './utils';
 export function viewFigureToModel() {
     return dispatcher => {
         dispatcher.on('element:figure', function (evt, data, conversionApi) {
-            if (!conversionApi.consumable.test(data.viewItem, {name: true, classes: 'media'})) {
-                return;
-            }
-
             const view = data.viewItem.getChild(0);
             let type;
 
             if (!view || !(type = getTypeFromElement(view.name)) || !view.hasAttribute('src') || !conversionApi.consumable.test(view, {name: true})) {
+                return;
+            }
+
+            if (!conversionApi.consumable.test(data.viewItem, {name: true, classes: type.id})) {
                 return;
             }
 
