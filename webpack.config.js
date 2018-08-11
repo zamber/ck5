@@ -8,7 +8,7 @@ const {styles} = require('@ckeditor/ckeditor5-dev-utils');
 module.exports = {
     devtool: 'source-map',
     performance: {hints: false},
-    entry: path.resolve(__dirname, 'dev', 'ckeditor.js'),
+    entry: path.resolve(__dirname, 'dev', 'config.js'),
     output: {
         path: path.resolve(__dirname, 'dev'),
         filename: 'ckeditor.js',
