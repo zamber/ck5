@@ -1,30 +1,19 @@
-:root {
-    --ck-media-caption-size: 0.875rem;
-    --ck-media-margin: 1.5rem;
-    --ck-media-maxwidth: 50%;
-}
-
-.ck-content figure.media audio,
-.ck-content figure.media iframe,
-.ck-content figure.media img,
-.ck-content figure.media video {
-    display: block;
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-.ck-content figure.media figcaption {
-    font-size: var(--ck-media-caption-size);
-}
-
-.ck-content figure.media.left {
-    max-width: var(--ck-media-maxwidth);
+.ck-content figure.audio.left,
+.ck-content figure.iframe.left,
+.ck-content figure.image.left,
+.ck-content figure.video.left {
+    max-width: 50%;
     float: left;
-    margin-right: var(--ck-media-margin);
+    margin-right: 1.5rem;
+    text-align: left;
 }
 
-.ck-content figure.media.right {
-    max-width: var(--ck-media-maxwidth);
+.ck-content figure.audio.right,
+.ck-content figure.iframe.right,
+.ck-content figure.image.right,
+.ck-content figure.video.right {
+    max-width: 50%;
     float: right;
-    margin-left: var(--ck-media-margin);
+    margin-left: 1.5rem;
+    text-align: left;
 }
