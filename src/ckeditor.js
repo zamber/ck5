@@ -1,7 +1,6 @@
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
-import Details from '@akilli/ckeditor5-details/src/details';
 import EditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading';
@@ -24,7 +23,6 @@ Editor.builtinPlugins = [
     Autoformat,
     BlockQuote,
     Bold,
-    Details,
     Essentials,
     Heading,
     Italic,
@@ -82,7 +80,6 @@ Editor.defaultConfig = {
             'blockQuote',
             'mediaBrowser',
             'insertTable',
-            'details',
         ]
     }
 };
