@@ -45,7 +45,7 @@ export default class DetailsEditing extends Plugin {
         conversion.for('dataDowncast').add(downcastElementToElement(detailsCfg));
         conversion.for('editingDowncast').add(downcastElementToElement({
             model: 'details',
-            view: (modelElement, viewWriter) => toDetailsWidget(viewWriter.createContainerElement('details'))
+            view: (modelElement, viewWriter) => toDetailsWidget(viewWriter.createContainerElement('details'), viewWriter)
         }));
         schema.register('detailsSummary', {
             allowContentOf: '$block',
