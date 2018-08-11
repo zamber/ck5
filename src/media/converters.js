@@ -22,19 +22,19 @@ import {getTypeFromElement} from './utils';
 export function viewFigureToModel() {
     return dispatcher => {
         dispatcher.on('element:figure', function (evt, data, conversionApi) {
-            const view = data.viewItem.getChild(0);
+            const media = data.viewItem.getChild(0);
 
-            if (!view || !view.hasAttribute('src') || !conversionApi.consumable.test(view, {name: true})) {
+            if (!media || !media.hasAttribute('src') || !conversionApi.consumable.test(media, {name: true})) {
                 return;
             }
 
-            const type = getTypeFromElement(view.name);
+            const type = getTypeFromElement(media.name);
 
             if (!type || !conversionApi.consumable.test(data.viewItem, {name: true, classes: type.id})) {
                 return;
             }
 
-            const result = conversionApi.convertItem(view, data.modelCursor);
+            const result = conversionApi.convertItem(media, data.modelCursor);
             const model = first(result.modelRange.getItems());
 
             if (!model) {
