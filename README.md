@@ -4,7 +4,7 @@ Details widget for CKEditor 5
 
 ## Current status
 
-Not finished! Editables (summary + details contents) are, for whatever reason, not editable yet.
+Not finished! Therefore no release yet.
 
 ## Examples
 
