@@ -93,14 +93,14 @@ export function isMedia(modelElement) {
 }
 
 /**
- * Checks if a given element is a `<figure>` element with a media type class name
+ * Checks if a given element is a `<figure>` element with the media class set
  *
  * @param {module:engine/view/element~Element} viewElement
  *
  * @returns {Boolean}
  */
 export function isMediaElement(viewElement) {
-    return viewElement.name === 'figure' && Array.from(viewElement.getClassNames()).some(item => mediaTypes.hasOwnProperty(item));
+    return viewElement.name === 'figure' && viewElement.hasClass('media');
 }
 
 /**

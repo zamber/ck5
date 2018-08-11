@@ -68,5 +68,5 @@ export function getCaptionFromMedia(modelMedia) {
  * @returns {Object|null}
  */
 export function matchMediaCaption(element) {
-    return element.name === 'figcaption' && isMediaElement(element.parent) ? {name: true} : null;
+    return element.name === 'figcaption' && element.parent && isMediaElement(element.parent) ? {name: true} : null;
 }
