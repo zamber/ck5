@@ -1,5 +1,6 @@
 #
 # DEV
 #
+/dev
 /node_modules
 .idea
