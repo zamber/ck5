@@ -23,13 +23,14 @@ export function viewFigureToModel() {
     return dispatcher => {
         dispatcher.on('element:figure', function (evt, data, conversionApi) {
             const view = data.viewItem.getChild(0);
-            let type;
 
-            if (!view || !(type = getTypeFromElement(view.name)) || !view.hasAttribute('src') || !conversionApi.consumable.test(view, {name: true})) {
+            if (!view || !view.hasAttribute('src') || !conversionApi.consumable.test(view, {name: true})) {
                 return;
             }
 
-            if (!conversionApi.consumable.test(data.viewItem, {name: true, classes: type.id})) {
+            const type = getTypeFromElement(view.name);
+
+            if (!type || !conversionApi.consumable.test(data.viewItem, {name: true, classes: type.id})) {
                 return;
             }
 
