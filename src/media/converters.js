@@ -3,7 +3,7 @@
  */
 import ModelPosition from '@ckeditor/ckeditor5-engine/src/model/position';
 import first from '@ckeditor/ckeditor5-utils/src/first';
-import {getTypeFromElement, getTypeIds} from './utils';
+import {getTypeFromElement} from './utils';
 
 /**
  * Returns a function that converts the media view representation:
