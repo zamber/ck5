@@ -26,7 +26,7 @@
   ],
   "devDependencies": {
     "@ckeditor/ckeditor5-editor-classic": "^11.0.0",
-    "@akilli/ckeditor5-media": "^0.1.1",
+    "@akilli/ckeditor5-media": "^0.1.2",
     "@ckeditor/ckeditor5-autoformat": "^10.0.2",
     "@ckeditor/ckeditor5-basic-styles": "^10.0.2",
     "@ckeditor/ckeditor5-block-quote": "^10.0.2",
