@@ -28,10 +28,4 @@ and that your media browser notifies the editor by posting a message p.e. like
 
 ## Examples
 
-You can see this plugin and a minimalistic media browser in action with
-
-1. [CKEditor 5 Balloon](https://akilli.github.io/rte/ck5-balloon/)
-2. [CKEditor 5 Classic](https://akilli.github.io/rte/ck5-classic/)
-3. [CKEditor 5 Inline](https://akilli.github.io/rte/ck5-inline/)
-
-You can find source code of the minimalistic media browser example @ https://github.com/akilli/rte/tree/master/browser 
+You can see this plugin and a minimalistic media browser in action @ https://akilli.github.io/rte/ck5-media/
