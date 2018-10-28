@@ -1,6 +1,6 @@
 {
   "name": "@akilli/ckeditor5-build-inline",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Custom CKEditor 5 inline build",
   "keywords": [
     "ckeditor",
