@@ -1,6 +1,6 @@
 {
   "name": "@akilli/ckeditor5-media",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Media Widget for CKEditor 5",
   "keywords": [
     "ckeditor",
