@@ -53,7 +53,7 @@ Editor.defaultConfig = {
     },
     language: 'de',
     table: {
-        toolbar: [
+        contentToolbar: [
             'tableColumn',
             'tableRow',
             'mergeTableCells',
