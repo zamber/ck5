@@ -28,13 +28,28 @@ export default class MediaToolbar extends Plugin {
     /**
      * @inheritDoc
      */
+    init() {
+        const editor = this.editor;
+
+        editor.config.define('media.toolbar', [
+            'mediaStyle:left',
+            'mediaStyle:full',
+            'mediaStyle:right',
+            '|',
+            'mediaTextAlternative',
+        ]);
+    }
+
+    /**
+     * @inheritDoc
+     */
     afterInit() {
         const editor = this.editor;
         const widgetToolbarRepository = editor.plugins.get(WidgetToolbarRepository);
 
         widgetToolbarRepository.register('media', {
             items: editor.config.get('media.toolbar') || [],
-            getRelatedElement: getSelectedMediaWidget,
+            visibleWhen: viewSelection => !!getSelectedMediaWidget(viewSelection)
         });
     }
 }
