@@ -52,7 +52,7 @@ export default class MediaCaptionEditing extends Plugin {
      *
      * @private
      *
-     * @param {module:engine/view/writer~Writer} viewWriter
+     * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
      *
      * @returns {Boolean}
      */
@@ -240,7 +240,7 @@ function getParentCaption(node) {
  * @private
  *
  * @param {module:engine/view/containerelement~ContainerElement} caption
- * @param {module:engine/view/writer~Writer} viewWriter
+ * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
  *
  * @returns {Boolean}
  */
@@ -257,7 +257,7 @@ function hideCaptionIfEmpty(caption, viewWriter) {
  * Shows the caption.
  *
  * @param {module:engine/view/containerelement~ContainerElement} caption
- * @param {module:engine/view/writer~Writer} viewWriter
+ * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
  *
  * @returns {Boolean}
  */

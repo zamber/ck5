@@ -78,7 +78,7 @@ export default class MediaEditing extends Plugin {
  * @private
  *
  * @param {module:engine/model/element~Element} modelElement
- * @param {module:engine/view/writer~Writer} viewWriter
+ * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
  *
  * @returns {module:engine/view/containerelement~ContainerElement}
  */
