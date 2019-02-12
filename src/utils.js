@@ -15,7 +15,7 @@ const symbol = Symbol('isDetails');
  * Converts a given {@link module:engine/view/element~Element} to a details widget
  *
  * @param {module:engine/view/element~Element} viewElement
- * @param {module:engine/view/writer~Writer} viewWriter
+ * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
  *
  * @returns {module:engine/view/element~Element}
  */
