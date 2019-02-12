@@ -6,7 +6,7 @@ import ContextualBalloon from '@ckeditor/ckeditor5-ui/src/panel/balloon/contextu
 import MediaTextAlternativeForm from './mediatextalternativeform';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import clickOutsideHandler from '@ckeditor/ckeditor5-ui/src/bindings/clickoutsidehandler';
-import {getBalloonPositionData, isMediaWidgetSelected, repositionContextualBalloon} from '../media/utils';
+import {getBalloonPositionData, getSelectedMediaWidget, repositionContextualBalloon} from '../media/utils';
 import textAlternativeIcon from '@ckeditor/ckeditor5-core/theme/icons/low-vision.svg';
 
 /**
@@ -86,7 +86,7 @@ export default class MediaTextAlternativeUI extends Plugin {
             cancel();
         });
         this.listenTo(view, 'render', () => {
-            if (!isMediaWidgetSelected(viewDocument.selection)) {
+            if (!getSelectedMediaWidget(viewDocument.selection)) {
                 this._hideForm(true);
             } else if (this._isVisible) {
                 repositionContextualBalloon(editor);

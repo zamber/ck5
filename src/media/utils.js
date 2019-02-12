@@ -69,16 +69,15 @@ export function isMediaWidget(viewElement) {
 }
 
 /**
- * Checks if a media widget is the only selected element.
+ * Returns an media widget editing view element if one is selected.
  *
  * @param {module:engine/view/selection~Selection|module:engine/view/documentselection~DocumentSelection} selection
- *
- * @returns {Boolean}
+ * @returns {module:engine/view/element~Element|null}
  */
-export function isMediaWidgetSelected(selection) {
+export function getSelectedMediaWidget(selection) {
     const viewElement = selection.getSelectedElement();
 
-    return !!viewElement && isMediaWidget(viewElement);
+    return viewElement && isMediaWidget(viewElement) ? viewElement : null;
 }
 
 /**
@@ -209,7 +208,7 @@ export function getBalloonPositionData(editor) {
 export function repositionContextualBalloon(editor) {
     const balloon = editor.plugins.get('ContextualBalloon');
 
-    if (isMediaWidgetSelected(editor.editing.view.document.selection)) {
+    if (getSelectedMediaWidget(editor.editing.view.document.selection)) {
         balloon.updatePosition(getBalloonPositionData(editor));
     }
 }
