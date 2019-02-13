@@ -31,7 +31,7 @@ export default class MediaBrowserCommand extends Command {
             let origin;
 
             try {
-                origin = win.origin;
+                origin = win.origin || win.location.origin;
             } catch (e) {
                 editorWin.console.log(e);
                 const a = editorDoc.createElement('a');
