@@ -2,7 +2,7 @@
  * @module details/detailscommand
  */
 import Command from '@ckeditor/ckeditor5-core/src/command';
-import Position from '@ckeditor/ckeditor5-engine/src/model/position';
+import {findOptimalInsertionPosition} from '@ckeditor/ckeditor5-widget/src/utils';
 
 /**
  * Details Command
@@ -28,9 +28,7 @@ export default class DetailsCommand extends Command {
     execute() {
         const model = this.editor.model;
         const selection = model.document.selection;
-        const firstPosition = selection.getFirstPosition();
-        const isRoot = firstPosition.parent === firstPosition.root;
-        const insertPosition = isRoot ? Position.createAt(firstPosition) : Position.createAfter(firstPosition.parent);
+        const insertPosition = findOptimalInsertionPosition(selection, model);
 
         model.change(writer => {
             const details = writer.createElement('details');
