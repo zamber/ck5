@@ -81,7 +81,7 @@ export function getSelectedMediaWidget(selection) {
 }
 
 /**
- * Checks if provided model element is media element
+ * Checks if provided model element is a media element
  *
  * @param {module:engine/model/element~Element} element
  *
