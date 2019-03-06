@@ -5,57 +5,50 @@ import ModelElement from '@ckeditor/ckeditor5-engine/src/model/element';
 import {isWidget, toWidget} from '@ckeditor/ckeditor5-widget/src/utils';
 
 /**
- * Details widget symbol
+ * Converts a given view element to a details widget
  *
- * @type {symbol}
- */
-const symbol = Symbol('isDetails');
-
-/**
- * Converts a given {@link module:engine/view/element~Element} to a details widget
- *
- * @param {module:engine/view/element~Element} viewElement
- * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
+ * @param {module:engine/view/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
  *
  * @returns {module:engine/view/element~Element}
  */
-export function toDetailsWidget(viewElement, viewWriter) {
-    viewWriter.setCustomProperty(symbol, true, viewElement);
+export function toDetailsWidget(element, writer) {
+    writer.setCustomProperty('details', true, element);
 
-    return toWidget(viewElement, viewWriter);
+    return toWidget(element, writer);
 }
 
 /**
- * Checks if a given view element is a details widget.
+ * Checks if a given view element is a details widget
  *
- * @param {module:engine/view/element~Element} viewElement
+ * @param {module:engine/view/element~Element} element
  *
  * @returns {Boolean}
  */
-export function isDetailsWidget(viewElement) {
-    return !!viewElement.getCustomProperty(symbol) && isWidget(viewElement);
+export function isDetailsWidget(element) {
+    return !!element.getCustomProperty('details') && isWidget(element);
 }
 
 /**
- * Checks if a details widget is the only selected element.
+ * Checks if a details widget is the only selected element
  *
  * @param {module:engine/view/selection~Selection|module:engine/view/documentselection~DocumentSelection} selection
  *
  * @returns {Boolean}
  */
 export function isDetailsWidgetSelected(selection) {
-    const viewElement = selection.getSelectedElement();
+    const element = selection.getSelectedElement();
 
-    return !!viewElement && isDetailsWidget(viewElement);
+    return !!element && isDetailsWidget(element);
 }
 
 /**
- * Checks if provided model element is an instance of {@link module:engine/model/element~Element} with name `details`
+ * Checks if provided model element is a details element
  *
- * @param {module:engine/model/element~Element} modelElement
+ * @param {module:engine/model/element~Element} element
  *
  * @returns {Boolean}
  */
-export function isDetails(modelElement) {
-    return modelElement instanceof ModelElement && modelElement.name === 'details';
+export function isDetails(element) {
+    return !!element && element.is('details');
 }

@@ -3,10 +3,8 @@
  */
 import DetailsCommand from './detailscommand';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
 import {toDetailsWidget} from './utils';
 import {toWidgetEditable} from '@ckeditor/ckeditor5-widget/src/utils';
-import {upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
 /**
  * Details Editing Plugin
@@ -41,36 +39,36 @@ export default class DetailsEditing extends Plugin {
             isLimit: true,
             isObject: true
         });
-        conversion.for('upcast').add(upcastElementToElement(detailsCfg));
-        conversion.for('dataDowncast').add(downcastElementToElement(detailsCfg));
-        conversion.for('editingDowncast').add(downcastElementToElement({
+        conversion.for('upcast').elementToElement(detailsCfg);
+        conversion.for('dataDowncast').elementToElement(detailsCfg);
+        conversion.for('editingDowncast').elementToElement({
             model: 'details',
-            view: (modelElement, viewWriter) => toDetailsWidget(viewWriter.createContainerElement('details'), viewWriter)
-        }));
+            view: (element, writer) => toDetailsWidget(writer.createContainerElement('details'), writer)
+        });
         schema.register('detailsSummary', {
             allowContentOf: '$block',
             allowIn: 'details',
             isBlock: true,
             isLimit: true
         });
-        conversion.for('upcast').add(upcastElementToElement(summaryCfg));
-        conversion.for('dataDowncast').add(downcastElementToElement(summaryCfg));
-        conversion.for('editingDowncast').add(downcastElementToElement({
+        conversion.for('upcast').elementToElement(summaryCfg);
+        conversion.for('dataDowncast').elementToElement(summaryCfg);
+        conversion.for('editingDowncast').elementToElement({
             model: 'detailsSummary',
             view: detailsSummaryEditingDowncast
-        }));
+        });
         schema.register('detailsContent', {
             allowContentOf: '$root',
             allowIn: 'details',
             isBlock: true,
             isLimit: true
         });
-        conversion.for('upcast').add(upcastElementToElement(contentCfg));
-        conversion.for('dataDowncast').add(downcastElementToElement(contentCfg));
-        conversion.for('editingDowncast').add(downcastElementToElement({
+        conversion.for('upcast').elementToElement(contentCfg);
+        conversion.for('dataDowncast').elementToElement(contentCfg);
+        conversion.for('editingDowncast').elementToElement({
             model: 'detailsContent',
             view: detailsContentEditingDowncast
-        }));
+        });
     }
 
     /**
@@ -98,33 +96,33 @@ export default class DetailsEditing extends Plugin {
 }
 
 /**
- * Downcasts a given {@link module:engine/model/element~Element} to a details summary editable
+ * Downcasts a given model element to a details summary editable
  *
  * @private
  *
- * @param {module:engine/model/element~Element} modelElement
- * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
+ * @param {module:engine/model/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
  *
  * @returns {module:engine/view/editableelement~EditableElement}
  */
-function detailsSummaryEditingDowncast(modelElement, viewWriter) {
-    const summary = viewWriter.createContainerElement('summary');
+function detailsSummaryEditingDowncast(element, writer) {
+    const summary = writer.createContainerElement('summary');
 
-    return toWidgetEditable(summary, viewWriter);
+    return toWidgetEditable(summary, writer);
 }
 
 /**
- * Downcasts a given {@link module:engine/model/element~Element} to a details content editable
+ * Downcasts a given model element to a details content editable
  *
  * @private
  *
- * @param {module:engine/model/element~Element} modelElement
- * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
+ * @param {module:engine/model/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
  *
  * @returns {module:engine/view/editableelement~EditableElement}
  */
-function detailsContentEditingDowncast(modelElement, viewWriter) {
-    const content = viewWriter.createContainerElement('div', {class: 'content'});
+function detailsContentEditingDowncast(element, writer) {
+    const content = writer.createContainerElement('div', {class: 'content'});
 
-    return toWidgetEditable(content, viewWriter);
+    return toWidgetEditable(content, writer);
 }
