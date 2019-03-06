@@ -56,6 +56,21 @@ export default class DetailsEditing extends Plugin {
         });
 
         // Details
+        conversion.for('upcast').add(dispatcher => {
+            dispatcher.on('element:details', (evt, data, conversionApi) => {
+                if (!conversionApi.consumable.test(data.viewItem, {name: data.viewItem.name})) {
+                    return;
+                }
+
+                console.log(data);
+
+                const first = data.viewItem.getChild(0);
+
+                if (!first || !first.is('summary')) {
+                    conversionApi.writer.insertElement('detailsSummary', {}, data.modelCursor);
+                }
+            });
+        });
         conversion.for('upcast').elementToElement(detailsCfg);
         conversion.for('dataDowncast').elementToElement(detailsCfg);
         conversion.for('editingDowncast').elementToElement({
