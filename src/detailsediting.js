@@ -56,21 +56,6 @@ export default class DetailsEditing extends Plugin {
         });
 
         // Details
-        conversion.for('upcast').add(dispatcher => {
-            dispatcher.on('element:details', (evt, data, conversionApi) => {
-                if (!conversionApi.consumable.test(data.viewItem, {name: data.viewItem.name})) {
-                    return;
-                }
-
-                console.log(data);
-
-                const first = data.viewItem.getChild(0);
-
-                if (!first || !first.is('summary')) {
-                    conversionApi.writer.insertElement('detailsSummary', {}, data.modelCursor);
-                }
-            });
-        });
         conversion.for('upcast').elementToElement(detailsCfg);
         conversion.for('dataDowncast').elementToElement(detailsCfg);
         conversion.for('editingDowncast').elementToElement({
@@ -112,6 +97,18 @@ export default class DetailsEditing extends Plugin {
                 });
                 editor.editing.view.scrollToTheSelection();
 
+                data.preventDefault();
+                evt.stop();
+            }
+        });
+
+        this.listenTo(editor.editing.view.document, 'keydown', (evt, data) => {
+            const positionParent = editor.model.document.selection.getLastPosition().parent;
+
+            if (data.keyCode === 32 && positionParent && positionParent.name === 'detailsSummary') {
+                model.change(writer => {
+                    writer.insertText(' ', positionParent, 'end');
+                });
                 data.preventDefault();
                 evt.stop();
             }
