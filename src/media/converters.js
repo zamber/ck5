@@ -51,13 +51,13 @@ export function viewToModel() {
 /**
  * Converts model to view attributes
  *
- * @param {String} name
+ * @param {String} key
  *
  * @returns {Function}
  */
-export function modelToViewAttribute(name) {
+export function modelToViewAttribute(key) {
     return dispatcher => {
-        dispatcher.on(`attribute:${name}:media`, (evt, data, conversionApi) => {
+        dispatcher.on(`attribute:${key}:media`, (evt, data, conversionApi) => {
             if (!conversionApi.consumable.consume(data.item, evt.name)) {
                 return;
             }
