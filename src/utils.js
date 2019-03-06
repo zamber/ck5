@@ -1,7 +1,6 @@
 /**
  * @module details/utils
  */
-import ModelElement from '@ckeditor/ckeditor5-engine/src/model/element';
 import {isWidget, toWidget} from '@ckeditor/ckeditor5-widget/src/utils';
 
 /**
@@ -9,13 +8,14 @@ import {isWidget, toWidget} from '@ckeditor/ckeditor5-widget/src/utils';
  *
  * @param {module:engine/view/element~Element} element
  * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ * @param {String} label
  *
  * @returns {module:engine/view/element~Element}
  */
-export function toDetailsWidget(element, writer) {
+export function toDetailsWidget(element, writer, label) {
     writer.setCustomProperty('details', true, element);
 
-    return toWidget(element, writer);
+    return toWidget(element, writer, {label: label});
 }
 
 /**
