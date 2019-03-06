@@ -33,19 +33,8 @@ export default class MediaEditing extends Plugin {
             isObject: true
         });
 
-        // Element
-        conversion.for('dataDowncast').elementToElement({
-            model: 'media',
-            view: createMediaViewElement
-        });
-        conversion.for('editingDowncast').elementToElement({
-            model: 'media',
-            view: (element, writer) => toMediaWidget(createMediaViewElement(element, writer), writer, t('Media Widget'))
-        });
+        // Upcast
         conversion.for('upcast').add(viewToModel());
-
-        // Attributes
-        ['alt', 'height', 'src', 'width'].forEach(attr => conversion.for('downcast').add(modelToViewAttribute(attr)));
         types.forEach(item => {
             const type = getType(item);
             conversion.for('upcast').elementToElement({
@@ -77,6 +66,17 @@ export default class MediaEditing extends Plugin {
                 });
             });
         });
+
+        // Downcast
+        conversion.for('dataDowncast').elementToElement({
+            model: 'media',
+            view: createMediaViewElement
+        });
+        conversion.for('editingDowncast').elementToElement({
+            model: 'media',
+            view: (element, writer) => toMediaWidget(createMediaViewElement(element, writer), writer, t('Media Widget'))
+        });
+        ['alt', 'height', 'src', 'width'].forEach(attr => conversion.for('downcast').add(modelToViewAttribute(attr)));
     }
 }
 
