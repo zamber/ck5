@@ -21,6 +21,7 @@ export default class DetailsEditing extends Plugin {
         const conversion = editor.conversion;
         const t = editor.t;
 
+        // Command
         editor.commands.add('details', new DetailsCommand(editor));
 
         // Schema
@@ -43,34 +44,33 @@ export default class DetailsEditing extends Plugin {
             isLimit: true
         });
 
-        // Element
-        conversion.for('dataDowncast').elementToElement({
-            model: 'details',
-            view: 'details'
-        });
-        conversion.for('editingDowncast').elementToElement({
-            model: 'details',
-            //view: (element, writer) => toDetailsWidget(writer.createContainerElement('details'), writer, t('Details'))
-            view: 'details'
-        });
+        // Upcast
         conversion.for('upcast').elementToElement({
             model: 'details',
             view: 'details'
-        });
-
-        conversion.for('dataDowncast').elementToElement({
-            model: 'detailsSummary',
-            view: 'summary'
-        });
-        conversion.for('editingDowncast').elementToElement({
-            model: 'detailsSummary',
-            view: 'summary'
         });
         conversion.for('upcast').elementToElement({
             model: 'detailsSummary',
             view: 'summary'
         });
-
+        conversion.for('upcast').elementToElement({
+            model: 'detailsContent',
+            view: {
+                name: 'div',
+                attributes: {
+                    class: 'content'
+                }
+            }
+        });
+        // Downcast
+        conversion.for('dataDowncast').elementToElement({
+            model: 'details',
+            view: 'details'
+        });
+        conversion.for('dataDowncast').elementToElement({
+            model: 'detailsSummary',
+            view: 'summary'
+        });
         conversion.for('dataDowncast').elementToElement({
             model: 'detailsContent',
             view: {
@@ -81,22 +81,16 @@ export default class DetailsEditing extends Plugin {
             }
         });
         conversion.for('editingDowncast').elementToElement({
-            model: 'detailsContent',
-            view: {
-                name: 'div',
-                attributes: {
-                    class: 'content'
-                }
-            }
+            model: 'details',
+            view: (element, writer) => toDetailsWidget(writer.createContainerElement('details'), writer, t('Details'))
         });
-        conversion.for('upcast').elementToElement({
+        conversion.for('editingDowncast').elementToElement({
+            model: 'detailsSummary',
+            view: summaryEditingDowncast
+        });
+        conversion.for('editingDowncast').elementToElement({
             model: 'detailsContent',
-            view: {
-                name: 'div',
-                attributes: {
-                    class: 'content'
-                }
-            }
+            view: contentEditingDowncast
         });
     }
 
@@ -134,7 +128,7 @@ export default class DetailsEditing extends Plugin {
  *
  * @returns {module:engine/view/editableelement~EditableElement}
  */
-function detailsSummaryEditingDowncast(element, writer) {
+function summaryEditingDowncast(element, writer) {
     const summary = writer.createContainerElement('summary');
 
     return toWidgetEditable(summary, writer);
@@ -150,7 +144,7 @@ function detailsSummaryEditingDowncast(element, writer) {
  *
  * @returns {module:engine/view/editableelement~EditableElement}
  */
-function detailsContentEditingDowncast(element, writer) {
+function contentEditingDowncast(element, writer) {
     const content = writer.createContainerElement('div', {class: 'content'});
 
     return toWidgetEditable(content, writer);
