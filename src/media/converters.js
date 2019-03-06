@@ -51,28 +51,26 @@ export function viewToModel() {
 /**
  * Converts model to view attributes
  *
- * @param {String} attributeKey
+ * @param {String} name
  *
  * @returns {Function}
  */
-export function modelToViewAttribute(attributeKey) {
+export function modelToViewAttribute(name) {
     return dispatcher => {
-        dispatcher.on(`attribute:${attributeKey}:media`, converter);
-    };
+        dispatcher.on(`attribute:${name}:media`, (evt, data, conversionApi) => {
+            if (!conversionApi.consumable.consume(data.item, evt.name)) {
+                return;
+            }
 
-    function converter(evt, data, conversionApi) {
-        if (!conversionApi.consumable.consume(data.item, evt.name)) {
-            return;
-        }
+            const writer = conversionApi.writer;
+            const figure = conversionApi.mapper.toViewElement(data.item);
+            const media = figure.getChild(0);
 
-        const writer = conversionApi.writer;
-        const figure = conversionApi.mapper.toViewElement(data.item);
-        const media = figure.getChild(0);
-
-        if (data.attributeNewValue !== null) {
-            writer.setAttribute(data.attributeKey, data.attributeNewValue, media);
-        } else {
-            writer.removeAttribute(data.attributeKey, media);
-        }
+            if (data.attributeNewValue !== null) {
+                writer.setAttribute(data.attributeKey, data.attributeNewValue, media);
+            } else {
+                writer.removeAttribute(data.attributeKey, media);
+            }
+        });
     }
 }
