@@ -4,6 +4,7 @@
 import DetailsCommand from './detailscommand';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import {toDetailsWidget} from './utils';
+import {toWidgetEditable} from '@ckeditor/ckeditor5-widget/src/utils';
 
 /**
  * Details Editing Plugin
@@ -49,7 +50,8 @@ export default class DetailsEditing extends Plugin {
         });
         conversion.for('editingDowncast').elementToElement({
             model: 'details',
-            view: (element, writer) => toDetailsWidget(writer.createContainerElement('details'), writer, t('Details'))
+            //view: (element, writer) => toDetailsWidget(writer.createContainerElement('details'), writer, t('Details'))
+            view: 'details'
         });
         conversion.for('upcast').elementToElement({
             model: 'details',
@@ -120,4 +122,36 @@ export default class DetailsEditing extends Plugin {
             }
         });
     }
+}
+
+/**
+ * Downcasts a given model element to a details summary editable
+ *
+ * @private
+ *
+ * @param {module:engine/model/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ *
+ * @returns {module:engine/view/editableelement~EditableElement}
+ */
+function detailsSummaryEditingDowncast(element, writer) {
+    const summary = writer.createContainerElement('summary');
+
+    return toWidgetEditable(summary, writer);
+}
+
+/**
+ * Downcasts a given model element to a details content editable
+ *
+ * @private
+ *
+ * @param {module:engine/model/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ *
+ * @returns {module:engine/view/editableelement~EditableElement}
+ */
+function detailsContentEditingDowncast(element, writer) {
+    const content = writer.createContainerElement('div', {class: 'content'});
+
+    return toWidgetEditable(content, writer);
 }
