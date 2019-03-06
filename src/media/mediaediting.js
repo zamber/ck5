@@ -3,7 +3,7 @@
  */
 import MediaLoadObserver from './medialoadobserver';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import {modelToViewAttributeConverter, viewFigureToModel} from './converters';
+import {modelToViewAttribute, viewToModel} from './converters';
 import {getType, getTypeIds, toMediaWidget} from './utils';
 
 /**
@@ -22,8 +22,10 @@ export default class MediaEditing extends Plugin {
         const conversion = editor.conversion;
         const types = getTypeIds();
 
+        // Observer
         editor.editing.view.addObserver(MediaLoadObserver);
 
+        // Schema
         schema.register('media', {
             allowAttributes: ['alt', 'height', 'src', 'type', 'width'],
             allowWhere: '$block',
@@ -31,13 +33,19 @@ export default class MediaEditing extends Plugin {
             isObject: true
         });
 
-        conversion.for('dataDowncast').elementToElement({model: 'media', view: createMediaViewElement});
+        // Element
+        conversion.for('dataDowncast').elementToElement({
+            model: 'media',
+            view: createMediaViewElement
+        });
         conversion.for('editingDowncast').elementToElement({
             model: 'media',
             view: (element, writer) => toMediaWidget(createMediaViewElement(element, writer), writer, t('Media Widget'))
         });
-        ['alt', 'height', 'src', 'width'].forEach(attr => conversion.for('downcast').add(modelToViewAttributeConverter(attr)));
+        conversion.for('upcast').add(viewToModel());
 
+        // Attributes
+        ['alt', 'height', 'src', 'width'].forEach(attr => conversion.for('downcast').add(modelToViewAttribute(attr)));
         types.forEach(item => {
             const type = getType(item);
             conversion.for('upcast').elementToElement({
@@ -69,7 +77,6 @@ export default class MediaEditing extends Plugin {
                 });
             });
         });
-        conversion.for('upcast').add(viewFigureToModel());
     }
 }
 

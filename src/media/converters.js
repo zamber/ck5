@@ -18,7 +18,7 @@ import {getTypeFromElement} from './utils';
  *
  * @returns {Function}
  */
-export function viewFigureToModel() {
+export function viewToModel() {
     return dispatcher => {
         dispatcher.on('element:figure', (evt, data, conversionApi) => {
             const media = data.viewItem.getChild(0);
@@ -55,7 +55,7 @@ export function viewFigureToModel() {
  *
  * @returns {Function}
  */
-export function modelToViewAttributeConverter(attributeKey) {
+export function modelToViewAttribute(attributeKey) {
     return dispatcher => {
         dispatcher.on(`attribute:${attributeKey}:media`, converter);
     };
