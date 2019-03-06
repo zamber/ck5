@@ -9,9 +9,9 @@ import KeystrokeHandler from '@ckeditor/ckeditor5-utils/src/keystrokehandler';
 import LabeledInputView from '@ckeditor/ckeditor5-ui/src/labeledinput/labeledinputview';
 import View from '@ckeditor/ckeditor5-ui/src/view';
 import ViewCollection from '@ckeditor/ckeditor5-ui/src/viewcollection';
+import submitHandler from '@ckeditor/ckeditor5-ui/src/bindings/submithandler';
 import cancelIcon from '@ckeditor/ckeditor5-core/theme/icons/cancel.svg';
 import checkIcon from '@ckeditor/ckeditor5-core/theme/icons/check.svg';
-import submitHandler from '@ckeditor/ckeditor5-ui/src/bindings/submithandler';
 import '../../theme/mediatextalternativeform.css';
 
 /**
@@ -29,7 +29,7 @@ export default class MediaTextAlternativeForm extends View {
         const t = this.locale.t;
 
         /**
-         * Tracks information about the DOM focus in the form.
+         * Tracks information about the DOM focus in the form
          *
          * @readonly
          *
@@ -38,7 +38,7 @@ export default class MediaTextAlternativeForm extends View {
         this.focusTracker = new FocusTracker();
 
         /**
-         * An instance of the {@link module:utils/keystrokehandler~KeystrokeHandler}.
+         * An instance of the keystroke handler
          *
          * @readonly
          *
@@ -47,14 +47,14 @@ export default class MediaTextAlternativeForm extends View {
         this.keystrokes = new KeystrokeHandler();
 
         /**
-         * A textarea with a label.
+         * A textarea with a label
          *
          * @member {module:ui/labeledinput/labeledinputview~LabeledInputView} #labeledTextarea
          */
         this.labeledInput = this._createLabeledInputView();
 
         /**
-         * A button used to submit the form.
+         * A button used to submit the form
          *
          * @member {module:ui/button/buttonview~ButtonView} #saveButtonView
          */
@@ -62,14 +62,14 @@ export default class MediaTextAlternativeForm extends View {
         this.saveButtonView.type = 'submit';
 
         /**
-         * A button used to cancel the form.
+         * A button used to cancel the form
          *
          * @member {module:ui/button/buttonview~ButtonView} #cancelButtonView
          */
         this.cancelButtonView = this._createButton(t('Cancel'), cancelIcon, 'ck-button-cancel', 'cancel');
 
         /**
-         * A collection of views which can be focused in the form.
+         * A collection of views which can be focused in the form
          *
          * @readonly
          * @protected
@@ -79,7 +79,7 @@ export default class MediaTextAlternativeForm extends View {
         this._focusables = new ViewCollection();
 
         /**
-         * Helps cycling over {@link #_focusables} in the form.
+         * Helps cycling over focusables in the form
          *
          * @readonly
          * @protected
@@ -99,10 +99,7 @@ export default class MediaTextAlternativeForm extends View {
         this.setTemplate({
             tag: 'form',
             attributes: {
-                class: [
-                    'ck',
-                    'ck-text-alternative-form',
-                ],
+                class: ['ck', 'ck-text-alternative-form'],
                 tabindex: '-1'
             },
             children: [
@@ -131,7 +128,7 @@ export default class MediaTextAlternativeForm extends View {
     }
 
     /**
-     * Creates the button view.
+     * Creates the button view
      *
      * @private
      *
@@ -165,7 +162,7 @@ export default class MediaTextAlternativeForm extends View {
     }
 
     /**
-     * Creates an input with a label.
+     * Creates an input with a label
      *
      * @private
      *

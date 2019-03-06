@@ -1,11 +1,10 @@
 /**
  * @module media/media/mediaediting
  */
+import MediaLoadObserver from './medialoadobserver';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import {downcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/downcast-converters';
 import {modelToViewAttributeConverter, viewFigureToModel} from './converters';
 import {getType, getTypeIds, toMediaWidget} from './utils';
-import {upcastAttributeToAttribute, upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
 /**
  * Media Editing Plugin
@@ -19,8 +18,11 @@ export default class MediaEditing extends Plugin {
     init() {
         const editor = this.editor;
         const schema = editor.model.schema;
+        const t = editor.t;
         const conversion = editor.conversion;
         const types = getTypeIds();
+
+        editor.editing.view.addObserver(MediaLoadObserver);
 
         schema.register('media', {
             allowAttributes: ['alt', 'height', 'src', 'type', 'width'],
@@ -29,42 +31,42 @@ export default class MediaEditing extends Plugin {
             isObject: true
         });
 
-        conversion.for('dataDowncast').add(downcastElementToElement({model: 'media', view: createMediaViewElement}));
-        conversion.for('editingDowncast').add(downcastElementToElement({
+        conversion.for('dataDowncast').elementToElement({model: 'media', view: createMediaViewElement});
+        conversion.for('editingDowncast').elementToElement({
             model: 'media',
-            view: (modelElement, viewWriter) => toMediaWidget(createMediaViewElement(modelElement, viewWriter), viewWriter)
-        }));
+            view: (element, writer) => toMediaWidget(createMediaViewElement(element, writer), writer, t('Media Widget'))
+        });
         ['alt', 'height', 'src', 'width'].forEach(attr => conversion.for('downcast').add(modelToViewAttributeConverter(attr)));
 
         types.forEach(item => {
             const type = getType(item);
-            conversion.for('upcast').add(upcastElementToElement({
-                model: (viewMedia, modelWriter) => modelWriter.createElement('media', {src: viewMedia.getAttribute('src'), 'type': type.id}),
+            conversion.for('upcast').elementToElement({
+                model: (element, writer) => writer.createElement('media', {src: element.getAttribute('src'), 'type': type.id}),
                 view: {
                     name: type.element,
                     attributes: {
                         src: true
                     }
                 }
-            }));
+            });
         });
-        conversion.for('upcast').add(upcastAttributeToAttribute({
+        conversion.for('upcast').attributeToAttribute({
             model: 'alt',
                 view: {
                     name: 'img',
                     key: 'alt'
                 }
-        }));
+        });
         ['height', 'width'].forEach(attr => {
             types.forEach(item => {
                 const type = getType(item);
-                conversion.for('upcast').add(upcastAttributeToAttribute({
+                conversion.for('upcast').attributeToAttribute({
                     model: attr,
                     view: {
                         name: type.element,
                         key: attr
                     }
-                }));
+                });
             });
         });
         conversion.for('upcast').add(viewFigureToModel());
@@ -76,13 +78,13 @@ export default class MediaEditing extends Plugin {
  *
  * @private
  *
- * @param {module:engine/model/element~Element} modelElement
+ * @param {module:engine/model/element~Element} element
  * @param {module:engine/view/downcastwriter~DowncastWriter} writer
  *
  * @returns {module:engine/view/containerelement~ContainerElement}
  */
-function createMediaViewElement(modelElement, writer) {
-    const type = getType(modelElement.getAttribute('type'));
+function createMediaViewElement(element, writer) {
+    const type = getType(element.getAttribute('type'));
     const figure = writer.createContainerElement('figure', {class: type.id});
     let media;
 

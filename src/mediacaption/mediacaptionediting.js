@@ -4,7 +4,6 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import {captionElementCreator, getCaptionFromMedia, matchMediaCaption} from './utils';
 import {isMedia} from '../media/utils';
-import {upcastElementToElement} from '@ckeditor/ckeditor5-engine/src/conversion/upcast-converters';
 
 /**
  * Media Caption Editing Plugin
@@ -30,10 +29,7 @@ export default class MediaCaptionEditing extends Plugin {
         });
 
         editor.model.document.registerPostFixer(writer => this._insertMissingCaption(writer));
-        editor.conversion.for('upcast').add(upcastElementToElement({
-            model: 'caption',
-            view: matchMediaCaption
-        }));
+        editor.conversion.for('upcast').elementToElement({model: 'caption', view: matchMediaCaption});
 
         const createCaptionForData = writer => writer.createContainerElement('figcaption');
         data.downcastDispatcher.on('insert:caption', captionModelToView(createCaptionForData, false));
@@ -102,7 +98,6 @@ export default class MediaCaptionEditing extends Plugin {
 
     /**
      * Returns a converter that fixes caption visibility during the model-to-view conversion.
-     * Checks if the changed node is placed inside the caption element and fixes its visibility in the view.
      *
      * @private
      *
@@ -132,8 +127,7 @@ export default class MediaCaptionEditing extends Plugin {
     }
 
     /**
-     * Checks whether the data inserted to the model document has a media element that has no caption element inside it.
-     * If there is none, it adds it to the media element.
+     * Checks whether the inserted data has a media element without caption element and adds it to the media element
      *
      * @private
      *
@@ -144,24 +138,36 @@ export default class MediaCaptionEditing extends Plugin {
     _insertMissingCaption(writer) {
         const model = this.editor.model;
         const changes = model.document.differ.getChanges();
+        const missing = [];
 
         for (const entry of changes) {
-            if (entry.type === 'insert' && entry.name === 'media') {
+            if (entry.type === 'insert' && entry.name !== '$text') {
                 const item = entry.position.nodeAfter;
 
-                if (!getCaptionFromMedia(item)) {
-                    writer.appendElement('caption', item);
-                    return true;
+                if (item.is('media') && !getCaptionFromMedia(item)) {
+                    missing.push(item);
+                }
+
+                if (!item.is('media') && item.childCount) {
+                    for (const nestedItem of model.createRangeIn(item).getItems()) {
+                        if (nestedItem.is('media') && !getCaptionFromMedia(nestedItem)) {
+                            missing.push(nestedItem);
+                        }
+                    }
                 }
             }
         }
 
-        return false;
+        for (const media of missing) {
+            writer.appendElement('caption', media);
+        }
+
+        return !!missing.length;
     }
 }
 
 /**
- * Creates a converter that converts media caption model element to view element.
+ * Creates a converter that converts media caption model element to view element
  *
  * @private
  *
@@ -197,7 +203,7 @@ function captionModelToView(elementCreator, hide = true) {
 }
 
 /**
- * Inserts `viewCaption` at the end of `viewMedia` and binds it to `modelCaption`.
+ * Inserts `viewCaption` at the end of `viewMedia` and binds it to `modelCaption`
  *
  * @private
  *
@@ -214,7 +220,7 @@ function insertViewCaptionAndBind(viewCaption, modelCaption, viewMedia, conversi
 }
 
 /**
- * Checks if the provided node or one of its ancestors is a caption element, and returns it.
+ * Checks if the provided node or one of its ancestors is a caption element, and returns it
  *
  * @private
  *
@@ -226,26 +232,22 @@ function getParentCaption(node) {
     const ancestors = node.getAncestors({includeSelf: true});
     const caption = ancestors.find(ancestor => ancestor.name === 'caption');
 
-    if (caption && caption.parent && caption.parent.name === 'media') {
-        return caption;
-    }
-
-    return null;
+    return caption && caption.parent && caption.parent.name === 'media' ? caption : null;
 }
 
 /**
- * Hides a given caption in the view if it is empty.
+ * Hides a given caption in the view if it is empty
  *
  * @private
  *
  * @param {module:engine/view/containerelement~ContainerElement} caption
- * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
  *
  * @returns {Boolean}
  */
-function hideCaptionIfEmpty(caption, viewWriter) {
+function hideCaptionIfEmpty(caption, writer) {
     if (!caption.childCount && !caption.hasClass('ck-hidden')) {
-        viewWriter.addClass('ck-hidden', caption);
+        writer.addClass('ck-hidden', caption);
         return true;
     }
 
@@ -253,16 +255,16 @@ function hideCaptionIfEmpty(caption, viewWriter) {
 }
 
 /**
- * Shows the caption.
+ * Shows the caption
  *
  * @param {module:engine/view/containerelement~ContainerElement} caption
- * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
  *
  * @returns {Boolean}
  */
-function showCaption(caption, viewWriter) {
+function showCaption(caption, writer) {
     if (caption.hasClass('ck-hidden')) {
-        viewWriter.removeClass('ck-hidden', caption);
+        writer.removeClass('ck-hidden', caption);
         return true;
     }
 

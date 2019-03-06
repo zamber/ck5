@@ -2,15 +2,7 @@
  * @module media/media/utils
  */
 import BalloonPanelView from '@ckeditor/ckeditor5-ui/src/panel/balloon/balloonpanelview';
-import ModelElement from '@ckeditor/ckeditor5-engine/src/model/element';
 import {isWidget, toWidget} from '@ckeditor/ckeditor5-widget/src/utils';
-
-/**
- * Media widget symbol
- *
- * @type {symbol}
- */
-const symbol = Symbol('isMedia');
 
 /**
  * Media types
@@ -44,62 +36,70 @@ const mediaTypes = {
 };
 
 /**
- * Converts a given {@link module:engine/view/element~Element} to a media widget
+ * Converts a given view element to a media widget
  *
- * @param {module:engine/view/element~Element} viewElement
- * @param {module:engine/view/downcastwriter~DowncastWriter} viewWriter
+ * @param {module:engine/view/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ * @param {String} label
  *
  * @returns {module:engine/view/element~Element}
  */
-export function toMediaWidget(viewElement, viewWriter) {
-    viewWriter.setCustomProperty(symbol, true, viewElement);
+export function toMediaWidget(element, writer, label) {
+    writer.setCustomProperty('media', true, element);
 
-    return toWidget(viewElement, viewWriter);
+    return toWidget(element, writer, {
+        label: () => {
+            const media = element.getChild(0);
+            const alt = media.getAttribute('alt');
+
+            return alt ? `${alt} ${label}` : label;
+        }
+    });
 }
 
 /**
- * Checks if a given view element is a media widget.
+ * Checks if a given view element is a media widget
  *
- * @param {module:engine/view/element~Element} viewElement
+ * @param {module:engine/view/element~Element} element
  *
  * @returns {Boolean}
  */
-export function isMediaWidget(viewElement) {
-    return !!viewElement.getCustomProperty(symbol) && isWidget(viewElement);
+export function isMediaWidget(element) {
+    return !!element.getCustomProperty('media') && isWidget(element);
 }
 
 /**
- * Returns an media widget editing view element if one is selected.
+ * Returns an media widget editing view element if one is selected
  *
  * @param {module:engine/view/selection~Selection|module:engine/view/documentselection~DocumentSelection} selection
  * @returns {module:engine/view/element~Element|null}
  */
 export function getSelectedMediaWidget(selection) {
-    const viewElement = selection.getSelectedElement();
+    const element = selection.getSelectedElement();
 
-    return viewElement && isMediaWidget(viewElement) ? viewElement : null;
+    return element && isMediaWidget(element) ? element : null;
 }
 
 /**
- * Checks if provided model element is an instance of {@link module:engine/model/element~Element} with name `media`
+ * Checks if provided model element is media element
  *
- * @param {module:engine/model/element~Element} modelElement
+ * @param {module:engine/model/element~Element} element
  *
  * @returns {Boolean}
  */
-export function isMedia(modelElement) {
-    return modelElement instanceof ModelElement && modelElement.name === 'media';
+export function isMedia(element) {
+    return element && element.is('media');
 }
 
 /**
  * Checks if a given element is a `<figure>` element with the media type class set
  *
- * @param {module:engine/view/element~Element} viewElement
+ * @param {module:engine/view/element~Element} element
  *
  * @returns {Boolean}
  */
-export function isMediaElement(viewElement) {
-    return viewElement.name === 'figure' && Array.from(viewElement.getClassNames()).some(item => mediaTypes.hasOwnProperty(item));
+export function isMediaElement(element) {
+    return element && element.is('figure') && Array.from(element.getClassNames()).some(item => mediaTypes.hasOwnProperty(item));
 }
 
 /**
@@ -112,9 +112,9 @@ export function getTypeIds() {
 }
 
 /**
- * Returns given media type or null
+ * Returns given media type
  *
- * @param {string} type
+ * @param {String} type
  *
  * @return {?Object}
  */
@@ -123,9 +123,9 @@ export function getType(type) {
 }
 
 /**
- * Returns given media type from given element or null
+ * Returns given media type from given element
  *
- * @param {string} element
+ * @param {String} element
  *
  * @return {?Object}
  */
@@ -142,9 +142,9 @@ export function getTypeFromElement(element) {
 }
 
 /**
- * Returns media type from given URL or null
+ * Returns media type from given URL
  *
- * @param {string} url
+ * @param {String} url
  *
  * @return {?Object}
  */
@@ -174,9 +174,8 @@ export function getTypeFromUrl(url) {
 }
 
 /**
- * Returns the positioning options that control the geometry of the
- * {@link module:ui/panel/balloon/contextualballoon~ContextualBalloon} with respect to the selected element in the
- * editor content.
+ * Returns the positioning options that control the geometry of the contextual balloon with respect to the selected
+ * element in the editor content.
  *
  * @param {module:core/editor/editor~Editor} editor
  *
@@ -200,8 +199,7 @@ export function getBalloonPositionData(editor) {
 }
 
 /**
- * A helper utility that positions the {@link module:ui/panel/balloon/contextualballoon~ContextualBalloon} instance with
- * respect to the media in the editor content, if one is selected.
+ * A helper utility that positions the contextual balloon with respect to the media in the editor content
  *
  * @param {module:core/editor/editor~Editor} editor
  */

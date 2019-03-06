@@ -4,7 +4,7 @@
 import first from '@ckeditor/ckeditor5-utils/src/first';
 
 /**
- * Returns a converter for the `mediaStyle` attribute. It can be used for adding, changing and removing the attribute.
+ * Returns a converter for adding, changing and removing the `mediaStyle` attribute
  *
  * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
  *
@@ -32,7 +32,7 @@ export function modelToViewStyleAttribute(styles) {
 }
 
 /**
- * Returns a view-to-model converter converting media CSS classes to a proper value in the model.
+ * Returns a view-to-model converter converting media CSS classes to a proper value in the model
  *
  * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
  *

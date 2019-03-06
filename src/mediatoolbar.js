@@ -49,7 +49,7 @@ export default class MediaToolbar extends Plugin {
 
         widgetToolbarRepository.register('media', {
             items: editor.config.get('media.toolbar') || [],
-            visibleWhen: viewSelection => !!getSelectedMediaWidget(viewSelection)
+            getRelatedElement: getSelectedMediaWidget
         });
     }
 }

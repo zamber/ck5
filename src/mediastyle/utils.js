@@ -1,13 +1,13 @@
 /**
  * @module media/mediastyle/utils
  */
+import log from '@ckeditor/ckeditor5-utils/src/log';
 import fullIcon from '@ckeditor/ckeditor5-core/theme/icons/object-full-width.svg';
 import leftIcon from '@ckeditor/ckeditor5-core/theme/icons/object-left.svg';
-import log from '@ckeditor/ckeditor5-utils/src/log';
 import rightIcon from '@ckeditor/ckeditor5-core/theme/icons/object-right.svg';
 
 /**
- * Default media styles provided by the plugin that can be referred in the media configuration.
+ * Default media styles provided by the plugin
  *
  * @member {Object.<String, Object>}
  */
@@ -33,7 +33,7 @@ const defaultStyles = {
 };
 
 /**
- * Default media style icons provided by the plugin that can be referred in the media configuration.
+ * Default media style icons provided by the plugin
  *
  * @member {Object.<String, String>}
  */
@@ -44,8 +44,7 @@ const defaultIcons = {
 };
 
 /**
- * Returns an array with items normalized in the {@link module:media/mediastyle/mediastyleediting~MediaStyleFormat}
- * format and a complete `icon` markup for each style.
+ * Returns an array with items normalized in the mediastyleediting format and a complete `icon` markup for each style
  *
  * @returns {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>}
  */
@@ -56,6 +55,8 @@ export function normalizeMediaStyles(configuredStyles = []) {
 }
 
 /**
+ * Normalizes an media style provided in the media config and returns it in a mediastyleediting format
+ *
  * @private
  *
  * @param {Object} style

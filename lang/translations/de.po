@@ -5,8 +5,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "Label for the media widget."
-msgid "media widget"
-msgstr "Bild-Steuerelement"
+msgid "Media Widget"
+msgstr "Media Widget"
 
 msgctxt "Label for the Full size media option."
 msgid "Full size media"

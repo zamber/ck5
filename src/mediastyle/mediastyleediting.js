@@ -49,7 +49,7 @@ export default class MediaStyleEditing extends Plugin {
 }
 
 /**
- * The media style format descriptor.
+ * The media style format descriptor
  *
  *     import fullSizeIcon from 'path/to/icon.svg';
  *

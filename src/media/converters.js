@@ -1,7 +1,6 @@
 /**
  * @module media/media/converters
  */
-import ModelPosition from '@ckeditor/ckeditor5-engine/src/model/position';
 import first from '@ckeditor/ckeditor5-utils/src/first';
 import {getTypeFromElement} from './utils';
 
@@ -21,7 +20,7 @@ import {getTypeFromElement} from './utils';
  */
 export function viewFigureToModel() {
     return dispatcher => {
-        dispatcher.on('element:figure', function (evt, data, conversionApi) {
+        dispatcher.on('element:figure', (evt, data, conversionApi) => {
             const media = data.viewItem.getChild(0);
 
             if (!media || !media.hasAttribute('src') || !conversionApi.consumable.test(media, {name: true})) {
@@ -42,7 +41,7 @@ export function viewFigureToModel() {
             }
 
             conversionApi.writer.setAttribute('type', type.id, model);
-            conversionApi.convertChildren(data.viewItem, ModelPosition.createAt(model));
+            conversionApi.convertChildren(data.viewItem, conversionApi.writer.createPositionAt(model, 0));
             data.modelRange = result.modelRange;
             data.modelCursor = result.modelCursor;
         });

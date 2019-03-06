@@ -5,8 +5,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 msgctxt "Label for the media widget."
-msgid "media widget"
-msgstr "media widget"
+msgid "Media Widget"
+msgstr "Media Widget"
 
 msgctxt "Label for the Full size media option."
 msgid "Full size media"

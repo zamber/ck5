@@ -13,7 +13,7 @@ import '../../theme/mediastyle.css';
  */
 export default class MediaStyleUI extends Plugin {
     /**
-     * Returns the default localized style titles provided by the plugin.
+     * Returns the default localized style titles
      *
      * @see media/mediastyle/utils
      *
@@ -45,7 +45,7 @@ export default class MediaStyleUI extends Plugin {
     }
 
     /**
-     * Creates a button for each style and stores it in the editor {@link module:ui/componentfactory~ComponentFactory}.
+     * Creates a button for each style and stores it in the editor component factory
      *
      * @private
      *
@@ -75,7 +75,7 @@ export default class MediaStyleUI extends Plugin {
 }
 
 /**
- * Returns the translated `title` from the passed styles array.
+ * Returns the translated `title` from the passed styles array
  *
  * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
  * @param {Object.<String,String>} titles

@@ -31,8 +31,16 @@ export default class MediaTextAlternativeUI extends Plugin {
     }
 
     /**
+     * @inheritDoc
+     */
+    destroy() {
+        super.destroy();
+        this._form.destroy();
+    }
+
+    /**
      * Creates a button showing the balloon panel for changing the media text alternative and registers it in the editor
-     * {@link module:ui/componentfactory~ComponentFactory ComponentFactory}.
+     * component factory
      *
      * @private
      */
@@ -65,8 +73,7 @@ export default class MediaTextAlternativeUI extends Plugin {
      */
     _createForm() {
         const editor = this.editor;
-        const view = editor.editing.view;
-        const viewDocument = view.document;
+        const viewDocument = editor.editing.view.document;
 
         this._balloon = this.editor.plugins.get('ContextualBalloon');
         this._form = new MediaTextAlternativeForm(editor.locale);
@@ -85,7 +92,7 @@ export default class MediaTextAlternativeUI extends Plugin {
             this._hideForm(true);
             cancel();
         });
-        this.listenTo(view, 'render', () => {
+        this.listenTo(editor.ui, 'update', () => {
             if (!getSelectedMediaWidget(viewDocument.selection)) {
                 this._hideForm(true);
             } else if (this._isVisible) {
@@ -101,7 +108,7 @@ export default class MediaTextAlternativeUI extends Plugin {
     }
 
     /**
-     * Shows the {@link #_form} in the {@link #_balloon}.
+     * Shows the form in the balloon
      *
      * @private
      */
@@ -121,14 +128,14 @@ export default class MediaTextAlternativeUI extends Plugin {
             });
         }
 
-        labeledInput.inputView.element.value = command.value || '';
-        labeledInput.value = labeledInput.inputView.element.value;
+        labeledInput.value = command.value || '';
+        labeledInput.inputView.element.value = labeledInput.value;
 
         this._form.labeledInput.select();
     }
 
     /**
-     * Removes the {@link #_form} from the {@link #_balloon}.
+     * Removes the form from the balloon
      *
      * @private
      *
@@ -147,6 +154,8 @@ export default class MediaTextAlternativeUI extends Plugin {
     }
 
     /**
+     * Indicates wheter the form is the visible view in the balloon
+     *
      * @private
      *
      * @returns {Boolean}

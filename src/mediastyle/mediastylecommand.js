@@ -11,7 +11,7 @@ import {isMedia} from '../media/utils';
  */
 export default class MediaStyleCommand extends Command {
     /**
-     * Creates an instance of the media style command. Each command instance is handling one style.
+     * Creates an instance of the media style command
      *
      * @param {module:core/editor/editor~Editor} editor.
      * @param {Array.<module:media/mediastyle/mediastyleediting~MediaStyleFormat>} styles
@@ -20,7 +20,7 @@ export default class MediaStyleCommand extends Command {
         super(editor);
 
         /**
-         * The cached name of the default style if it is present. If there is no default style, it defaults to `false`.
+         * The cached name of the default style
          *
          * @private
          *
@@ -29,7 +29,7 @@ export default class MediaStyleCommand extends Command {
         this._defaultStyle = false;
 
         /**
-         * A style handled by this command.
+         * A style handled by this command
          *
          * @readonly
          *
