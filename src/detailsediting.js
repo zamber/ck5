@@ -20,6 +20,17 @@ export default class DetailsEditing extends Plugin {
         const schema = editor.model.schema;
         const conversion = editor.conversion;
         const t = editor.t;
+        const detailsCfg = {model: 'details', view: 'details'};
+        const summaryCfg = {model: 'detailsSummary', view: 'summary'};
+        const contentCfg = {
+            model: 'detailsContent',
+            view: {
+                name: 'div',
+                attributes: {
+                    class: 'content'
+                }
+            }
+        };
 
         // Command
         editor.commands.add('details', new DetailsCommand(editor));
@@ -44,50 +55,25 @@ export default class DetailsEditing extends Plugin {
             isLimit: true
         });
 
-        // Upcast
-        conversion.for('upcast').elementToElement({
-            model: 'details',
-            view: 'details'
-        });
-        conversion.for('upcast').elementToElement({
-            model: 'detailsSummary',
-            view: 'summary'
-        });
-        conversion.for('upcast').elementToElement({
-            model: 'detailsContent',
-            view: {
-                name: 'div',
-                attributes: {
-                    class: 'content'
-                }
-            }
-        });
-        // Downcast
-        conversion.for('dataDowncast').elementToElement({
-            model: 'details',
-            view: 'details'
-        });
-        conversion.for('dataDowncast').elementToElement({
-            model: 'detailsSummary',
-            view: 'summary'
-        });
-        conversion.for('dataDowncast').elementToElement({
-            model: 'detailsContent',
-            view: {
-                name: 'div',
-                attributes: {
-                    class: 'content'
-                }
-            }
-        });
+        // Details
+        conversion.for('upcast').elementToElement(detailsCfg);
+        conversion.for('dataDowncast').elementToElement(detailsCfg);
         conversion.for('editingDowncast').elementToElement({
             model: 'details',
             view: (element, writer) => toDetailsWidget(writer.createContainerElement('details'), writer, t('Details'))
         });
+
+        // Summary
+        conversion.for('upcast').elementToElement(summaryCfg);
+        conversion.for('dataDowncast').elementToElement(summaryCfg);
         conversion.for('editingDowncast').elementToElement({
             model: 'detailsSummary',
             view: summaryEditingDowncast
         });
+
+        // Content
+        conversion.for('upcast').elementToElement(contentCfg);
+        conversion.for('dataDowncast').elementToElement(contentCfg);
         conversion.for('editingDowncast').elementToElement({
             model: 'detailsContent',
             view: contentEditingDowncast
