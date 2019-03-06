@@ -68,7 +68,7 @@ export default class DetailsEditing extends Plugin {
         conversion.for('dataDowncast').elementToElement(summaryCfg);
         conversion.for('editingDowncast').elementToElement({
             model: 'detailsSummary',
-            view: summaryEditingDowncast
+            view: (element, writer) => toWidgetEditable(writer.createEditableElement('summary'), writer)
         });
 
         // Content
@@ -76,7 +76,7 @@ export default class DetailsEditing extends Plugin {
         conversion.for('dataDowncast').elementToElement(contentCfg);
         conversion.for('editingDowncast').elementToElement({
             model: 'detailsContent',
-            view: contentEditingDowncast
+            view: (element, writer) => toWidgetEditable(writer.createEditableElement('div', {class: 'content'}), writer)
         });
     }
 
@@ -102,36 +102,4 @@ export default class DetailsEditing extends Plugin {
             }
         });
     }
-}
-
-/**
- * Downcasts a given model element to a details summary editable
- *
- * @private
- *
- * @param {module:engine/model/element~Element} element
- * @param {module:engine/view/downcastwriter~DowncastWriter} writer
- *
- * @returns {module:engine/view/editableelement~EditableElement}
- */
-function summaryEditingDowncast(element, writer) {
-    const summary = writer.createContainerElement('summary');
-
-    return toWidgetEditable(summary, writer);
-}
-
-/**
- * Downcasts a given model element to a details content editable
- *
- * @private
- *
- * @param {module:engine/model/element~Element} element
- * @param {module:engine/view/downcastwriter~DowncastWriter} writer
- *
- * @returns {module:engine/view/editableelement~EditableElement}
- */
-function contentEditingDowncast(element, writer) {
-    const content = writer.createContainerElement('div', {class: 'content'});
-
-    return toWidgetEditable(content, writer);
 }
