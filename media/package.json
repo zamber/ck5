@@ -1,6 +1,6 @@
 {
-  "name": "@akilli/ckeditor5-media",
-  "version": "2.0.0",
+  "name": "@akilli/ck5-media",
+  "version": "0.0.0",
   "description": "Media Widget for CKEditor 5",
   "keywords": [
     "ckeditor",
@@ -17,10 +17,10 @@
   ],
   "author": "Ayhan Akilli",
   "license": "MIT",
-  "bugs": "https://github.com/akilli/ckeditor5-media/issues",
+  "bugs": "https://github.com/akilli/ck5/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/akilli/ckeditor5-media.git"
+    "url": "https://github.com/akilli/ck5.git"
   },
   "files": [
     "lang",

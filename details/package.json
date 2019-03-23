@@ -1,5 +1,5 @@
 {
-  "name": "@akilli/ckeditor5-details",
+  "name": "@akilli/ck5-details",
   "version": "0.0.0",
   "description": "Details Widget for CKEditor 5",
   "keywords": [
@@ -14,10 +14,10 @@
   ],
   "author": "Ayhan Akilli",
   "license": "MIT",
-  "bugs": "https://github.com/akilli/ckeditor5-details/issues",
+  "bugs": "https://github.com/akilli/ck5/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/akilli/ckeditor5-details.git"
+    "url": "https://github.com/akilli/ck5.git"
   },
   "files": [
     "lang",
