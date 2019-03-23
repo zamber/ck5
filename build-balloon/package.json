@@ -15,10 +15,10 @@
   ],
   "author": "Ayhan Akilli",
   "license": "MIT",
-  "bugs": "https://github.com/akilli/ckeditor5-build-balloon/issues",
+  "bugs": "https://github.com/akilli/ck5/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/akilli/ckeditor5-build-balloon.git"
+    "url": "https://github.com/akilli/ck5.git"
   },
   "main": "./dist/ckeditor.js",
   "files": [
