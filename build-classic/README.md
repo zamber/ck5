@@ -1,6 +1,6 @@
-# @akilli/ck5-editor
+# @akilli/ckeditor5-build-classic
 
-Custom CKEditor 5 build. 
+Custom CKEditor 5 classic build
 
 ## Demo
 
