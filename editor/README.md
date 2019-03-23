@@ -2,6 +2,6 @@
 
 Custom CKEditor 5 build. 
 
-## Example
+## Demo
 
-You can see this build in action @ https://akilli.github.io/rte/ck5-editor
+You can see this build in action @ https://akilli.github.io/rte/ck5
