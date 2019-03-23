@@ -1,4 +1,4 @@
-# ckeditor5-details
+# @akilli/ck5-details
 
 Details widget for CKEditor 5
 
@@ -8,4 +8,4 @@ Not finished! Therefore no release yet.
 
 ## Examples
 
-You can see this plugin in action @ https://akilli.github.io/rte/ck5-details/
+You can see this plugin in action @ https://akilli.github.io/rte/ck5-details
