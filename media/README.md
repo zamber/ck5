@@ -27,6 +27,8 @@ and that your media browser notifies the editor by posting a message p.e. like
 
 ## Demo
 
-You can see this plugin and a minimalistic media browser in action @ https://akilli.github.io/rte/ck5/media.html
+https://akilli.github.io/rte/ck5/media.html
 
- Check the source code of the minimalistic media browser example @ https://github.com/akilli/rte/tree/master/browser 
+## Minimalistic media browser example
+
+https://github.com/akilli/rte/tree/master/browser 

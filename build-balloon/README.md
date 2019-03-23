@@ -1,7 +1,7 @@
-# ckeditor5-build-balloon
+# @akilli/ckeditor5-build-balloon
 
-Custom CKEditor 5 balloon build. 
+Custom CKEditor 5 balloon build
 
-## Example
+## Demo
 
-You can see this build in action @ https://akilli.github.io/rte/ck5-balloon/
+https://akilli.github.io/rte/ck5/build-balloon.html

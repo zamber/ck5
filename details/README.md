@@ -8,4 +8,4 @@ Not finished! Therefore no release yet.
 
 ## Demo
 
-You can see this build in action @ https://akilli.github.io/rte/ck5/details.html
+https://akilli.github.io/rte/ck5/details.html
