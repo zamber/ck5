@@ -1,8 +1,8 @@
 # @akilli/ckeditor5-media
 
-This media widget for CKEditor 5 can embed image (`<img>`), audio (`<audio>`), video (`<video>`) and iframe (`<iframe>`) elements wrapped within a figure (`<figure>`) element and optionally with a caption (`<figcaption>`). It also provides a minimal API to integrate a media browser by the use of the [window.postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) function.
+This media widget for CKEditor 5 can embed image, audio, video and iframe elements wrapped within a figure optionally with a caption. It also provides a minimal API to integrate a media browser by the use of the [window.postMessage()](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) function.
 
-In case the media element is wrapped within a `figure` element, this widget will add the CSS class `image`, `audio`, `video` or `iframe` to the `figure` element. It also supports alignment by setting an appropriate CSS class (`left` or `right`), and the attributes `width`, `height` and `alt`. The `controls`(audio and video) and `allowfullscreen` (iframe) are automatically set.
+This widget will add the CSS class `image`, `audio`, `video` or `iframe` to the figure element. It also supports alignment by setting an appropriate CSS class (`left` or `right`), and the attributes `width`, `height` and `alt`. The `controls`(audio and video) and `allowfullscreen` (iframe) are automatically set.
 
 ## Media Browser
 
