@@ -2,7 +2,6 @@
  * @module details/detailscommand
  */
 import Command from '@ckeditor/ckeditor5-core/src/command';
-import {findOptimalInsertionPosition} from '@ckeditor/ckeditor5-widget/src/utils';
 
 /**
  * Details Command
@@ -27,8 +26,6 @@ export default class DetailsCommand extends Command {
      */
     execute() {
         const model = this.editor.model;
-        const selection = model.document.selection;
-        const insertPosition = findOptimalInsertionPosition(selection, model);
 
         model.change(writer => {
             const details = writer.createElement('details');
@@ -41,7 +38,7 @@ export default class DetailsCommand extends Command {
             writer.append(writer.createText('Content'), paragraph);
             writer.append(paragraph, content);
             writer.append(content, details);
-            writer.insert(details, insertPosition);
+            model.insertContent(details, model.document.selection);
         });
     }
 }
