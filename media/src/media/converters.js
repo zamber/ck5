@@ -7,11 +7,11 @@ import {getTypeFromElement} from './utils';
 /**
  * Returns a function that converts the media view representation:
  *
- *     <figure class="media"><img src="..." alt="..."></figure>
+ *     <figure class="media"><img src="..." alt="...">...</figure>
  *
  * to the model representation:
  *
- *     <media type="..." src="..." alt="..."></media>
+ *     <media type="..." src="..." alt="...">...</media>
  *
  * The entire content of the `<figure>` element except the media view element is being converted as children of the
  * `<media>` model element.
