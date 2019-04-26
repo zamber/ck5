@@ -3,6 +3,7 @@
  */
 import DetailsCommand from './detailscommand';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import {viewToModel} from './converters';
 import {toDetailsWidget} from './utils';
 import {toWidgetEditable} from '@ckeditor/ckeditor5-widget/src/utils';
 
@@ -20,63 +21,29 @@ export default class DetailsEditing extends Plugin {
         const schema = editor.model.schema;
         const conversion = editor.conversion;
         const t = editor.t;
-        const detailsCfg = {model: 'details', view: 'details'};
-        const summaryCfg = {model: 'detailsSummary', view: 'summary'};
-        const contentCfg = {
-            model: 'detailsContent',
-            view: {
-                name: 'div',
-                attributes: {
-                    class: 'content'
-                }
-            }
-        };
 
         // Command
         editor.commands.add('details', new DetailsCommand(editor));
 
         // Schema
         schema.register('details', {
+            allowAttributes: ['summary'],
+            allowContentOf: '$root',
             allowWhere: '$block',
             isBlock: true,
             isLimit: true,
             isObject: true
         });
-        schema.register('detailsSummary', {
-            allowContentOf: '$block',
-            allowIn: 'details',
-            isBlock: true,
-            isLimit: true
-        });
-        schema.register('detailsContent', {
-            allowContentOf: '$root',
-            allowIn: 'details',
-            isBlock: true,
-            isLimit: true
-        });
 
-        // Details
-        conversion.for('upcast').elementToElement(detailsCfg);
-        conversion.for('dataDowncast').elementToElement(detailsCfg);
+        // Element
+        conversion.for('upcast').add(viewToModel());
+        conversion.for('dataDowncast').elementToElement({
+            model: 'details',
+            view: detailsDataDowncast
+        });
         conversion.for('editingDowncast').elementToElement({
             model: 'details',
-            view: (element, writer) => toDetailsWidget(writer.createContainerElement('details'), writer, t('Details'))
-        });
-
-        // Summary
-        conversion.for('upcast').elementToElement(summaryCfg);
-        conversion.for('dataDowncast').elementToElement(summaryCfg);
-        conversion.for('editingDowncast').elementToElement({
-            model: 'detailsSummary',
-            view: (element, writer) => toWidgetEditable(writer.createEditableElement('summary'), writer)
-        });
-
-        // Content
-        conversion.for('upcast').elementToElement(contentCfg);
-        conversion.for('dataDowncast').elementToElement(contentCfg);
-        conversion.for('editingDowncast').elementToElement({
-            model: 'detailsContent',
-            view: (element, writer) => toWidgetEditable(writer.createEditableElement('div', {class: 'content'}), writer)
+            view: (element, writer) => toDetailsWidget(detailsEditingDowncast(element, writer), writer, t('Details'))
         });
     }
 
@@ -101,17 +68,47 @@ export default class DetailsEditing extends Plugin {
                 evt.stop();
             }
         });
-
-        this.listenTo(editor.editing.view.document, 'keydown', (evt, data) => {
-            const positionParent = editor.model.document.selection.getLastPosition().parent;
-
-            if (data.keyCode === 32 && positionParent && positionParent.name === 'detailsSummary') {
-                model.change(writer => {
-                    writer.insertText(' ', positionParent, 'end');
-                });
-                data.preventDefault();
-                evt.stop();
-            }
-        });
     }
+}
+
+/**
+ * Creates a view element represeting the details.
+ *
+ * @private
+ *
+ * @param {module:engine/model/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ *
+ * @returns {module:engine/view/containerelement~ContainerElement}
+ */
+function detailsDataDowncast(element, writer) {
+    const details = writer.createContainerElement('details');
+    const summary = writer.createContainerElement('summary');
+    const text = writer.createText(details.getAttribute('summary') || 'Details');
+
+    writer.insert(writer.createPositionAt(details, 0), summary);
+    writer.insert(writer.createPositionAt(summary, 0), text);
+
+    return details;
+}
+
+/**
+ * Creates a editable view element represeting the details.
+ *
+ * @private
+ *
+ * @param {module:engine/model/element~Element} element
+ * @param {module:engine/view/downcastwriter~DowncastWriter} writer
+ *
+ * @returns {module:engine/view/containerelement~ContainerElement}
+ */
+function detailsEditingDowncast(element, writer) {
+    const details = writer.createContainerElement('details');
+    const summary = writer.createEditableElement('summary');
+    const text = writer.createText(details.getAttribute('summary') || 'Details');
+
+    writer.insert(writer.createPositionAt(details, 0), toWidgetEditable(summary, writer));
+    writer.insert(writer.createPositionAt(summary, 0), text);
+
+    return details;
 }
