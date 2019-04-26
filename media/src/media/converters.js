@@ -62,14 +62,13 @@ export function modelToViewAttribute(key) {
                 return;
             }
 
-            const writer = conversionApi.writer;
             const figure = conversionApi.mapper.toViewElement(data.item);
             const media = figure.getChild(0);
 
             if (data.attributeNewValue !== null) {
-                writer.setAttribute(data.attributeKey, data.attributeNewValue, media);
+                conversionApi.writer.setAttribute(data.attributeKey, data.attributeNewValue, media);
             } else {
-                writer.removeAttribute(data.attributeKey, media);
+                conversionApi.writer.removeAttribute(data.attributeKey, media);
             }
         });
     }
