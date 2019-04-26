@@ -1,9 +1,0 @@
-msgid ""
-msgstr ""
-"Language: de\n"
-"Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgctxt "Label for the insert details toolbar button."
-msgid "Details"
-msgstr "Details"
