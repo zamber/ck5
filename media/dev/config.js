@@ -59,7 +59,7 @@ Editor.defaultConfig = {
             }
         ]
     },
-    language: 'de',
+    language: 'en',
     table: {
         contentToolbar: [
             'tableColumn',

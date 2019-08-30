@@ -2,7 +2,6 @@
  * @module media/media/converters
  */
 import first from '@ckeditor/ckeditor5-utils/src/first';
-import {getTypeFromElement} from './utils';
 
 /**
  * Returns a function that converts the media view representation:
@@ -21,29 +20,28 @@ import {getTypeFromElement} from './utils';
 export function viewToModel() {
     return dispatcher => {
         dispatcher.on('element:figure', (evt, data, conversionApi) => {
-            const media = data.viewItem.getChild(0);
-
-            if (!media || !media.hasAttribute('src') || !conversionApi.consumable.test(media, {name: true})) {
+            if (!conversionApi.consumable.test(data.viewItem, { name: true, classes: 'chart' })) {
                 return;
             }
-
-            const type = getTypeFromElement(media.name);
-
-            if (!type || !conversionApi.consumable.test(data.viewItem, {name: true, classes: type.id})) {
+        
+            const viewImage = Array.from(data.viewItem.getChildren()).find((viewChild) => viewChild.is('iframe'));
+        
+            if (!viewImage || !viewImage.hasAttribute('src') || !conversionApi.consumable.test(viewImage, { name: true })) {
                 return;
             }
-
-            const result = conversionApi.convertItem(media, data.modelCursor);
-            const model = first(result.modelRange.getItems());
-
-            if (!model) {
+        
+            const conversionResult = conversionApi.convertItem(data.viewItem.getChild(0), data.modelCursor);
+            
+            const modelChart = first(conversionResult.modelRange.getItems());
+        
+            if (!modelChart) {
                 return;
             }
-
-            conversionApi.writer.setAttribute('type', type.id, model);
-            conversionApi.convertChildren(data.viewItem, conversionApi.writer.createPositionAt(model, 0));
-            data.modelRange = result.modelRange;
-            data.modelCursor = result.modelCursor;
+        
+            conversionApi.convertChildren(data.viewItem, conversionApi.writer.createPositionAt(modelChart, 0));
+        
+            data.modelRange = conversionResult.modelRange;
+            data.modelCursor = conversionResult.modelCursor;
         });
     };
 }
@@ -70,6 +68,30 @@ export function modelToViewAttribute(key) {
             } else {
                 conversionApi.writer.removeAttribute(data.attributeKey, media);
             }
+        });
+    }
+}
+
+/**
+ * Converts model to view attributes
+ *
+ * @param {String} key
+ *
+ * @returns {Function}
+ */
+export function setConstantTags() {
+    return dispatcher => {
+        dispatcher.on(`element:iframe`, (evt, data, conversionApi) => {
+            if (!conversionApi.consumable.consume(data.item, evt.name)) {
+                return;
+            }
+        
+            const writer = conversionApi.writer;
+            const figure = conversionApi.mapper.toViewElement(data.item);
+            const iframe = figure.getChild(0);
+        
+            writer.setAttribute('sandbox', 'allow-same-origin allow-scripts', iframe);
+            writer.setAttribute('style', 'border: 1px solid black', iframe);
         });
     }
 }

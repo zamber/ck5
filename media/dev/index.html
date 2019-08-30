@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        title
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+</head>
+
+<body>
+    <textarea name="content" id="editor">
+        &lt;p&gt;This is some sample content.&lt;/p&gt;
+    </textarea>
+    <script src="ckeditor.js"></script>
+    <script>
+        const editor = ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+
+            const open = (data) => {
+                const model = this.editor.model;
+                const dropPosition = this.createDropPosition(data.position);
+
+                if (url) {
+                    model.change(writer => {
+                        const elem = writer.createElement('media', {
+                            src: url,
+                            width: '640',
+                            height: '480'
+                        });
+
+                        if (dropPosition) {
+                            model.insertContent(elem, dropPosition);
+                            if (elem.parent) {
+                                writer.setSelection(elem, 'on');
+                            }
+                        }
+                    });
+                }
+            }
+    </script>
+</body>
+
+</html>
